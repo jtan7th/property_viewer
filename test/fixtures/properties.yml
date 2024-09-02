@@ -1,0 +1,53 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  url: MyString
+  address: MyString
+  sale_price: MyString
+  sold_date: 2024-09-03
+  homes_estimate_date: 2024-09-03
+  homes_estimate_price: MyString
+  homes_estimate_range_low: MyString
+  homes_estimate_range_high: MyString
+  bedroom_count: 1
+  bathroom_count: 1
+  carpark_spaces_count: 1
+  floor_area: MyString
+  land_area: MyString
+  deck: MyString
+  property_contour: MyString
+  view_type: MyString
+  decade_built: MyString
+  view_living_area: MyString
+  condition: MyString
+  suburb: MyString
+  capital_valuation: MyString
+  capital_valuation_date: 2024-09-03
+  land_value: MyString
+  improvement_value: MyString
+
+two:
+  url: MyString
+  address: MyString
+  sale_price: MyString
+  sold_date: 2024-09-03
+  homes_estimate_date: 2024-09-03
+  homes_estimate_price: MyString
+  homes_estimate_range_low: MyString
+  homes_estimate_range_high: MyString
+  bedroom_count: 1
+  bathroom_count: 1
+  carpark_spaces_count: 1
+  floor_area: MyString
+  land_area: MyString
+  deck: MyString
+  property_contour: MyString
+  view_type: MyString
+  decade_built: MyString
+  view_living_area: MyString
+  condition: MyString
+  suburb: MyString
+  capital_valuation: MyString
+  capital_valuation_date: 2024-09-03
+  land_value: MyString
+  improvement_value: MyString

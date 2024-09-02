@@ -1,0 +1,26 @@
+<h1>Properties</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Address</th>
+      <th>Sale Price</th>
+      <th>Sold Date</th>
+      <th>Bedrooms</th>
+      <th>Bathrooms</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @properties.each do |property| %>
+      <tr>
+        <td><%= property.address %></td>
+        <td><%= property.sale_price %></td>
+        <td><%= property.sold_date %></td>
+        <td><%= property.bedroom_count %></td>
+        <td><%= property.bathroom_count %></td>
+        <td><%= link_to 'View', property_path(property) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
