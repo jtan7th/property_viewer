@@ -3,22 +3,54 @@
 <table>
   <thead>
     <tr>
+      <th>ID</th>
+      <th>URL</th>
       <th>Address</th>
       <th>Sale Price</th>
       <th>Sold Date</th>
-      <th>Bedrooms</th>
-      <th>Bathrooms</th>
+      <th>Homes Estimate Date</th>
+      <th>Homes Estimate Price</th>
+      <th>Homes Estimate Range Low</th>
+      <th>Homes Estimate Range High</th>
+      <th>Bedroom Count</th>
+      <th>Bathroom Count</th>
+      <th>Carpark Spaces Count</th>
+      <th>Floor Area</th>
+      <th>Land Area</th>
+      <th>Deck</th>
+      <th>Property Contour</th>
+      <th>View Type</th>
+      <th>Decade Built</th>
+      <th>View Living Area</th>
+      <th>Condition</th>
+      <th>Suburb</th>
       <th>Actions</th>
     </tr>
   </thead>
   <tbody>
     <% @properties.each do |property| %>
       <tr>
+        <td><%= property.id %></td>
+        <td><%= link_to "Link", property.url, target: "_blank" %></td>
         <td><%= property.address %></td>
         <td><%= property.sale_price %></td>
         <td><%= property.sold_date %></td>
+        <td><%= property.homes_estimate_date %></td>
+        <td><%= property.homes_estimate_price %></td>
+        <td><%= property.homes_estimate_range_low %></td>
+        <td><%= property.homes_estimate_range_high %></td>
         <td><%= property.bedroom_count %></td>
         <td><%= property.bathroom_count %></td>
+        <td><%= property.carpark_spaces_count %></td>
+        <td><%= property.floor_area %></td>
+        <td><%= property.land_area %></td>
+        <td><%= property.deck %></td>
+        <td><%= property.property_contour %></td>
+        <td><%= property.view_type %></td>
+        <td><%= property.decade_built %></td>
+        <td><%= property.view_living_area %></td>
+        <td><%= property.condition %></td>
+        <td><%= property.suburb %></td>
         <td><%= link_to 'View', property_path(property) %></td>
       </tr>
     <% end %>
