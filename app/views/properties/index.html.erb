@@ -1,58 +1,77 @@
-<h1>Properties</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>URL</th>
-      <th>Address</th>
-      <th>Sale Price</th>
-      <th>Sold Date</th>
-      <th>Homes Estimate Date</th>
-      <th>Homes Estimate Price</th>
-      <th>Homes Estimate Range Low</th>
-      <th>Homes Estimate Range High</th>
-      <th>Bedroom Count</th>
-      <th>Bathroom Count</th>
-      <th>Carpark Spaces Count</th>
-      <th>Floor Area</th>
-      <th>Land Area</th>
-      <th>Deck</th>
-      <th>Property Contour</th>
-      <th>View Type</th>
-      <th>Decade Built</th>
-      <th>View Living Area</th>
-      <th>Condition</th>
-      <th>Suburb</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @properties.each do |property| %>
-      <tr>
-        <td><%= property.id %></td>
-        <td><%= link_to "Link", property.url, target: "_blank" %></td>
-        <td><%= property.address %></td>
-        <td><%= property.sale_price %></td>
-        <td><%= property.sold_date %></td>
-        <td><%= property.homes_estimate_date %></td>
-        <td><%= property.homes_estimate_price %></td>
-        <td><%= property.homes_estimate_range_low %></td>
-        <td><%= property.homes_estimate_range_high %></td>
-        <td><%= property.bedroom_count %></td>
-        <td><%= property.bathroom_count %></td>
-        <td><%= property.carpark_spaces_count %></td>
-        <td><%= property.floor_area %></td>
-        <td><%= property.land_area %></td>
-        <td><%= property.deck %></td>
-        <td><%= property.property_contour %></td>
-        <td><%= property.view_type %></td>
-        <td><%= property.decade_built %></td>
-        <td><%= property.view_living_area %></td>
-        <td><%= property.condition %></td>
-        <td><%= property.suburb %></td>
-        <td><%= link_to 'View', property_path(property) %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="px-4 sm:px-6 lg:px-8">
+  <div class="sm:flex sm:items-center">
+    <div class="sm:flex-auto">
+      <h1 class="text-base font-semibold leading-6 text-gray-900">Properties</h1>
+      <p class="mt-2 text-sm text-gray-700">A comprehensive list of all properties and their details.</p>
+    </div>
+  </div>
+  <div class="mt-8 flow-root">
+    <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+        <table class="min-w-full">
+          <thead class="bg-white">
+            <tr>
+              <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-3">ID</th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">URL</th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Address</th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Sale Price</th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Sold Date</th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Homes Estimate Date</th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Homes Estimate Price</th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Homes Estimate Range Low</th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Homes Estimate Range High</th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Bedroom Count</th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Bathroom Count</th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Carpark Spaces Count</th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Floor Area</th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Land Area</th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Deck</th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Property Contour</th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">View Type</th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Decade Built</th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">View Living Area</th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Condition</th>
+              <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-3">
+                <span class="sr-only">View</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody class="bg-white">
+            <% @properties.group_by(&:suburb).each do |suburb, properties| %>
+              <tr class="border-t border-gray-200">
+                <th colspan="21" scope="colgroup" class="bg-gray-50 py-2 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-3"><%= suburb %></th>
+              </tr>
+              <% properties.each do |property| %>
+                <tr class="border-t border-gray-300">
+                  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3"><%= property.id %></td>
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= link_to "Link", property.url, target: "_blank", class: "text-indigo-600 hover:text-indigo-900" %></td>
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= property.address %></td>
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= property.sale_price %></td>
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= property.sold_date %></td>
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= property.homes_estimate_date %></td>
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= property.homes_estimate_price %></td>
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= property.homes_estimate_range_low %></td>
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= property.homes_estimate_range_high %></td>
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= property.bedroom_count %></td>
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= property.bathroom_count %></td>
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= property.carpark_spaces_count %></td>
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= property.floor_area %></td>
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= property.land_area %></td>
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= property.deck %></td>
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= property.property_contour %></td>
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= property.view_type %></td>
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= property.decade_built %></td>
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= property.view_living_area %></td>
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= property.condition %></td>
+                  <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-3">
+                    <%= link_to 'View', property_path(property), class: "text-indigo-600 hover:text-indigo-900" %>
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

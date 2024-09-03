@@ -1,6 +1,6 @@
 class PropertiesController < ApplicationController
   def index
-    @properties = Property.all.order(sold_date: :desc)
+    @properties = Property.all.order(:suburb, :address)
   end
 
   def show
