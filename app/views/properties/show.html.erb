@@ -1,7 +1,7 @@
-<%= turbo_frame_tag "modal" do %>
-    <div class="fixed inset-0 z-10 overflow-y-auto">
+<%= turbo_frame_tag :modal do %>
+  <div class="fixed inset-0 z-10 overflow-y-auto" data-controller="modal">
     <!-- Blurred background -->
-    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 backdrop-blur-sm"></div>
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 backdrop-blur-sm" data-action="click->modal#close"></div>
     
     <!-- Modal content -->
     <div class="relative z-20 flex items-center justify-center min-h-screen">
@@ -23,8 +23,8 @@
                 <p><strong>Suburb:</strong> <%= @property.suburb %></p>
             </div>
 
-            <div class="mt-6"> <!-- Added margin top to the button -->
-                <%= link_to 'Back to List', properties_path, class: "bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded" %>
+            <div class="mt-6">
+                <%= link_to 'Back to List', properties_path, class: "bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded", data: { turbo_frame: "_top" } %>
             </div>
         </div>
     </div>
