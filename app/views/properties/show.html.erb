@@ -21,6 +21,9 @@
                 <p><strong>Decade Built:</strong> <%= @property.decade_built %></p>
                 <p><strong>Condition:</strong> <%= @property.condition %></p>
                 <p><strong>Suburb:</strong> <%= @property.suburb %></p>
+                <p>
+                  <%= link_to "View full details", @property.url, target: "_blank", rel: "noopener noreferrer", class: "text-blue-600 hover:text-blue-800 underline" %>
+                </p>
             </div>
 
             <div class="mt-6">
