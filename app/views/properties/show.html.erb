@@ -8,6 +8,15 @@
       <div class="bg-white p-6 rounded-lg max-w-lg w-full shadow-2xl">
             <h1 class="text-3xl font-bold mb-6 border-b pb-4"><%= @property.address %></h1> <!-- Modified this line -->
 
+            <% if @property.images.attached? %>
+                <% @property.images.each do |image| %>
+                    <%= image_tag image, class: "property-image" %>
+                <% end %>
+                <% else %>
+                <%= image_tag "placeholder.jpg", class: "property-image" %>
+            <% end %>
+<!-- Other property details -->
+
             <div class="space-y-2"> <!-- Added this wrapper div with vertical spacing -->
                 <p><strong>Sale Price:</strong> <%= @property.sale_price %></p>
                 <p><strong>Sold Date:</strong> <%= @property.sold_date %></p>
