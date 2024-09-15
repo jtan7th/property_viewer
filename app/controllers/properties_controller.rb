@@ -13,4 +13,28 @@ class PropertiesController < ApplicationController
     @property = Property.find(params[:id])
     
   end
+
+  def create
+    @property = Property.new(property_params)
+    if @property.save
+      redirect_to @property, notice: 'Property was successfully created.'
+    else
+      render :new
+    end
+  end
+
+  def update
+    @property = Property.find(params[:id])
+    if @property.update(property_params)
+      redirect_to @property, notice: 'Property was successfully updated.'
+    else
+      render :edit
+    end
+  end
+
+  private
+
+  def property_params
+    params.require(:property).permit(:title, :description, :price, images: [])
+  end
 end
