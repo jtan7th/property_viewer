@@ -12,23 +12,8 @@ class PropertiesController < ApplicationController
   def show
     @property = Property.find(params[:id])
     
-  end
-
-  def create
-    @property = Property.new(property_params)
-    if @property.save
-      redirect_to @property, notice: 'Property was successfully created.'
-    else
-      render :new
-    end
-  end
-
-  def update
-    @property = Property.find(params[:id])
-    if @property.update(property_params)
-      redirect_to @property, notice: 'Property was successfully updated.'
-    else
-      render :edit
+    if @property.images.none?
+      DownloadImagesJob.perform_later(@property.id)
     end
   end
 
