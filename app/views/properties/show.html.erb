@@ -10,7 +10,7 @@
           <% address_parts = @property.address.split(',') %>
           <h1 class="text-3xl font-bold mb-2"><%= address_parts.first.strip %></h1>
           <% if address_parts.size > 1 %>
-            <p class="text-gray-600"><%= address_parts[1..-1].join(', ').strip %></p>
+            <%= suburb_pill(address_parts[1]) %>
           <% end %>
         </div>
 
@@ -48,9 +48,6 @@
             <p><strong>View Type:</strong> <%= @property.view_type %></p>
             <p><strong>Decade Built:</strong> <%= @property.decade_built %></p>
             <p><strong>Condition:</strong> <%= @property.condition %></p>
-            <p><strong>Suburb:</strong> <%= @property.suburb %></p>
-              <%= link_to "View full details", @property.url, target: "_blank", rel: "noopener noreferrer", class: "text-blue-600 hover:text-blue-800 underline" %>
-            </p>
         </div>
 
         <div class="mt-6">
