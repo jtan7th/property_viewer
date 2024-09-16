@@ -1,5 +1,6 @@
 import { Application } from "@hotwired/stimulus"
 import  "@hotwired/turbo"
+import "./carousel"
 console.log(Turbo)
 const application = Application.start()
 
