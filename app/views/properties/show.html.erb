@@ -8,14 +8,20 @@
       <div class="bg-white p-6 rounded-lg max-w-lg w-full shadow-2xl">
             <h1 class="text-3xl font-bold mb-6 border-b pb-4"><%= @property.address %></h1> <!-- Modified this line -->
 
-            <div class="image-container">
-                <% if @property.images.attached? %>
-                    <% @property.images.each do |image| %>
-                        <%= image_tag image, class: "property-image" %>
-                    <% end %>
-                    <% else %>
-                    <%= image_tag "placeholder.jpg", class: "property-image" %>
-                <% end %>
+            <div class="image-container" id="carousel">
+              <% if @property.images.attached? %>
+                <div class="carousel-inner">
+                  <% @property.images.each_with_index do |image, index| %>
+                    <%= image_tag image, class: "property-image #{index == 0 ? '' : 'hidden'}", data: { index: index } %>
+                  <% end %>
+                  <div class="carousel-controls">
+                    <button id="prevButton" class="carousel-button prev">&lsaquo;</button>
+                    <button id="nextButton" class="carousel-button next">&rsaquo;</button>
+                  </div>
+                </div>
+              <% else %>
+                <%= image_tag "placeholder.jpg", class: "property-image" %>
+              <% end %>
             </div>
 
             <hr class="my-4"> <!-- Horizontal line -->
