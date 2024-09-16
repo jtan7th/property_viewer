@@ -6,7 +6,15 @@
     <!-- Modal content -->
     <div class="relative z-20 flex items-center justify-center min-h-screen">
       <div class="bg-white p-6 rounded-lg max-w-lg w-full shadow-2xl">
-            <h1 class="text-3xl font-bold mb-6 border-b pb-4"><%= @property.address %></h1> <!-- Modified this line -->
+        <div class="text-center mb-6">
+          <% address_parts = @property.address.split(',') %>
+          <h1 class="text-3xl font-bold mb-2"><%= address_parts.first.strip %></h1>
+          <% if address_parts.size > 1 %>
+            <p class="text-gray-600"><%= address_parts[1..-1].join(', ').strip %></p>
+          <% end %>
+        </div>
+
+        <hr class="mb-6"> <!-- Horizontal line for separation -->
 
             <div class="image-container" id="carousel">
               <% if @property.images.attached? %>
@@ -20,7 +28,7 @@
                   </div>
                 </div>
               <% else %>
-                <%= image_tag "placeholder.jpg", class: "property-image" %>
+                <%= image_tag "placeholder.jpg", class: "placeholder-image" %>
               <% end %>
             </div>
 
@@ -28,26 +36,26 @@
 
 <!-- Other property details -->
 
-            <div class="space-y-2"> <!-- Added this wrapper div with vertical spacing -->
-                <p><strong>Sale Price:</strong> <%= @property.sale_price %></p>
-                <p><strong>Sold Date:</strong> <%= @property.sold_date %></p>
-                <p><strong>Bedrooms:</strong> <%= @property.bedroom_count %></p>
-                <p><strong>Bathrooms:</strong> <%= @property.bathroom_count %></p>
-                <p><strong>Land Area:</strong> <%= @property.land_area %></p>
-                <p><strong>Floor Area:</strong> <%= @property.floor_area %></p>
-                <p><strong>Deck:</strong> <%= @property.deck %></p>
-                <p><strong>Property Contour:</strong> <%= @property.property_contour %></p>
-                <p><strong>View Type:</strong> <%= @property.view_type %></p>
-                <p><strong>Decade Built:</strong> <%= @property.decade_built %></p>
-                <p><strong>Condition:</strong> <%= @property.condition %></p>
-                <p><strong>Suburb:</strong> <%= @property.suburb %></p>
-                  <%= link_to "View full details", @property.url, target: "_blank", rel: "noopener noreferrer", class: "text-blue-600 hover:text-blue-800 underline" %>
-                </p>
-            </div>
-
-            <div class="mt-6">
-                <%= link_to 'Back to List', properties_path, class: "bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded", data: { turbo_frame: "_top" } %>
-            </div>
+        <div class="space-y-2"> <!-- Added this wrapper div with vertical spacing -->
+            <p><strong>Sale Price:</strong> <%= @property.sale_price %></p>
+            <p><strong>Sold Date:</strong> <%= @property.sold_date %></p>
+            <p><strong>Bedrooms:</strong> <%= @property.bedroom_count %></p>
+            <p><strong>Bathrooms:</strong> <%= @property.bathroom_count %></p>
+            <p><strong>Land Area:</strong> <%= @property.land_area %></p>
+            <p><strong>Floor Area:</strong> <%= @property.floor_area %></p>
+            <p><strong>Deck:</strong> <%= @property.deck %></p>
+            <p><strong>Property Contour:</strong> <%= @property.property_contour %></p>
+            <p><strong>View Type:</strong> <%= @property.view_type %></p>
+            <p><strong>Decade Built:</strong> <%= @property.decade_built %></p>
+            <p><strong>Condition:</strong> <%= @property.condition %></p>
+            <p><strong>Suburb:</strong> <%= @property.suburb %></p>
+              <%= link_to "View full details", @property.url, target: "_blank", rel: "noopener noreferrer", class: "text-blue-600 hover:text-blue-800 underline" %>
+            </p>
         </div>
+
+        <div class="mt-6">
+            <%= link_to 'Back to List', properties_path, class: "bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded", data: { turbo_frame: "_top" } %>
+        </div>
+      </div>
     </div>
 <% end %>
