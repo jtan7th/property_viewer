@@ -1,11 +1,11 @@
 <%= turbo_frame_tag :modal do %>
-  <div class="fixed inset-0 z-10 overflow-y-auto" data-controller="modal">
+  <div id="modal" class="fixed inset-0 z-10 overflow-y-auto">
     <!-- Blurred background -->
-    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 backdrop-blur-sm" data-action="click->modal#close"></div>
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 backdrop-blur-sm"></div>
     
     <!-- Modal content -->
     <div class="relative z-20 flex items-center justify-center min-h-screen">
-      <div class="bg-white p-6 rounded-lg max-w-lg w-full shadow-2xl">
+      <div id="modal-content" class="modal-content-wrapper bg-white p-6 rounded-lg max-w-lg w-full shadow-2xl">
         <div class="text-center mb-6">
           <% address_parts = @property.address.split(',') %>
           <h1 class="text-3xl font-bold mb-2"><%= address_parts.first.strip %></h1>
@@ -16,43 +16,43 @@
 
         <hr class="mb-6"> <!-- Horizontal line for separation -->
 
-            <div class="image-container" id="carousel">
-              <% if @property.images.attached? %>
-                <div class="carousel-inner">
-                  <% @property.images.each_with_index do |image, index| %>
-                    <%= image_tag image, class: "property-image #{index == 0 ? '' : 'hidden'}", data: { index: index } %>
-                  <% end %>
-                  <div class="carousel-controls">
-                    <button id="prevButton" class="carousel-button prev">&lt;</button>
-                    <button id="nextButton" class="carousel-button next">&gt;</button>
-                  </div>
-                </div>
-              <% else %>
-                <%= image_tag "placeholder.jpg", class: "placeholder-image" %>
+        <div class="image-container" id="carousel">
+          <% if @property.images.attached? %>
+            <div class="carousel-inner">
+              <% @property.images.each_with_index do |image, index| %>
+                <%= image_tag image, class: "property-image #{index == 0 ? '' : 'hidden'}", data: { index: index } %>
               <% end %>
+              <div class="carousel-controls">
+                <button id="prevButton" class="carousel-button prev">&lt;</button>
+                <button id="nextButton" class="carousel-button next">&gt;</button>
+              </div>
             </div>
+          <% else %>
+            <%= image_tag "placeholder.jpg", class: "placeholder-image" %>
+          <% end %>
+        </div>
 
-            <hr class="my-4"> <!-- Horizontal line -->
+        <hr class="my-4"> <!-- Horizontal line -->
 
-<!-- Other property details -->
-
+        <!-- Other property details -->
         <div class="space-y-2"> <!-- Added this wrapper div with vertical spacing -->
-            <p><strong>Sale Price:</strong> <%= @property.sale_price %></p>
-            <p><strong>Sold Date:</strong> <%= @property.sold_date %></p>
-            <p><strong>Bedrooms:</strong> <%= @property.bedroom_count %></p>
-            <p><strong>Bathrooms:</strong> <%= @property.bathroom_count %></p>
-            <p><strong>Land Area:</strong> <%= @property.land_area %></p>
-            <p><strong>Floor Area:</strong> <%= @property.floor_area %></p>
-            <p><strong>Deck:</strong> <%= @property.deck %></p>
-            <p><strong>Property Contour:</strong> <%= @property.property_contour %></p>
-            <p><strong>View Type:</strong> <%= @property.view_type %></p>
-            <p><strong>Decade Built:</strong> <%= @property.decade_built %></p>
-            <p><strong>Condition:</strong> <%= @property.condition %></p>
+          <p><strong>Sale Price:</strong> <%= @property.sale_price %></p>
+          <p><strong>Sold Date:</strong> <%= @property.sold_date %></p>
+          <p><strong>Bedrooms:</strong> <%= @property.bedroom_count %></p>
+          <p><strong>Bathrooms:</strong> <%= @property.bathroom_count %></p>
+          <p><strong>Land Area:</strong> <%= @property.land_area %></p>
+          <p><strong>Floor Area:</strong> <%= @property.floor_area %></p>
+          <p><strong>Deck:</strong> <%= @property.deck %></p>
+          <p><strong>Property Contour:</strong> <%= @property.property_contour %></p>
+          <p><strong>View Type:</strong> <%= @property.view_type %></p>
+          <p><strong>Decade Built:</strong> <%= @property.decade_built %></p>
+          <p><strong>Condition:</strong> <%= @property.condition %></p>
         </div>
 
         <div class="mt-6">
-            <%= link_to 'Back to List', properties_path, class: "bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded", data: { turbo_frame: "_top" } %>
+          <%= link_to 'Back to List', properties_path, class: "bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded", data: { turbo_frame: "_top" } %>
         </div>
       </div>
     </div>
+  </div>
 <% end %>
