@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_15_014611) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_17_210045) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -45,17 +45,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_15_014611) do
   create_table "properties", force: :cascade do |t|
     t.string "url"
     t.string "address"
-    t.string "sale_price"
+    t.integer "sale_price"
     t.date "sold_date"
     t.date "homes_estimate_date"
-    t.string "homes_estimate_price"
-    t.string "homes_estimate_range_low"
-    t.string "homes_estimate_range_high"
+    t.integer "homes_estimate_price"
+    t.integer "homes_estimate_range_low"
+    t.integer "homes_estimate_range_high"
     t.integer "bedroom_count"
     t.integer "bathroom_count"
     t.integer "carpark_spaces_count"
-    t.string "floor_area"
-    t.string "land_area"
+    t.integer "floor_area"
+    t.integer "land_area"
     t.string "deck"
     t.string "property_contour"
     t.string "view_type"
@@ -63,10 +63,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_15_014611) do
     t.string "view_living_area"
     t.string "condition"
     t.string "suburb"
-    t.string "capital_valuation"
+    t.integer "capital_valuation"
     t.date "capital_valuation_date"
-    t.string "land_value"
-    t.string "improvement_value"
+    t.integer "land_value"
+    t.integer "improvement_value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "image_urls", default: [], array: true
