@@ -42,8 +42,8 @@
           <p><strong>Sold Date:</strong> <%= @property.sold_date %></p>
           <p><strong>Bedrooms:</strong> <%= @property.bedroom_count %></p>
           <p><strong>Bathrooms:</strong> <%= @property.bathroom_count %></p>
-          <p><strong>Land Area:</strong> <%= @property.land_area %></p>
-          <p><strong>Floor Area:</strong> <%= @property.floor_area %></p>
+          <p><strong>Land Area:</strong> <%= format_area(@property.land_area) %></p>
+          <p><strong>Floor Area:</strong> <%= format_area(@property.floor_area) %></p>
           <p><strong>Deck:</strong> <%= @property.deck %></p>
           <p><strong>Property Contour:</strong> <%= @property.property_contour %></p>
           <p><strong>View Type:</strong> <%= @property.view_type %></p>

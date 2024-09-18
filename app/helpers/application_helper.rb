@@ -14,4 +14,9 @@ module ApplicationHelper
       number_to_currency(price)
     end
   end
+
+  def format_area(area)
+    return 'N/A' if area.nil?
+    "#{area} m²"
+  end
 end
