@@ -13,7 +13,7 @@ class PropertiesController < ApplicationController
     @property = Property.find(params[:id])
     
     if @property.images.none?
-      DownloadImagesJob.perform_later(@property.id)
+      DownloadImagesJob.perform_now(@property.id)
     end
   end
 
