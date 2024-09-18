@@ -1,6 +1,7 @@
 module ApplicationHelper
   def format_price(price)
     return 'N/A' if price.nil?
+    return 'TBC' if price == 'TBC'
 
     case price.to_s.length
     when 1..5
