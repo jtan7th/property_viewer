@@ -22,10 +22,12 @@
               <% @property.images.each_with_index do |image, index| %>
                 <%= image_tag image, class: "property-image #{index == 0 ? '' : 'hidden'}", data: { index: index } %>
               <% end %>
-              <div class="carousel-controls">
-                <button id="prevButton" class="carousel-button prev">&lt;</button>
-                <button id="nextButton" class="carousel-button next">&gt;</button>
-              </div>
+              <% if @property.images.count > 1 %>
+                <div class="carousel-controls">
+                  <button id="prevButton" class="carousel-button prev">&lt;</button>
+                  <button id="nextButton" class="carousel-button next">&gt;</button>
+                </div>
+              <% end %>
             </div>
           <% else %>
             <%= image_tag "placeholder.jpg", class: "placeholder-image" %>
