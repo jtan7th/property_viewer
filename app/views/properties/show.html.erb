@@ -38,7 +38,7 @@
 
         <!-- Other property details -->
         <div class="space-y-2"> <!-- Added this wrapper div with vertical spacing -->
-          <p><strong>Sale Price:</strong> <%= @property.sale_price %></p>
+          <p><strong>Sale Price:</strong> <%= format_price(@property.sale_price) %></p>
           <p><strong>Sold Date:</strong> <%= @property.sold_date %></p>
           <p><strong>Bedrooms:</strong> <%= @property.bedroom_count %></p>
           <p><strong>Bathrooms:</strong> <%= @property.bathroom_count %></p>

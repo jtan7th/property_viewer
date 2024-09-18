@@ -29,7 +29,7 @@
               <% properties.each do |property| %>
                 <tr class="border-t border-gray-300">
                   <td class="whitespace-nowrap py-5 px-10 text-sm font-medium text-gray-900 sm:pl-3"> <%= property.address.split(',').first %> </td>
-                  <td class="whitespace-nowrap px-10 py-5 text-sm text-gray-500"><%= property.sale_price %></td>
+                  <td class="whitespace-nowrap px-10 py-5 text-sm text-gray-500"><%= format_price(property.sale_price) %></td>
                   <td class="whitespace-nowrap px-10 py-5 text-sm text-gray-500"><%= property.sold_date %></td>
                   <td class="whitespace-nowrap px-10 py-5 text-sm text-gray-500"><%= property.bedroom_count %></td>
                   <td class="whitespace-nowrap px-10 py-5 text-sm text-gray-500"><%= property.bathroom_count %></td>
