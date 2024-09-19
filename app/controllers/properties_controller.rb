@@ -1,11 +1,16 @@
 class PropertiesController < ApplicationController
   def index
-    @properties = Property.all  # or whatever scope you're using
+    @properties = Property.all
+    @properties = @properties.where("address ILIKE ?", "%#{params[:address]}%") if params[:address].present?
 
-    if turbo_frame_request?
-      render :index, layout: false
-    else
-      render :index
+    puts "Address param: #{params[:address]}"
+    puts "Properties count: #{@properties.count}"
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.update("properties", partial: "properties_table", locals: { properties: @properties })
+      end
     end
   end
 
@@ -21,5 +26,9 @@ class PropertiesController < ApplicationController
 
   def property_params
     params.require(:property).permit(:title, :description, :price, images: [])
+  end
+
+  def numeric_column?(column_name)
+    Property.column_for_attribute(column_name).type.in?([:integer, :float, :decimal])
   end
 end

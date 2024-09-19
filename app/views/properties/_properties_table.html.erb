@@ -1,0 +1,24 @@
+<table class="min-w-full divide-y divide-gray-300">
+    <thead class="bg-white">
+        <tr>
+        <th scope="col" class="py-5 px-10 text-left text-sm font-semibold text-gray-900 sm:pl-3">Address</th>
+        <th scope="col" class="px-10 py-5 text-left text-sm font-semibold text-gray-900">Sale Price</th>
+        <th scope="col" class="px-10 py-5 text-left text-sm font-semibold text-gray-900">Sold Date</th>
+        <th scope="col" class="px-10 py-5 text-left text-sm font-semibold text-gray-900">Bedrooms</th>
+        <th scope="col" class="px-10 py-5 text-left text-sm font-semibold text-gray-900">Bathrooms</th>
+        <th scope="col" class="px-10 py-5 text-left text-sm font-semibold text-gray-900">Floor Area</th>
+        <th scope="col" class="px-10 py-5 text-left text-sm font-semibold text-gray-900">Land Area</th>
+        <th scope="col" class="relative py-5 px-10 sm:pr-3">
+            <span class="sr-only">View</span>
+        </th>
+        </tr>
+    </thead>
+  <tbody class="divide-y divide-gray-200 bg-white">
+    <% properties.group_by(&:suburb).each do |suburb, suburb_properties| %>
+      <tr class="border-t border-gray-200">
+        <th colspan="8" scope="colgroup" class="bg-gray-50 py-2 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-3"><%= suburb %></th>
+      </tr>
+      <%= render partial: 'property', collection: suburb_properties %>
+    <% end %>
+  </tbody>
+</table>
