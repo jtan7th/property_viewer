@@ -22,6 +22,11 @@ class PropertiesController < ApplicationController
     end
   end
 
+  def filter_modal
+    # Add any necessary logic here
+    render layout: false
+  end
+
   private
 
   def property_params
