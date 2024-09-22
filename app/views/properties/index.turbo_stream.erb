@@ -1,8 +1,10 @@
-<tbody class="divide-y divide-gray-200 bg-white">
-  <% properties.group_by(&:suburb).each do |suburb, suburb_properties| %>
-    <tr class="border-t border-gray-200">
-      <th colspan="8" scope="colgroup" class="bg-gray-50 py-2 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-3"><%= suburb %></th>
-    </tr>
-    <%= render partial: 'property', collection: suburb_properties %>
-  <% end %>
-</tbody>
+<%= turbo_stream.replace "properties-table" do %>
+  <tbody class="divide-y divide-gray-200 bg-white" id="properties-table">
+    <% @properties.group_by(&:suburb).each do |suburb, suburb_properties| %>
+      <tr class="border-t border-gray-200">
+        <th colspan="8" scope="colgroup" class="bg-gray-50 py-2 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-3"><%= suburb %></th>
+      </tr>
+      <%= render partial: 'property', collection: suburb_properties %>
+    <% end %>
+  </tbody>
+<% end %>
