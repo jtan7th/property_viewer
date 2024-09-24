@@ -20,6 +20,8 @@ export function setupModalHandler() {
 
     document.addEventListener("turbo:submit-end", (event) => {
       console.log("Form submitted, turbo:submit-end event fired");
+      console.log("Time since page load:", Date.now() - window.pageLoadTime, "ms");
+      
       if (filterModal) {
         console.log("Filter modal found, hiding it");
         closeModal();
