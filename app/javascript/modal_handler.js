@@ -1,3 +1,5 @@
+//filter modal handler
+
 export function setupModalHandler() {
     const filterModal = document.getElementById('filter-modal');
     const filterLink = document.querySelector('a[href*="filter_modal"]');
@@ -19,16 +21,9 @@ export function setupModalHandler() {
     }
 
     document.addEventListener("turbo:submit-end", (event) => {
-      console.log("Form submitted, turbo:submit-end event fired");
-      console.log("Time since page load:", Date.now() - window.pageLoadTime, "ms");
-      
       if (filterModal) {
-        console.log("Filter modal found, hiding it");
         closeModal();
-        // Store the form data for potential reuse
         lastFormData = new FormData(event.target);
-      } else {
-        console.log("Filter modal not found");
       }
     });
 
@@ -64,4 +59,47 @@ export function setupModalHandler() {
         }
       }
     }
+
+    // New code for closing modal when clicking outside
+    const handleClick = (event) => {
+      const filterModalContent = filterModal.querySelector('#filter-modal-content');
+      if (!filterModalContent) return;
+
+      // Check if the click is outside the modal content
+      if (!filterModalContent.contains(event.target) && filterModal.contains(event.target)) {
+        closeModal();
+        event.preventDefault();
+      }
+    };
+
+    // Add click event listener to the document
+    document.addEventListener('click', handleClick);
+
+    // Function to start observing the DOM for the filter modal
+    const observeFilterModal = () => {
+      const observer = new MutationObserver((mutations) => {
+        for (let mutation of mutations) {
+          if (mutation.type === 'childList') {
+            if (filterModal) {
+              const filterModalContent = filterModal.querySelector('#filter-modal-content');
+              if (filterModalContent) {
+                observer.disconnect();
+                return;
+              }
+            }
+          }
+        }
+      });
+
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true
+      });
+    };
+
+    // Start observing for the filter modal
+    observeFilterModal();
+
+    // As a fallback, also listen for Turbo events
+    document.addEventListener('turbo:load', observeFilterModal);
   }
