@@ -153,3 +153,23 @@ hr {
   opacity: 0;
   transition: opacity 300ms ease-in;
 }
+
+#filter-modal {
+  transition: opacity 300ms ease-in-out;
+}
+
+#filter-modal-content {
+  transition: transform 300ms ease-in-out, opacity 300ms ease-in-out;
+}
+
+.modal-enter #filter-modal-content,
+.modal-exit-active #filter-modal-content {
+  transform: scale(0.9);
+  opacity: 0;
+}
+
+.modal-enter-active #filter-modal-content,
+.modal-exit #filter-modal-content {
+  transform: scale(1);
+  opacity: 1;
+}

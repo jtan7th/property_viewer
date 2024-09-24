@@ -29,35 +29,34 @@ export function setupModalHandler() {
 
     function openModal() {
       filterModal.classList.remove('hidden');
-      filterModal.style.display = 'block';
+      filterModal.classList.add('modal-enter');
+      document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+      
+      // Force a reflow before adding the 'modal-enter-active' class
+      filterModal.offsetWidth;
+      
+      filterModal.classList.add('modal-enter-active');
+      
+      setTimeout(() => {
+        filterModal.classList.remove('modal-enter', 'modal-enter-active');
+      }, 300); // This should match the transition duration in your CSS
+      
       resetForm();
     }
 
     function closeModal() {
-      filterModal.classList.add('hidden');
-      filterModal.style.display = 'none';
-    }
-
-    function resetForm() {
-      const form = filterModal.querySelector('form');
-      if (form) {
-        if (lastFormData) {
-          // Populate form with last submitted data
-          lastFormData.forEach((value, key) => {
-            const field = form.elements[key];
-            if (field) {
-              if (field.type === 'checkbox' || field.type === 'radio') {
-                field.checked = (field.value === value);
-              } else {
-                field.value = value;
-              }
-            }
-          });
-        } else {
-          // Reset to default values if no previous submission
-          form.reset();
-        }
-      }
+      filterModal.classList.add('modal-exit');
+      document.body.style.overflow = ''; // Re-enable scrolling
+      
+      // Force a reflow before adding the 'modal-exit-active' class
+      filterModal.offsetWidth;
+      
+      filterModal.classList.add('modal-exit-active');
+      
+      setTimeout(() => {
+        filterModal.classList.remove('modal-exit', 'modal-exit-active');
+        filterModal.classList.add('hidden');
+      }, 300); // This should match the transition duration in your CSS
     }
 
     // New code for closing modal when clicking outside
