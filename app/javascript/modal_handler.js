@@ -1,30 +1,65 @@
 export function setupModalHandler() {
     const filterModal = document.getElementById('filter-modal');
     const filterLink = document.querySelector('a[href*="filter_modal"]');
-    
+    let lastFormData = null;
+
     if (filterLink) {
       filterLink.addEventListener('click', (event) => {
         event.preventDefault();
-        filterModal.classList.remove('hidden');
+        openModal();
       });
     }
-  
+
     if (filterModal) {
       filterModal.addEventListener('click', (event) => {
         if (event.target === filterModal) {
-          filterModal.classList.add('hidden');
+          closeModal();
         }
       });
     }
-  
+
     document.addEventListener("turbo:submit-end", (event) => {
       console.log("Form submitted, turbo:submit-end event fired");
       if (filterModal) {
         console.log("Filter modal found, hiding it");
-        filterModal.classList.add("hidden");
-        filterModal.style.display = "none";  // Force hide the modal
+        closeModal();
+        // Store the form data for potential reuse
+        lastFormData = new FormData(event.target);
       } else {
         console.log("Filter modal not found");
       }
     });
+
+    function openModal() {
+      filterModal.classList.remove('hidden');
+      filterModal.style.display = 'block';
+      resetForm();
+    }
+
+    function closeModal() {
+      filterModal.classList.add('hidden');
+      filterModal.style.display = 'none';
+    }
+
+    function resetForm() {
+      const form = filterModal.querySelector('form');
+      if (form) {
+        if (lastFormData) {
+          // Populate form with last submitted data
+          lastFormData.forEach((value, key) => {
+            const field = form.elements[key];
+            if (field) {
+              if (field.type === 'checkbox' || field.type === 'radio') {
+                field.checked = (field.value === value);
+              } else {
+                field.value = value;
+              }
+            }
+          });
+        } else {
+          // Reset to default values if no previous submission
+          form.reset();
+        }
+      }
+    }
   }
