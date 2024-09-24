@@ -1,8 +1,10 @@
 import { Application } from "@hotwired/stimulus"
 import "@hotwired/turbo-rails"
-import  "@hotwired/turbo"
+import "@hotwired/turbo"
 import "./carousel"
 import "./modal"
+import { setupModalHandler } from "./modal_handler"
+
 console.log(Turbo)
 const application = Application.start()
 
@@ -14,6 +16,7 @@ export { application }
 
 document.addEventListener("turbo:load", function() {
   console.log("Turbo is loaded!");
+  setupModalHandler();  // Call the function to set up modal handling
 });
 
 document.addEventListener("turbo:before-fetch-request", function(event) {
@@ -22,20 +25,4 @@ document.addEventListener("turbo:before-fetch-request", function(event) {
 
 document.addEventListener("turbo:before-fetch-response", function(event) {
   console.log("Turbo fetch response:", event.detail.fetchResponse);
-});
-
-document.addEventListener('turbo:load', () => {
-  const filterModal = document.getElementById('filter-modal');
-  const filterLink = document.querySelector('a[href*="filter_modal"]');
-  
-  filterLink.addEventListener('click', (event) => {
-    event.preventDefault();
-    filterModal.classList.remove('hidden');
-  });
-
-  filterModal.addEventListener('click', (event) => {
-    if (event.target === filterModal) {
-      filterModal.classList.add('hidden');
-    }
-  });
 });
