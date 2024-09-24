@@ -14,8 +14,8 @@ class PropertiesController < ApplicationController
       .sorted(params[:sort_by])
     @properties = @properties.where("address ILIKE ?", "%#{params[:address]}%") if params[:address].present?
 
-    puts "Address param: #{params[:address]}"
-    puts "Properties count: #{@properties.count}"
+    # If using the model method or concern:
+    @median_price = @properties.median(:sale_price)
 
     respond_to do |format|
       format.html

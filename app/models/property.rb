@@ -1,4 +1,5 @@
 class Property < ApplicationRecord
+  include Statistical
   has_many_attached :images
 
   scope :price_range, ->(min, max) { 
