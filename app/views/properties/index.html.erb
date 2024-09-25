@@ -4,20 +4,7 @@
     <p class="text-xl text-gray-700">A list of properties with key details.</p>
   </div>
   <div class="space-y-6">
-    <dl class="mx-auto grid grid-cols-1 gap-px bg-gray-900/5 sm:grid-cols-2 lg:grid-cols-3">
-      <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 bg-white px-4 py-10 sm:px-6 xl:px-8">
-        <dt class="text-sm font-medium leading-6 text-gray-500"># of Properties</dt>
-        <dd class="w-full flex-none text-3xl font-medium leading-10 tracking-tight text-gray-900"><%= number_with_delimiter(@properties.count) %></dd>
-      </div>
-      <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 bg-white px-4 py-10 sm:px-6 xl:px-8">
-        <dt class="text-sm font-medium leading-6 text-gray-500">Median Value of Properties</dt>
-        <dd class="w-full flex-none text-3xl font-medium leading-10 tracking-tight text-gray-900"><%= number_to_currency(@median_price, precision: 0) %></dd>
-      </div>
-      <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 bg-white px-4 py-10 sm:px-6 xl:px-8">
-        <dt class="text-sm font-medium leading-6 text-gray-500">Homes Estimate Value</dt>
-        <dd class="w-full flex-none text-3xl font-medium leading-10 tracking-tight text-gray-900">$245,988.00</dd>
-      </div>
-    </dl>
+    
     <%= form_with url: properties_path, method: :get, data: { turbo_frame: "properties" }, class: "flex items-center space-x-2" do |f| %>
       <div class="flex-grow w-11/12">
         <%= f.text_field :address, 
@@ -32,11 +19,27 @@
       %>
     <% end %>
 
-    <%= turbo_frame_tag "properties" do %>
-      <div class="mt-8"> <!-- This adds top margin to the table --> 
-        <%= render partial: "properties_table", locals: { properties: @properties } %>
-      </div>
-    <% end %>
+    <div class="mt-8">
+      <%= turbo_frame_tag "properties" do %>
+        <dl class="mx-auto grid grid-cols-1 gap-px bg-gray-900/5 sm:grid-cols-2 lg:grid-cols-3">
+          <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 bg-white px-4 py-10 sm:px-6 xl:px-8">
+            <dt class="text-sm font-medium leading-6 text-gray-500"># of Properties</dt>
+            <dd class="w-full flex-none text-3xl font-medium leading-10 tracking-tight text-gray-900"><%= number_with_delimiter(@properties.count) %></dd>
+          </div>
+          <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 bg-white px-4 py-10 sm:px-6 xl:px-8">
+            <dt class="text-sm font-medium leading-6 text-gray-500">Median Value of Properties</dt>
+            <dd class="w-full flex-none text-3xl font-medium leading-10 tracking-tight text-gray-900"><%= number_to_currency(@median_price, precision: 0) %></dd>
+          </div>
+          <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 bg-white px-4 py-10 sm:px-6 xl:px-8">
+            <dt class="text-sm font-medium leading-6 text-gray-500">Homes Estimate Value</dt>
+            <dd class="w-full flex-none text-3xl font-medium leading-10 tracking-tight text-gray-900"><%= number_to_currency(@median_homes_estimate_price, precision: 0) %></dd>
+          </div>
+        </dl>
+        <div class="mt-8"> <!-- This adds top margin to the table --> 
+          <%= render partial: "properties_table", locals: { properties: @properties } %>
+        </div>
+      <% end %>
+    </div>
   </div>
   <%= render partial: "filter_modal" %>
 </div>

@@ -16,6 +16,7 @@ class PropertiesController < ApplicationController
 
     # If using the model method or concern:
     @median_price = @properties.median(:sale_price)
+    @median_homes_estimate_price = @properties.median(:homes_estimate_price)
 
     respond_to do |format|
       format.html
