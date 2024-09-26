@@ -40,9 +40,7 @@ export function setupModalHandler() {
       setTimeout(() => {
         filterModal.classList.remove('modal-enter', 'modal-enter-active');
       }, 300); // This should match the transition duration in your CSS
-      
-      resetForm();
-    }
+          }
 
     function closeModal() {
       filterModal.classList.add('modal-exit');
