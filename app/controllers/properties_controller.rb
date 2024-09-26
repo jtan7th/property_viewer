@@ -21,7 +21,12 @@ class PropertiesController < ApplicationController
     respond_to do |format|
       format.html
       format.turbo_stream do
-        render turbo_stream: turbo_stream.update("properties", partial: "properties_table", locals: { properties: @properties })
+        Rails.logger.debug "Responding with Turbo Stream"
+        render turbo_stream: [
+          turbo_stream.replace("properties", partial: "properties_table", locals: { properties: @properties }),
+          turbo_stream.replace("property-stats", partial: "property_stats"),
+          turbo_stream.replace("modal", partial: "filter_modal")
+        ]
       end
     end
   end

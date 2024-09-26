@@ -17,4 +17,11 @@ export default class extends Controller {
     console.log("Close method called")
     this.modalTarget.classList.add('hidden')
   }
+
+  apply(event) {
+    event.preventDefault()
+    console.log("Apply method called")
+    this.element.requestSubmit()
+    this.close() // Optionally close the modal after applying filters
+  }
 }

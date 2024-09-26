@@ -1,6 +1,7 @@
 <div class="modal-content p-6">
   <h2 class="text-lg font-semibold mb-4 text-center">Filter Properties</h2>
-  <%= form_with url: properties_path, method: :get, data: { turbo_frame: "_top" } do |f| %>
+  
+  <%= form_with url: properties_path, method: :get, data: { turbo_frame: "properties" } do |f| %>
     <!-- Price Range -->
     <div class="mb-4">
       <h3 class="text-md font-medium mb-2">Price Range</h3>
@@ -66,7 +67,10 @@
 
     <!-- Submit button -->
     <div class="mt-6">
-      <%= f.submit "Apply Filters", class: "w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:w-auto sm:text-sm" %>
+      <%= f.submit "Apply Filters", 
+          class: "w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:w-auto sm:text-sm",
+          data: { action: "filter#apply" } 
+      %>
     </div>
   <% end %>
 </div>
