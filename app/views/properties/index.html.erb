@@ -42,4 +42,38 @@
     </div>
   </div>
   <%= render partial: "filter_modal" %>
+  <div data-controller="slideover">
+    <style>
+      dialog.slideover {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: auto;
+        transform: translateX(100%);
+      }
+
+      dialog.slideover[open] {
+        animation: slide-in-from-right 250ms forwards ease;
+      }
+
+      @keyframes slide-in-from-right {
+        from {
+          transform: translateX(100%);
+        }
+        to {
+          transform: translateX(0);
+        }
+      }
+    </style>
+    <dialog data-slideover-target="dialog" class="slideover h-full max-h-full m-0 w-96 p-8 backdrop:bg-black/80">
+      <%= render partial: "filter_modal" %>
+    </dialog>
+    <button data-action="slideover#open" class="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-1 px-2.5 rounded">Open slideover</button>
+  </div>
+
+  <div class="flex items-center justify-center">
+  <div onclick="toggleSlideover()" class="cursor-pointer px-5 py-2 text-sm border text-gray-500 hover:bg-gray-100 rounded border-gray-300">Toggle Slide-over</div>
+  <%= render partial: 'slideover_new' %>
+</div>
 </div>

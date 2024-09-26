@@ -4,6 +4,10 @@ import "@hotwired/turbo"
 import "./carousel"
 import "./modal"
 import { setupModalHandler } from "./modal_handler"
+import { Slideover } from "tailwindcss-stimulus-components"
+import "./slideover"
+
+
 
 const application = Application.start()
 
@@ -16,3 +20,5 @@ export { application }
 document.addEventListener("turbo:load", function() {
   setupModalHandler();
 });
+
+application.register('slideover', Slideover)
