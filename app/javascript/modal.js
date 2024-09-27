@@ -1,4 +1,20 @@
 document.addEventListener('DOMContentLoaded', function() {
+  
+  let currentFilterUrl = null;
+
+  const captureFilterUrl = () => {
+    document.addEventListener('turbo:before-fetch-request', (event) => {
+      const url = new URL(event.detail.url);
+      
+      // Check if the URL contains any query parameters
+      if (url.search) {
+        currentFilterUrl = url.toString();
+      }
+    });
+  };
+
+  captureFilterUrl();
+  
   // Function to open the modal with transition
   const openModal = (modal) => {
     modal.classList.remove('hidden');
@@ -28,9 +44,10 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(() => {
       modal.classList.remove('modal-exit', 'modal-exit-active');
       modal.classList.add('hidden');
-      // Navigate to properties_path using Turbo
-      const propertiesPath = '/properties'; // Adjust this if your path is different
-      Turbo.visit(propertiesPath);
+      
+      // Navigate using the stored filter URL or fall back to properties_path
+      const navigateUrl = currentFilterUrl || '/properties';
+      Turbo.visit(navigateUrl);
     }, 300); // This should match the transition duration in your CSS
   };
 
