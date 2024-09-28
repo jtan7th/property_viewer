@@ -1,18 +1,19 @@
 <%= turbo_frame_tag :modal do %>
-  <div id="modal" class="fixed inset-0 z-10 overflow-y-auto">
+  <div id="modal" class="fixed inset-0 z-10 overflow-y-auto flex items-center justify-center">
     <!-- Blurred background -->
     <div class="fixed inset-0 bg-gray-500 bg-opacity-75 backdrop-blur-sm"></div>
     
     <!-- Modal content -->
-    <div class="relative z-20 flex items-center justify-center min-h-screen">
-      <div id="modal-content" class="modal-content-wrapper bg-white p-6 rounded-lg max-w-lg w-full shadow-2xl">
-        <div class="text-center mb-6">
-          <% address_parts = @property.address.split(',') %>
-          <h1 class="text-3xl font-bold mb-2"><%= address_parts.first.strip %></h1>
-          <% if address_parts.size > 1 %>
-            <%= suburb_pill(address_parts[1]) %>
-          <% end %>
-        </div>
+    <div class="relative z-20 flex items-center justify-center w-full h-full p-4">
+      <div id="modal-content" class="modal-content-wrapper bg-white rounded-lg w-full max-w-lg shadow-2xl overflow-y-auto" style="max-height: 90vh;">
+        <div class="p-6">
+          <div class="text-center mb-6">
+            <% address_parts = @property.address.split(',') %>
+            <h1 class="text-3xl font-bold mb-2"><%= address_parts.first.strip %></h1>
+            <% if address_parts.size > 1 %>
+              <%= suburb_pill(address_parts[1]) %>
+            <% end %>
+          </div>
 
         <hr class="mb-6"> <!-- Horizontal line for separation -->
 
@@ -51,8 +52,9 @@
           <p><strong>Condition:</strong> <%= @property.condition %></p>
         </div>
 
-        <div class="mt-6">
-          <%= link_to 'Back to List', properties_path, class: "bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded", data: { turbo_frame: "_top" } %>
+          <div class="mt-6">
+            <%= link_to 'Back to List', properties_path, class: "bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded", data: { turbo_frame: "_top" } %>
+          </div>
         </div>
       </div>
     </div>

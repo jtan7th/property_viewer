@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
   
   let currentFilterUrl = null;
+  let lastFormData = null;
 
   const captureFilterUrl = () => {
     document.addEventListener('turbo:before-fetch-request', (event) => {
@@ -31,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 300); // This should match the transition duration in your CSS
   };
 
-  // Function to close the modal with transition
+  // Modified closeModal function
   const closeModal = (modal) => {
     modal.classList.add('modal-exit');
     document.body.style.overflow = ''; // Re-enable scrolling
@@ -45,9 +46,21 @@ document.addEventListener('DOMContentLoaded', function() {
       modal.classList.remove('modal-exit', 'modal-exit-active');
       modal.classList.add('hidden');
       
-      // Navigate using the stored filter URL or fall back to properties_path
-      const navigateUrl = currentFilterUrl || '/properties';
-      Turbo.visit(navigateUrl);
+      // Clear the modal content
+      const modalContent = document.getElementById('modal-content');
+      if (modalContent) {
+        modalContent.innerHTML = '';
+      }
+
+      // Update the URL without causing a page reload
+      if (currentFilterUrl) {
+        history.pushState({}, '', currentFilterUrl);
+        // Manually trigger a Turbo visit to the properties frame
+        Turbo.visit(currentFilterUrl, { frame: 'properties' });
+      }
+
+      // Reset the currentFilterUrl
+      currentFilterUrl = null;
     }, 300); // This should match the transition duration in your CSS
   };
 
@@ -80,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
           const modal = document.getElementById('modal');
           if (modal) {
             const modalContent = document.getElementById('modal-content');
-            if (modalContent) {
+            if (modalContent && modalContent.children.length > 0) {
               observer.disconnect();
               openModal(modal); // Open the modal with transition when it's added to the DOM
               return;
@@ -99,6 +112,26 @@ document.addEventListener('DOMContentLoaded', function() {
   // Start observing for the modal
   observeModal();
 
+  // New event listener for form submissions
+  document.addEventListener("turbo:submit-end", (event) => {
+    const modal = document.getElementById('modal');
+    if (modal && !modal.classList.contains('hidden')) {
+      closeModal(modal);
+      lastFormData = new FormData(event.target);
+    }
+  });
+
   // As a fallback, also listen for Turbo events
   document.addEventListener('turbo:load', observeModal);
+
+  // New event listener for frame load
+  document.addEventListener('turbo:frame-load', (event) => {
+    if (event.target.id === 'modal') {
+      const modal = document.getElementById('modal');
+      if (modal) {
+        openModal(modal);
+      }
+    }
+  });
+  
 });
