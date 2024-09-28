@@ -6,35 +6,35 @@
     <div class="mb-4">
       <h3 class="text-md font-medium mb-2">Price Range</h3>
       <div class="flex space-x-2">
-        <%= f.number_field :min_sale_price, placeholder: "Min Price", class: "w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
-        <%= f.number_field :max_sale_price, placeholder: "Max Price", class: "w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
+        <%= f.number_field :min_sale_price, placeholder: "Min Price", oninput: "this.form.requestSubmit();", class: "w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
+        <%= f.number_field :max_sale_price, placeholder: "Max Price", oninput: "this.form.requestSubmit();", class: "w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
       </div>
     </div>
 
     <!-- Bedrooms -->
     <div class="mb-4">
       <%= f.label :bedroom_count, "Bedrooms", class: "block text-sm font-medium text-gray-700 mb-1" %>
-      <%= f.select :bedroom_count, options_for_select([["Any", ""], 1, 2, 3, 4, ["5+", 5]]), {}, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
+      <%= f.select :bedroom_count, options_for_select([["Any", ""], 1, 2, 3, 4, ["5+", 5]]), {}, { onchange: "this.form.requestSubmit();", class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" } %>
     </div>
 
     <!-- Bathrooms -->
     <div class="mb-4">
       <%= f.label :bathroom_count, "Bathrooms", class: "block text-sm font-medium text-gray-700 mb-1" %>
-      <%= f.select :bathroom_count, options_for_select([["Any", ""], 1, 2, 3, ["4+", 4]]), {}, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
+      <%= f.select :bathroom_count, options_for_select([["Any", ""], 1, 2, 3, ["4+", 4]]), {}, { onchange: "this.form.requestSubmit();", class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" } %>
     </div>
 
     <!-- Carpark Spaces -->
     <div class="mb-4">
       <%= f.label :carpark_spaces_count, "Carpark Spaces", class: "block text-sm font-medium text-gray-700 mb-1" %>
-      <%= f.select :carpark_spaces_count, options_for_select([["Any", ""], 1, 2, 3, ["4+", 4]]), {}, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
+      <%= f.select :carpark_spaces_count, options_for_select([["Any", ""], 1, 2, 3, ["4+", 4]]), {}, { onchange: "this.form.requestSubmit();", class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" } %>
     </div>
 
     <!-- Floor Area Range -->
     <div class="mb-4">
       <h3 class="text-md font-medium mb-2">Floor Area (sqm)</h3>
       <div class="flex space-x-2">
-        <%= f.number_field :min_floor_area, placeholder: "Min Area", class: "w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
-        <%= f.number_field :max_floor_area, placeholder: "Max Area", class: "w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
+        <%= f.number_field :min_floor_area, placeholder: "Min Area", oninput: "this.form.requestSubmit();", class: "w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
+        <%= f.number_field :max_floor_area, placeholder: "Max Area", oninput: "this.form.requestSubmit();", class: "w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
       </div>
     </div>
 
@@ -42,35 +42,35 @@
     <div class="mb-4">
       <h3 class="text-md font-medium mb-2">Land Area (sqm)</h3>
       <div class="flex space-x-2">
-        <%= f.number_field :min_land_area, placeholder: "Min Area", class: "w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
-        <%= f.number_field :max_land_area, placeholder: "Max Area", class: "w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
+        <%= f.number_field :min_land_area, placeholder: "Min Area", oninput: "this.form.requestSubmit();", class: "w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
+        <%= f.number_field :max_land_area, placeholder: "Max Area", oninput: "this.form.requestSubmit();", class: "w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
       </div>
     </div>
 
     <!-- Suburb -->
     <div class="mb-4">
       <%= f.label :suburb, "Suburb", class: "block text-sm font-medium text-gray-700 mb-1" %>
-      <%= f.text_field :suburb, placeholder: "Enter suburb", class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
+      <%= f.text_field :suburb, placeholder: "Enter suburb", oninput: "this.form.requestSubmit();", class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
     </div>
 
     <!-- Decade Built -->
     <div class="mb-4">
       <%= f.label :decade_built, "Decade Built", class: "block text-sm font-medium text-gray-700 mb-1" %>
-      <%= f.select :decade_built, options_for_select([["Any", ""], "1950s", "1960s", "1970s", "1980s", "1990s", "2000s", "2010s", "2020s"]), {}, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
+      <%= f.select :decade_built, options_for_select([["Any", ""], "1950s", "1960s", "1970s", "1980s", "1990s", "2000s", "2010s", "2020s"]), {}, { onchange: "this.form.requestSubmit();", class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" } %>
     </div>
 
     <!-- Property Condition -->
     <div class="mb-4">
       <%= f.label :condition, "Property Condition", class: "block text-sm font-medium text-gray-700 mb-1" %>
-      <%= f.select :condition, options_for_select([["Any", ""], "Excellent", "Good", "Fair", "Poor"]), {}, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
+      <%= f.select :condition, options_for_select([["Any", ""], "Excellent", "Good", "Fair", "Poor"]), {}, { onchange: "this.form.requestSubmit();", class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" } %>
     </div>
 
-    <!-- Submit button -->
+    <!-- Submit button 
     <div class="mt-6">
       <%= f.submit "Apply Filters", 
           class: "w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:w-auto sm:text-sm",
           data: { action: "filter#apply" } 
       %>
-    </div>
+    </div> -->
   <% end %>
 </div>
