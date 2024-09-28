@@ -52,12 +52,12 @@ document.addEventListener('DOMContentLoaded', function() {
         modalContent.innerHTML = '';
       }
 
-      // Update the URL without causing a page reload
-      if (currentFilterUrl) {
-        history.pushState({}, '', currentFilterUrl);
-        // Manually trigger a Turbo visit to the properties frame
-        Turbo.visit(currentFilterUrl, { frame: 'properties' });
-      }
+      // // Update the URL without causing a page reload
+      // if (currentFilterUrl) {
+      //   history.pushState({}, '', currentFilterUrl);
+      //   // Manually trigger a Turbo visit to the properties frame
+      //   Turbo.visit(currentFilterUrl, { frame: 'properties' });
+      // }
 
       // Reset the currentFilterUrl
       currentFilterUrl = null;

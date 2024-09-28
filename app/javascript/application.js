@@ -20,5 +20,3 @@ export { application }
 document.addEventListener("turbo:load", function() {
   setupModalHandler();
 });
-
-application.register('slideover', Slideover)
