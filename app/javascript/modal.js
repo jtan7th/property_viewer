@@ -144,3 +144,4 @@ function toggleModal(){
 
 // Make the function globally available
 window.toggleModal = toggleModal;
+

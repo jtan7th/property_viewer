@@ -35,6 +35,7 @@ class PropertiesController < ApplicationController
 
   def show
     @property = Property.find(params[:id])
+    render layout: false if turbo_frame_request?
     
     if @property.images.none?
       DownloadImagesJob.perform_now(@property.id)

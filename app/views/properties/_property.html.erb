@@ -7,9 +7,9 @@
   <td class="whitespace-nowrap px-10 py-5 text-sm text-gray-500"><%= format_area(property.floor_area) %></td>
   <td class="whitespace-nowrap px-10 py-5 text-sm text-gray-500"><%= format_area(property.land_area) %></td>
   <td class="relative whitespace-nowrap py-5 px-10 text-right text-sm font-medium sm:pr-3">
-    <%= link_to 'View', property_path(property), data: {turbo_frame: "modal"}, class: "text-indigo-600 hover:text-indigo-900" %>
-    <button type="button" onclick="toggleModal('<%= property_path(property.id) %>')" class="relative -ml-px inline-flex items-center gap-x-1.5 rounded-r-md px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 cursor-pointer">
-      View
-    </button>
+    <%= link_to "View", property_path(property), 
+        data: { turbo_frame: "modal_content" },
+        onclick: "toggleModal()",
+        class: "relative -ml-px inline-flex items-center gap-x-1.5 rounded-r-md px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 cursor-pointer" %>
   </td>
 </tr>
