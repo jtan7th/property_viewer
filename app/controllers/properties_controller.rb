@@ -25,7 +25,7 @@ class PropertiesController < ApplicationController
         streams = [
           turbo_stream.replace("properties", partial: "properties_table", locals: { properties: @properties }),
           turbo_stream.replace("property-stats", partial: "property_stats"),
-          turbo_stream.replace("modal", partial: "filter_modal")
+          # turbo_stream.replace("modal", partial: "filter_modal")
         ]
         Rails.logger.debug "Turbo Streams: #{streams.inspect}"
         render turbo_stream: streams
