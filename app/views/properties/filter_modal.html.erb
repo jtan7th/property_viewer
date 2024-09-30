@@ -6,7 +6,10 @@
     <div class="mb-4">
       <h3 class="text-md font-medium mb-2">Price Range</h3>
       <div class="flex space-x-2">
-        <%= f.number_field :min_sale_price, placeholder: "Min Price", oninput: "this.form.requestSubmit();", class: "w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
+        <%= f.number_field :min_sale_price,
+        placeholder: "Min Price",
+        oninput: "this.form.requestSubmit();",
+        class: "w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
         <%= f.number_field :max_sale_price, placeholder: "Max Price", oninput: "this.form.requestSubmit();", class: "w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
       </div>
     </div>

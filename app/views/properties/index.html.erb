@@ -1,10 +1,9 @@
-<div class="px-4 sm:px-6 lg:px-8">
-  <div class="text-center mb-8">
+<div class="px-4 sm:px-6 lg:px-8 w-full">
+  <div class="text-center mb-8 w-full">
     <h1 class="text-4xl font-bold leading-tight text-gray-900 mb-2">Properties</h1>
     <p class="text-xl text-gray-700">A list of properties with key details.</p>
   </div>
-  <div class="space-y-6">
-    
+  <div class="space-y-6 w-full">
     <%= form_with url: properties_path, method: :get, data: { turbo_frame: "properties" }, class: "flex items-center space-x-2" do |f| %>
       <div class="flex-grow w-11/12">
         <%= f.text_field :address, 
@@ -19,23 +18,29 @@
       %>
     <% end %>
 
-    <div class="mt-8">
+    <div class="mt-8 w-full">
       <%= turbo_frame_tag "properties" do %>
         <dl class="mx-auto grid grid-cols-1 gap-px bg-gray-900/5 sm:grid-cols-2 lg:grid-cols-3">
-          <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 bg-white px-4 py-10 sm:px-6 xl:px-8">
+          <div class="flex flex-col justify-between bg-white px-4 py-10 sm:px-6 xl:px-8 h-40 w-full"> <!-- Added fixed height -->
             <dt class="text-sm font-medium leading-6 text-gray-500"># of Properties</dt>
-            <dd class="w-full flex-none text-3xl font-medium leading-10 tracking-tight text-gray-900"><%= number_with_delimiter(@properties.count) %></dd>
+            <dd class="text-3xl font-medium leading-10 tracking-tight text-gray-900 overflow-hidden text-ellipsis">
+              <%= number_with_delimiter(@properties.count) %>
+            </dd>
           </div>
-          <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 bg-white px-4 py-10 sm:px-6 xl:px-8">
+          <div class="flex flex-col justify-between bg-white px-4 py-10 sm:px-6 xl:px-8 h-40 w-full"> <!-- Added fixed height -->
             <dt class="text-sm font-medium leading-6 text-gray-500">Median Value of Properties</dt>
-            <dd class="w-full flex-none text-3xl font-medium leading-10 tracking-tight text-gray-900"><%= number_to_currency(@median_price, precision: 0) %></dd>
+            <dd class="text-3xl font-medium leading-10 tracking-tight text-gray-900 overflow-hidden text-ellipsis">
+              <%= number_to_currency(@median_price, precision: 0) %>
+            </dd>
           </div>
-          <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 bg-white px-4 py-10 sm:px-6 xl:px-8">
+          <div class="flex flex-col justify-between bg-white px-4 py-10 sm:px-6 xl:px-8 h-40 w-full"> <!-- Added fixed height -->
             <dt class="text-sm font-medium leading-6 text-gray-500">Homes Estimate Value</dt>
-            <dd class="w-full flex-none text-3xl font-medium leading-10 tracking-tight text-gray-900"><%= number_to_currency(@median_homes_estimate_price, precision: 0) %></dd>
+            <dd class="text-3xl font-medium leading-10 tracking-tight text-gray-900 overflow-hidden text-ellipsis">
+              <%= number_to_currency(@median_homes_estimate_price, precision: 0) %>
+            </dd>
           </div>
         </dl>
-        <div class="mt-8"> <!-- This adds top margin to the table --> 
+        <div class="mt-8 w-full"> <!-- This adds top margin to the table --> 
           <%= render partial: "properties_table", locals: { properties: @properties } %>
         </div>
       <% end %>
@@ -43,7 +48,7 @@
   </div>
   <%= render partial: "filter_modal" %>
 
-  <div class="flex items-center justify-center">
+  <div class="flex items-center justify-center w-full">
     <div onclick="toggleSlideover()" class="cursor-pointer px-5 py-2 text-sm border text-gray-500 hover:bg-gray-100 rounded border-gray-300">Toggle Slide-over</div>
     <%= render partial: 'slideover_new' %>
   </div>
