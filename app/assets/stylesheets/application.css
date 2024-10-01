@@ -116,3 +116,6 @@ hr {
   background-color: #e5e7eb; /* A light gray color, adjust as needed */
 }
 
+#modalxyz {
+  transition: opacity 300ms ease-out, transform 300ms ease-out;
+}

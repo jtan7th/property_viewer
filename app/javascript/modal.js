@@ -140,6 +140,15 @@ function toggleModal(){
   document.getElementById('modal-container').classList.toggle('invisible');
   document.getElementById('modal-bg').classList.toggle('opacity-0');
   document.getElementById('modalxyz').classList.toggle('visible');
+
+  // Add a small delay to allow the transition to complete before toggling visibility
+  if (modalContainer.classList.contains('invisible')) {
+    setTimeout(() => {
+      modalxyz.classList.remove('visible');
+    }, 300); // 300ms matches the duration in the CSS
+  } else {
+    modalxyz.classList.add('visible');
+  }
 }
 
 // Make the function globally available
