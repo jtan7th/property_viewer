@@ -12,7 +12,23 @@
 
         <hr class="mb-6"> <!-- Horizontal line for separation -->
 
-        
+         <div class="image-container" id="carousel">
+          <% if @property.images.attached? %>
+            <div class="carousel-inner">
+              <% @property.images.each_with_index do |image, index| %>
+                <%= image_tag image, class: "property-image #{index == 0 ? '' : 'hidden'}", data: { index: index } %>
+              <% end %>
+              <% if @property.images.count > 1 %>
+                <div class="carousel-controls">
+                  <button id="prevButton" class="carousel-button prev">&lt;</button>
+                  <button id="nextButton" class="carousel-button next">&gt;</button>
+                </div>
+              <% end %>
+            </div>
+          <% else %>
+            <%= image_tag "placeholder.jpg", class: "placeholder-image" %>
+          <% end %>
+        </div>
 
         <hr class="my-4"> <!-- Horizontal line -->
 

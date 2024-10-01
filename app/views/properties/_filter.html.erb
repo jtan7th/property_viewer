@@ -1,4 +1,4 @@
-<div id="filter-modal" class="hidden fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+<div id="filter" class="hidden fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
   <!-- Blurred background -->
   <div class="fixed inset-0 bg-gray-500 bg-opacity-75 backdrop-blur-sm"></div>
   
@@ -10,7 +10,7 @@
     <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
       <div id="filter-modal-content">
         <%= turbo_frame_tag "filter-modal-content" do %>
-          <%= render template: "properties/filter_modal" %>
+          <%= render template: "properties/filter" %>
         <% end %>
       </div>
     </div>

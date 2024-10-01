@@ -136,19 +136,31 @@
   
 // });
 
-function toggleModal(){
-  document.getElementById('modal-container').classList.toggle('invisible');
-  document.getElementById('modal-bg').classList.toggle('opacity-0');
-  document.getElementById('modalxyz').classList.toggle('visible');
+function toggleModal() {
+  const modalContainer = document.getElementById('modal-container');
+  const modalBg = document.getElementById('modal-bg');
 
-  // Add a small delay to allow the transition to complete before toggling visibility
-  if (modalContainer.classList.contains('invisible')) {
-    setTimeout(() => {
-      modalxyz.classList.remove('visible');
-    }, 300); // 300ms matches the duration in the CSS
-  } else {
-    modalxyz.classList.add('visible');
-  }
+  modalContainer.classList.toggle('invisible');
+  modalBg.classList.toggle('opacity-0');
+
+  // Use MutationObserver to wait for .carousel-controls to be added to the DOM
+  const observer = new MutationObserver((mutations, obs) => {
+    const carouselControls = document.querySelector('.carousel-controls');
+    if (carouselControls) {
+      if (modalContainer.classList.contains('invisible')) {
+        carouselControls.classList.add('invisible');
+      } else {
+        carouselControls.classList.remove('invisible');
+      }
+      obs.disconnect(); // Stop observing once we've found and modified the controls
+    }
+  });
+
+  // Start observing the modal container for changes in its child elements
+  observer.observe(modalContainer, {
+    childList: true,
+    subtree: true
+  });
 }
 
 // Make the function globally available
