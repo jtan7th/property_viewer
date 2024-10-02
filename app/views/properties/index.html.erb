@@ -40,13 +40,13 @@
           <div class="flex flex-col justify-between bg-white px-4 py-10 sm:px-6 xl:px-8 h-40 w-full"> <!-- Added fixed height -->
             <dt class="text-sm font-medium leading-6 text-gray-500">Median Value of Properties</dt>
             <dd class="text-3xl font-medium leading-10 tracking-tight text-gray-900 overflow-hidden text-ellipsis">
-              <%= number_to_currency(@median_price, precision: 0) %>
+              <%= number_to_currency(median_sale_price(@properties), precision: 0) %>
             </dd>
           </div>
           <div class="flex flex-col justify-between bg-white px-4 py-10 sm:px-6 xl:px-8 h-40 w-full"> <!-- Added fixed height -->
             <dt class="text-sm font-medium leading-6 text-gray-500">Homes Estimate Value</dt>
             <dd class="text-3xl font-medium leading-10 tracking-tight text-gray-900 overflow-hidden text-ellipsis">
-              <%= number_to_currency(@median_homes_estimate_price, precision: 0) %>
+              <%= number_to_currency(median_homes_estimate_price(@properties), precision: 0) %>
             </dd>
           </div>
         </dl>
