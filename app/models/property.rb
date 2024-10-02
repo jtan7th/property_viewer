@@ -12,10 +12,16 @@ class Property < ApplicationRecord
   scope :with_bathrooms, ->(count) { where(bathroom_count: count) if count.present? }
   scope :with_carparks, ->(count) { where(carpark_spaces_count: count) if count.present? }
   scope :floor_area_range, ->(min, max) { 
-    where("floor_area >= ? AND floor_area <= ?", min, max) if min.present? && max.present?
+    result = all
+    result = result.where("floor_area >= ?", min) if min.present?
+    result = result.where("floor_area <= ?", max) if max.present?
+    result
   }
   scope :land_area_range, ->(min, max) { 
-    where("land_area >= ? AND land_area <= ?", min, max) if min.present? && max.present?
+    result = all
+    result = result.where("land_area >= ?", min) if min.present?
+    result = result.where("land_area <= ?", max) if max.present?
+    result
   }
   scope :in_suburb, ->(suburb) { where("suburb ILIKE ?", "%#{suburb}%") if suburb.present? }
   scope :built_in_decade, ->(decade) { where(decade_built: decade) if decade.present? }
