@@ -18,18 +18,13 @@ class PropertiesController < ApplicationController
       .sorted(params[:sort_by])
     @properties = @properties.where("address ILIKE ?", "%#{params[:address]}%") if params[:address].present?
 
-    Rails.logger.debug "Final query: #{@properties.to_sql}"
-
     respond_to do |format|
       format.html
       format.turbo_stream do
-        Rails.logger.debug "Responding with Turbo Stream"
         streams = [
           turbo_stream.replace("properties", partial: "properties_table", locals: { properties: @properties }),
           turbo_stream.replace("property-stats", partial: "property_stats"),
-          # turbo_stream.replace("modal", partial: "filter_modal")
         ]
-        Rails.logger.debug "Turbo Streams: #{streams.inspect}"
         render turbo_stream: streams
       end
     end
