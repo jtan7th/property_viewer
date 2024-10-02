@@ -14,26 +14,29 @@
  *= require_self
  */
 
- .property-image {
-    width: 100%;
-    max-width: 300px;
+
+
+  .property-image {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
     height: auto;
-    object-fit: cover;
+    object-fit: contain;
+    display: block; /* Removes any default inline spacing */
   }
+  
+
+  .property-image.hidden {
+  display: none;
+}
  
 .image-container {
-  max-width: 800px; /* Adjust as needed */
+  height: 300px; /* Fixed height */
   margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 1rem;
-}
-
-.property-image {
-  max-width: 100%;
-  max-height: 400px; /* Adjust this value as needed */
-  object-fit: contain;
+  overflow: hidden; /* Prevents image from spilling out */
 }
 
 .carousel-inner {
@@ -42,12 +45,7 @@
   overflow: hidden;
 }
 
-.property-image {
-  width: 100%;
-  height: auto;
-  display: block; /* This ensures no extra space below the image */
-  object-fit: contain;
-}
+
 
 .placeholder-image {
   position: relative;
@@ -58,10 +56,6 @@
   object-fit: contain;
 }
 
-
-.property-image.hidden {
-  display: none;
-}
 
 .carousel-controls {
   position: absolute;
