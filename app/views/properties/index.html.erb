@@ -4,7 +4,7 @@
     <p class="text-xl text-gray-700">A list of properties with key details.</p>
   </div>
   <div class="space-y-2 w-full">
-    <%= form_with url: properties_path, method: :get, data: { turbo_frame: "properties" }, class: "flex items-center space-x-2" do |f| %>
+    <%= form_with url: properties_path, method: :get, data: { turbo_frame: "properties" }, class: "flex items-center space-x-2 mb-8" do |f| %>
       <div class="flex-grow w-11/12">
         <div class="mt-2 flex rounded-md shadow-sm">
           <div class="relative flex flex-grow items-stretch focus-within:z-10">
@@ -30,27 +30,10 @@
 
     <div class="mt-8 w-full">
       <%= turbo_frame_tag "properties" do %>
-        <dl class="mx-auto grid grid-cols-1 gap-px bg-gray-900/5 sm:grid-cols-2 lg:grid-cols-3">
-          <div class="flex flex-col justify-between bg-white px-4 py-10 sm:px-6 xl:px-8 h-40 w-full"> <!-- Added fixed height -->
-            <dt class="text-sm font-medium leading-6 text-gray-500"># of Properties</dt>
-            <dd class="text-3xl font-medium leading-10 tracking-tight text-gray-900 overflow-hidden text-ellipsis">
-              <%= number_with_delimiter(@properties.count) %>
-            </dd>
-          </div>
-          <div class="flex flex-col justify-between bg-white px-4 py-10 sm:px-6 xl:px-8 h-40 w-full"> <!-- Added fixed height -->
-            <dt class="text-sm font-medium leading-6 text-gray-500">Median Value of Properties</dt>
-            <dd class="text-3xl font-medium leading-10 tracking-tight text-gray-900 overflow-hidden text-ellipsis">
-              <%= number_to_currency(median_sale_price(@properties), precision: 0) %>
-            </dd>
-          </div>
-          <div class="flex flex-col justify-between bg-white px-4 py-10 sm:px-6 xl:px-8 h-40 w-full"> <!-- Added fixed height -->
-            <dt class="text-sm font-medium leading-6 text-gray-500">Homes Estimate Value</dt>
-            <dd class="text-3xl font-medium leading-10 tracking-tight text-gray-900 overflow-hidden text-ellipsis">
-              <%= number_to_currency(median_homes_estimate_price(@properties), precision: 0) %>
-            </dd>
-          </div>
-        </dl>
-        <div class="mt-8 w-full"> <!-- This adds top margin to the table --> 
+        <div class="mt-4 w-full"> <!-- This adds top margin to the table --> 
+          <%= render partial: "property_stats", locals: { properties: @properties } %>
+        </div>
+        <div class="w-full"> <!-- This adds top margin to the table --> 
           <%= render partial: "properties_table", locals: { properties: @properties } %>
         </div>
       <% end %>
