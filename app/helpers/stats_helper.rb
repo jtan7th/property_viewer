@@ -8,17 +8,19 @@ module StatsHelper
   end
 
   def average_square_meters(properties)
-    return 0 if properties.empty?
+    properties_with_floor_area = properties.where.not(floor_area: nil)
+    return 0 if properties_with_floor_area.empty?
     
-    total_floor_area = properties.sum(:floor_area)
-    (total_floor_area.to_f / properties.count).round
+    total_floor_area = properties_with_floor_area.sum(:floor_area)
+    (total_floor_area.to_f / properties_with_floor_area.count).round
   end
 
   def average_price_per_square_meter(properties)
-    return 0 if properties.empty?
+    properties_with_floor_area = properties.where.not(floor_area: nil)
+    return 0 if properties_with_floor_area.empty?
     
-    total_price = properties.sum(:sale_price)
-    total_floor_area = properties.sum(:floor_area)
+    total_price = properties_with_floor_area.sum(:sale_price)
+    total_floor_area = properties_with_floor_area.sum(:floor_area)
     
     return 0 if total_floor_area == 0
     
