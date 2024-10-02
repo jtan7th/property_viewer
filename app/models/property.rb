@@ -3,7 +3,10 @@ class Property < ApplicationRecord
   has_many_attached :images
 
   scope :price_range, ->(min, max) { 
-    where("sale_price >= ? AND sale_price <= ?", min, max) if min.present? && max.present?
+    result = all
+    result = result.where("sale_price >= ?", min) if min.present?
+    result = result.where("sale_price <= ?", max) if max.present?
+    result
   }
   scope :with_bedrooms, ->(count) { where(bedroom_count: count) if count.present? }
   scope :with_bathrooms, ->(count) { where(bathroom_count: count) if count.present? }

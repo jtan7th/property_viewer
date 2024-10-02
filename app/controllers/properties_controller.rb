@@ -1,8 +1,12 @@
 class PropertiesController < ApplicationController
   def index
     @properties = Property.all
-      .price_range(params[:min_sale_price], params[:max_sale_price])
-      .with_bedrooms(params[:bedroom_count])
+
+    if params[:min_sale_price].present? || params[:max_sale_price].present?
+      @properties = @properties.price_range(params[:min_sale_price], params[:max_sale_price])
+    end
+
+    @properties = @properties.with_bedrooms(params[:bedroom_count])
       .with_bathrooms(params[:bathroom_count])
       .with_carparks(params[:carpark_spaces_count])
       .floor_area_range(params[:min_floor_area], params[:max_floor_area])
@@ -13,6 +17,8 @@ class PropertiesController < ApplicationController
       .with_deck(params[:deck])
       .sorted(params[:sort_by])
     @properties = @properties.where("address ILIKE ?", "%#{params[:address]}%") if params[:address].present?
+
+    Rails.logger.debug "Final query: #{@properties.to_sql}"
 
     respond_to do |format|
       format.html
