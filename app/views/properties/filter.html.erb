@@ -2,6 +2,29 @@
   <h2 class="text-lg font-semibold mb-4 text-center">Filter Properties</h2>
   
   <%= form_with url: properties_path, method: :get, data: { turbo_frame: "properties" } do |f| %>
+
+  <!-- try with this: https://www.youtube.com/watch?v=NCy_tav8CEA or this: https://www.youtube.com/watch?v=X9ooIi9A4A8 -->
+  
+    <!-- Price Range -->
+
+    <div class="range-container">
+      <div class="slider-value">
+        <h2 id="title-min" class="slider-value__title">0</h2>
+        <h2 id="title-max" class="slider-value__title">1000000</h2>
+      </div>
+      <div class="double-slider">
+        <div class="double-slider__body">
+          <div class="double-slider__track">
+            <div id="slider-range" class="double-slider__range"></div>
+            <div id="dot-left" class="double-slider__dot double-slider__dot--left"></div>
+            <div id="dot-right" class="double-slider__dot double-slider__dot--right"></div>
+          </div>
+          <input id="input-left" min="0" max="1000000" value="0" type="range" class="double-slider__input" />
+          <input id="input-right" min="0" max="1000000" value="1000000" type="range" class="double-slider__input" />
+        </div>
+      </div>
+    </div>
+
     <!-- Price Range -->
     <div class="mb-4">
       <h3 class="text-md font-medium mb-2">Price Range</h3>
@@ -80,3 +103,49 @@
     </div> -->
   <% end %>
 </div>
+
+<script>
+  var  titleMin = document.getElementById('title-min');
+  var  titleMax = document.getElementById('title-max');
+
+  var  inputLeft = document.getElementById('input-left');
+  var  inputRight = document.getElementById('input-right');
+  
+  var  dotLeft = document.getElementById('dot-left');
+  var  dotRight = document.getElementById('dot-right');
+
+  var  sliderRange = document.getElementById('slider-range');
+
+  function setLeftValue() {
+    let value = this.value;
+    let min = parseInt(this.min);
+    let max = parseInt(this.max);
+
+    value = Math.min(parseInt(value),
+    parseInt(inputRight.value) - 1);
+
+    let percent = ((value - min) / (max - min)) * 100;
+
+    sliderRange.style.left = percent + '%';
+    dotLeft.style.left = percent + '%';
+    titleMin.innerText = value;
+  }
+
+  function setRightValue() {
+    let value = this.value;
+    let min = parseInt(this.min);
+    let max = parseInt(this.max);
+
+    value = Math.max(parseInt(value),
+    parseInt(inputLeft.value) + 1);
+
+    let percent = ((value - min) / (max - min)) * 100;
+
+    sliderRange.style.right = (100 - percent) + '%';
+    dotRight.style.right = (100 - percent) + '%';
+    titleMax.innerText = value;
+  }
+
+  inputLeft.addEventListener('input', setLeftValue);
+  inputRight.addEventListener('input', setRightValue);
+</script>
