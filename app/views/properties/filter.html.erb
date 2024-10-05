@@ -8,10 +8,6 @@
     <!-- Price Range -->
 
     <div class="range-container">
-      <div class="slider-value">
-        <h2 id="title-min" class="slider-value__title">0</h2>
-        <h2 id="title-max" class="slider-value__title">1000000</h2>
-      </div>
       <div class="double-slider">
         <div class="double-slider__body">
           <div class="double-slider__track">
@@ -30,10 +26,12 @@
       <h3 class="text-md font-medium mb-2">Price Range</h3>
       <div class="flex space-x-2">
         <%= f.number_field :min_sale_price,
+        id: "min-sale-price",
         placeholder: "Min Price",
         oninput: "this.form.requestSubmit();",
         class: "w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
         <%= f.number_field :max_sale_price,
+        id: "max-sale-price",
         placeholder: "Max Price",
         oninput: "this.form.requestSubmit();",
         class: "w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
@@ -105,30 +103,29 @@
 </div>
 
 <script>
-  var  titleMin = document.getElementById('title-min');
-  var  titleMax = document.getElementById('title-max');
-
-  var  inputLeft = document.getElementById('input-left');
-  var  inputRight = document.getElementById('input-right');
+  var inputLeft = document.getElementById('input-left');
+  var inputRight = document.getElementById('input-right');
   
-  var  dotLeft = document.getElementById('dot-left');
-  var  dotRight = document.getElementById('dot-right');
+  var dotLeft = document.getElementById('dot-left');
+  var dotRight = document.getElementById('dot-right');
 
-  var  sliderRange = document.getElementById('slider-range');
+  var sliderRange = document.getElementById('slider-range');
+
+  var minSalePrice = document.getElementById('min-sale-price');
+  var maxSalePrice = document.getElementById('max-sale-price');
 
   function setLeftValue() {
     let value = this.value;
     let min = parseInt(this.min);
     let max = parseInt(this.max);
 
-    value = Math.min(parseInt(value),
-    parseInt(inputRight.value) - 1);
+    value = Math.min(parseInt(value), parseInt(inputRight.value) - 1);
 
     let percent = ((value - min) / (max - min)) * 100;
 
     sliderRange.style.left = percent + '%';
     dotLeft.style.left = percent + '%';
-    titleMin.innerText = value;
+    minSalePrice.value = value;
   }
 
   function setRightValue() {
@@ -136,14 +133,13 @@
     let min = parseInt(this.min);
     let max = parseInt(this.max);
 
-    value = Math.max(parseInt(value),
-    parseInt(inputLeft.value) + 1);
+    value = Math.max(parseInt(value), parseInt(inputLeft.value) + 1);
 
     let percent = ((value - min) / (max - min)) * 100;
 
     sliderRange.style.right = (100 - percent) + '%';
     dotRight.style.right = (100 - percent) + '%';
-    titleMax.innerText = value;
+    maxSalePrice.value = value;
   }
 
   inputLeft.addEventListener('input', setLeftValue);
