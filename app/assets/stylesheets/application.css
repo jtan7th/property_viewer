@@ -207,8 +207,8 @@ hr {
 
 .double-slider__range {
   position: absolute;
-  left: 25%;
-  right: 25%;
+  left: 0%;
+  right: 0%;
   top: 0;
   bottom: 0;
   background-color: #f338c2;
@@ -226,11 +226,11 @@ hr {
 }
 
 .double-slider__dot--left {
-  left: 25%;
+  left: 0%;
   transform: translateX(-50%);
 }
 
 .double-slider__dot--right {
-  right: 25%;
+  right: 0%;
   transform: translateX(50%);
 }
