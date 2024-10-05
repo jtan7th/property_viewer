@@ -15,8 +15,8 @@
             <div id="dot-left" class="double-slider__dot double-slider__dot--left"></div>
             <div id="dot-right" class="double-slider__dot double-slider__dot--right"></div>
           </div>
-          <input id="input-left" min="0" max="1000000" value="0" type="range" class="double-slider__input" />
-          <input id="input-right" min="0" max="1000000" value="1000000" type="range" class="double-slider__input" />
+          <input id="input-left" min="0" max="3000000" value="0" type="range" class="double-slider__input" />
+          <input id="input-right" min="0" max="3000000" value="3000000" type="range" class="double-slider__input" />
         </div>
       </div>
     </div>
@@ -28,10 +28,14 @@
         <%= f.number_field :min_sale_price,
         id: "min-sale-price",
         placeholder: "Min Price",
+        oninput: "this.form.requestSubmit();",
+        onchange: "this.form.requestSubmit();",
         class: "w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
         <%= f.number_field :max_sale_price,
         id: "max-sale-price",
         placeholder: "Max Price",
+        oninput: "this.form.requestSubmit();",
+        onchange: "this.form.requestSubmit();",
         class: "w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
       </div>
     </div>
@@ -172,6 +176,14 @@
 
   inputLeft.addEventListener('input', setLeftValue);
   inputRight.addEventListener('input', setRightValue);
+
+  // Add these new event listeners
+  inputLeft.addEventListener('change', function() {
+    this.form.requestSubmit();
+  });
+  inputRight.addEventListener('change', function() {
+    this.form.requestSubmit();
+  });
 
   minSalePrice.addEventListener('input', function() {
     updateSlider(this, true);
