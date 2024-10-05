@@ -2,41 +2,35 @@
   <h2 class="text-lg font-semibold mb-4 text-center">Filter Properties</h2>
   
   <%= form_with url: properties_path, method: :get, data: { turbo_frame: "properties" } do |f| %>
-
-  <!-- try with this: https://www.youtube.com/watch?v=NCy_tav8CEA or this: https://www.youtube.com/watch?v=X9ooIi9A4A8 -->
-  
-    <!-- Price Range -->
-
-    <div class="range-container">
-      <div class="double-slider">
-        <div class="double-slider__body">
-          <div class="double-slider__track">
-            <div id="slider-range" class="double-slider__range"></div>
-            <div id="dot-left" class="double-slider__dot double-slider__dot--left"></div>
-            <div id="dot-right" class="double-slider__dot double-slider__dot--right"></div>
-          </div>
-          <input id="input-left" min="0" max="3000000" value="0" type="range" class="double-slider__input" />
-          <input id="input-right" min="0" max="3000000" value="3000000" type="range" class="double-slider__input" />
-        </div>
-      </div>
-    </div>
-
     <!-- Price Range -->
     <div class="mb-4">
       <h3 class="text-md font-medium mb-2">Price Range</h3>
-      <div class="flex space-x-2">
+      <div class="range-container">
+        <div class="double-slider">
+          <div class="double-slider__body">
+            <div class="double-slider__track">
+              <div id="sale-price-slider-range" class="double-slider__range"></div>
+              <div id="sale-price-dot-left" class="double-slider__dot double-slider__dot--left"></div>
+              <div id="sale-price-dot-right" class="double-slider__dot double-slider__dot--right"></div>
+            </div>
+            <input id="sale-price-input-left" min="0" max="3000000" value="0" type="range" class="double-slider__input" />
+            <input id="sale-price-input-right" min="0" max="3000000" value="3000000" type="range" class="double-slider__input" />
+          </div>
+        </div>
+      </div>
+      <div class="flex space-x-2 justify-between">
         <%= f.number_field :min_sale_price,
-        id: "min-sale-price",
+        id: "sale-price-min-value",
         placeholder: "Min Price",
         oninput: "this.form.requestSubmit();",
         onchange: "this.form.requestSubmit();",
-        class: "w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
+        class: "w-1/6 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
         <%= f.number_field :max_sale_price,
-        id: "max-sale-price",
+        id: "sale-price-max-value",
         placeholder: "Max Price",
         oninput: "this.form.requestSubmit();",
         onchange: "this.form.requestSubmit();",
-        class: "w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
+        class: "w-1/6 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
       </div>
     </div>
 
@@ -61,18 +55,64 @@
     <!-- Floor Area Range -->
     <div class="mb-4">
       <h3 class="text-md font-medium mb-2">Floor Area (sqm)</h3>
+      <div class="range-container">
+        <div class="double-slider">
+          <div class="double-slider__body">
+            <div class="double-slider__track">
+              <div id="floor-area-slider-range" class="double-slider__range"></div>
+              <div id="floor-area-dot-left" class="double-slider__dot double-slider__dot--left"></div>
+              <div id="floor-area-dot-right" class="double-slider__dot double-slider__dot--right"></div>
+            </div>
+            <input id="floor-area-input-left" min="0" max="1000" value="0" type="range" class="double-slider__input" />
+            <input id="floor-area-input-right" min="0" max="1000" value="1000" type="range" class="double-slider__input" />
+          </div>
+        </div>
+      </div>
       <div class="flex space-x-2">
-        <%= f.number_field :min_floor_area, placeholder: "Min Area", oninput: "this.form.requestSubmit();", class: "w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
-        <%= f.number_field :max_floor_area, placeholder: "Max Area", oninput: "this.form.requestSubmit();", class: "w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
+        <%= f.number_field :min_floor_area,
+        id: "floor-area-min-value",
+        placeholder: "Min Area",
+        oninput: "this.form.requestSubmit();",
+        onchange: "this.form.requestSubmit();",
+        class: "w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
+        <%= f.number_field :max_floor_area,
+        id: "floor-area-max-value",
+        placeholder: "Max Area",
+        oninput: "this.form.requestSubmit();",
+        onchange: "this.form.requestSubmit();",
+        class: "w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
       </div>
     </div>
 
     <!-- Land Area Range -->
     <div class="mb-4">
       <h3 class="text-md font-medium mb-2">Land Area (sqm)</h3>
+      <div class="range-container">
+        <div class="double-slider">
+          <div class="double-slider__body">
+            <div class="double-slider__track">
+              <div id="land-area-slider-range" class="double-slider__range"></div>
+              <div id="land-area-dot-left" class="double-slider__dot double-slider__dot--left"></div>
+              <div id="land-area-dot-right" class="double-slider__dot double-slider__dot--right"></div>
+            </div>
+            <input id="land-area-input-left" min="0" max="10000" value="0" type="range" class="double-slider__input" />
+            <input id="land-area-input-right" min="0" max="10000" value="10000" type="range" class="double-slider__input" />
+          </div>
+        </div>
+      </div>
       <div class="flex space-x-2">
-        <%= f.number_field :min_land_area, placeholder: "Min Area", oninput: "this.form.requestSubmit();", class: "w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
-        <%= f.number_field :max_land_area, placeholder: "Max Area", oninput: "this.form.requestSubmit();", class: "w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
+        <%= f.number_field :min_land_area,
+        id: "land-area-min-value",
+        placeholder: "Min Area",
+        oninput: "this.form.requestSubmit();",
+        onchange: "this.form.requestSubmit();",
+        class: "w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
+        <%= f.number_field :max_land_area,
+        id: "land-area-max-value",
+        placeholder: "Max Area",
+        oninput: "this.form.requestSubmit();",
+        onchange: "this.form.requestSubmit();",
+        class: "w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
       </div>
     </div>
 
@@ -103,4 +143,3 @@
     </div> -->
   <% end %>
 </div>
-
