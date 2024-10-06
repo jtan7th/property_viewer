@@ -5,32 +5,34 @@
 
   <!-- try with this: https://www.youtube.com/watch?v=NCy_tav8CEA or this: https://www.youtube.com/watch?v=X9ooIi9A4A8 -->
   
-    <!-- Price Range -->
+    <div class="mb-4">
+      <%= f.label :sale_price, "Price Range", class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <% price_range = Property.sale_price_range %>
 
-    <div class="range-container">
-      <div class="slider-value">
-        <h2 id="title-min" class="slider-value__title"><%= format_price(0) %></h2>
-        <h2 id="title-max" class="slider-value__title"><%= format_price(1000000) %></h2>
-      </div>
-      <div class="double-slider">
-        <div class="double-slider__body">
-          <div class="double-slider__track">
-            <div id="slider-range" class="double-slider__range"></div>
-            <div id="dot-left" class="double-slider__dot double-slider__dot--left"></div>
-            <div id="dot-right" class="double-slider__dot double-slider__dot--right"></div>
+      <div class="range-container">
+        <div class="double-slider">
+          <div class="double-slider__body">
+            <div class="double-slider__track">
+              <div id="slider-range" class="double-slider__range"></div>
+              <div id="dot-left" class="double-slider__dot double-slider__dot--left"></div>
+              <div id="dot-right" class="double-slider__dot double-slider__dot--right"></div>
+            </div>
+            <input id="input-left" min="<%= price_range[:min] %>" max="<%= price_range[:max] %>" value="<%= price_range[:min] %>" type="range" class="double-slider__input" />
+            <input id="input-right" min="<%= price_range[:min] %>" max="<%= price_range[:max] %>" value="<%= price_range[:max] %>" type="range" class="double-slider__input" />
           </div>
-          <input id="input-left" min="0" max="1000000" value="0" type="range" class="double-slider__input" />
-          <input id="input-right" min="0" max="1000000" value="1000000" type="range" class="double-slider__input" />
+        </div>
+        <div class="flex justify-between mt-2">
+          <span id="title-min" class="text-sm text-gray-600"><%= format_price(price_range[:min]) %></span>
+          <span id="title-max" class="text-sm text-gray-600"><%= format_price(price_range[:max]) %></span>
         </div>
       </div>
-    </div>
 
-    <!-- Hidden form fields -->
-    <div style="display: none;">
-      <%= f.number_field :min_sale_price, id: "hidden-min-price" %>
-      <%= f.number_field :max_sale_price, id: "hidden-max-price" %>
+      <!-- Hidden form fields -->
+      <div style="display: none;">
+        <%= f.number_field :min_sale_price, id: "hidden-min-price" %>
+        <%= f.number_field :max_sale_price, id: "hidden-max-price" %>
+      </div>
     </div>
-
     <!-- Bedrooms -->
     <div class="mb-4">
       <%= f.label :bedroom_count, "Bedrooms", class: "block text-sm font-medium text-gray-700 mb-1" %>
