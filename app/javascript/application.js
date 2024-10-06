@@ -5,7 +5,6 @@ import "./carousel"
 import "./modal"
 import "./slideover"
 import "./range_slider"
-import './slider_labels'
 
 
 const application = Application.start()
