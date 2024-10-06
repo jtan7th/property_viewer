@@ -34,6 +34,7 @@ class Property < ApplicationRecord
   scope :built_in_decade, ->(decade) { where(decade_built: decade) if decade.present? }
   scope :in_condition, ->(condition) { where(condition: condition) if condition.present? }
   scope :with_deck, ->(has_deck) { where(deck: has_deck) if has_deck.present? }
+  scope :with_sale_price, -> { where.not(sale_price: nil) }
 
   scope :sorted, ->(sort_option) do
     case sort_option
@@ -51,5 +52,26 @@ class Property < ApplicationRecord
     min_price = minimum(:sale_price) || 0
     max_price = maximum(:sale_price) || 1000000
     { min: min_price, max: max_price }
+  end
+
+  def self.filter(params)
+    properties = all
+
+    properties = properties.price_range(params[:min_sale_price], params[:max_sale_price])
+    properties = properties.with_bedrooms(params[:bedroom_count])
+      .with_bathrooms(params[:bathroom_count])
+      .with_carparks(params[:carpark_spaces_count])
+      .floor_area_range(params[:min_floor_area], params[:max_floor_area])
+      .land_area_range(params[:min_land_area], params[:max_land_area])
+      .in_suburb(params[:suburb])
+      .built_in_decade(params[:decade_built])
+      .in_condition(params[:condition])
+      .with_deck(params[:deck])
+      .sorted(params[:sort_by])
+    
+    properties = properties.where("address ILIKE ?", "%#{params[:address]}%") if params[:address].present?
+    properties = properties.with_sale_price if params[:exclude_nil_prices] == "1"
+
+    properties
   end
 end

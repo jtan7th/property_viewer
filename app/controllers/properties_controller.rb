@@ -1,22 +1,6 @@
 class PropertiesController < ApplicationController
   def index
-    @properties = Property.all
-
-    if params[:min_sale_price].present? || params[:max_sale_price].present?
-      @properties = @properties.price_range(params[:min_sale_price], params[:max_sale_price])
-    end
-
-    @properties = @properties.with_bedrooms(params[:bedroom_count])
-      .with_bathrooms(params[:bathroom_count])
-      .with_carparks(params[:carpark_spaces_count])
-      .floor_area_range(params[:min_floor_area], params[:max_floor_area])
-      .land_area_range(params[:min_land_area], params[:max_land_area])
-      .in_suburb(params[:suburb])
-      .built_in_decade(params[:decade_built])
-      .in_condition(params[:condition])
-      .with_deck(params[:deck])
-      .sorted(params[:sort_by])
-    @properties = @properties.where("address ILIKE ?", "%#{params[:address]}%") if params[:address].present?
+    @properties = Property.filter(params)
 
     respond_to do |format|
       format.html
