@@ -39,4 +39,10 @@ class Property < ApplicationRecord
     else order(created_at: :desc)
     end
   end
+
+  def self.sale_price_range
+    min_price = minimum(:sale_price) || 0
+    max_price = maximum(:sale_price) || 1000000
+    { min: min_price, max: max_price }
+  end
 end
