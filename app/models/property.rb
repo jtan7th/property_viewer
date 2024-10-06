@@ -4,8 +4,15 @@ class Property < ApplicationRecord
 
   scope :price_range, ->(min, max) { 
     result = all
-    result = result.where("sale_price >= ?", min) if min.present?
-    result = result.where("sale_price <= ?", max) if max.present?
+    price_conditions = []
+    price_conditions << "sale_price >= ?" if min.present?
+    price_conditions << "sale_price <= ?" if max.present?
+    
+    if price_conditions.any?
+      condition = price_conditions.join(' AND ')
+      result = result.where("sale_price IS NULL OR (#{condition})", *[min, max].compact)
+    end
+    
     result
   }
   scope :with_bedrooms, ->(count) { where(bedroom_count: count) if count.present? }
