@@ -14,39 +14,39 @@ document.addEventListener('DOMContentLoaded', function() {
       if (options.formatFunction) {
         return options.formatFunction(value);
       }
-      return value;
+      return value !== null && value !== undefined ? value : 'N/A';
     }
 
     function setLeftValue() {
       let value = this.value;
-      let min = parseInt(this.min);
-      let max = parseInt(this.max);
+      let min = parseInt(this.min) || 0;
+      let max = parseInt(this.max) || 100;
 
-      value = Math.min(parseInt(value), parseInt(inputRight.value) - 1);
+      value = Math.min(parseInt(value) || min, parseInt(inputRight.value) - 1);
 
       let percent = ((value - min) / (max - min)) * 100;
 
       sliderRange.style.left = percent + '%';
-      dotLeft.style.left = percent + '%';
-      titleMin.innerText = formatValue(value);
-      hiddenMinInput.value = value;
-      submitForm(this.form);
+      if (dotLeft) dotLeft.style.left = percent + '%';
+      if (titleMin) titleMin.innerText = formatValue(value);
+      if (hiddenMinInput) hiddenMinInput.value = value;
+      if (this.form) submitForm(this.form);
     }
 
     function setRightValue() {
       let value = this.value;
-      let min = parseInt(this.min);
-      let max = parseInt(this.max);
+      let min = parseInt(this.min) || 0;
+      let max = parseInt(this.max) || 100;
 
-      value = Math.max(parseInt(value), parseInt(inputLeft.value) + 1);
+      value = Math.max(parseInt(value) || max, parseInt(inputLeft.value) + 1);
 
       let percent = ((value - min) / (max - min)) * 100;
 
       sliderRange.style.right = (100 - percent) + '%';
-      dotRight.style.right = (100 - percent) + '%';
-      titleMax.innerText = formatValue(value);
-      hiddenMaxInput.value = value;
-      submitForm(this.form);
+      if (dotRight) dotRight.style.right = (100 - percent) + '%';
+      if (titleMax) titleMax.innerText = formatValue(value);
+      if (hiddenMaxInput) hiddenMaxInput.value = value;
+      if (this.form) submitForm(this.form);
     }
 
     function submitForm(form) {
@@ -65,6 +65,10 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function formatPrice(price) {
+    if (price === null || price === undefined || isNaN(price)) {
+      return 'N/A';
+    }
+    price = Number(price);
     if (price >= 1000000) {
       return '$' + (price / 1000000).toFixed(1) + 'm';
     } else if (price >= 1000) {
