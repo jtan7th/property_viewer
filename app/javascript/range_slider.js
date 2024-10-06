@@ -5,99 +5,87 @@ document.addEventListener('DOMContentLoaded', function() {
     var dotLeft = document.getElementById(options.dotLeftId);
     var dotRight = document.getElementById(options.dotRightId);
     var sliderRange = document.getElementById(options.sliderRangeId);
-    var minValue = document.getElementById(options.minValueId);
-    var maxValue = document.getElementById(options.maxValueId);
+    var titleMin = document.getElementById(options.titleMinId);
+    var titleMax = document.getElementById(options.titleMaxId);
+    var hiddenMinInput = document.getElementById(options.hiddenMinInputId);
+    var hiddenMaxInput = document.getElementById(options.hiddenMaxInputId);
+
+    function formatValue(value) {
+      if (options.formatFunction) {
+        return options.formatFunction(value);
+      }
+      return value;
+    }
 
     function setLeftValue() {
-      let value = Math.min(parseInt(this.value), parseInt(inputRight.value) - 1);
+      let value = this.value;
       let min = parseInt(this.min);
       let max = parseInt(this.max);
+
+      value = Math.min(parseInt(value), parseInt(inputRight.value) - 1);
 
       let percent = ((value - min) / (max - min)) * 100;
 
       sliderRange.style.left = percent + '%';
       dotLeft.style.left = percent + '%';
-      minValue.value = value;
-      inputLeft.value = value;
+      titleMin.innerText = formatValue(value);
+      hiddenMinInput.value = value;
+      submitForm(this.form);
     }
 
     function setRightValue() {
-      let value = Math.max(parseInt(this.value), parseInt(inputLeft.value) + 1);
+      let value = this.value;
       let min = parseInt(this.min);
       let max = parseInt(this.max);
+
+      value = Math.max(parseInt(value), parseInt(inputLeft.value) + 1);
 
       let percent = ((value - min) / (max - min)) * 100;
 
       sliderRange.style.right = (100 - percent) + '%';
       dotRight.style.right = (100 - percent) + '%';
-      maxValue.value = value;
-      inputRight.value = value;
+      titleMax.innerText = formatValue(value);
+      hiddenMaxInput.value = value;
+      submitForm(this.form);
     }
 
-    function updateSlider(input, isLeft) {
-      let value = parseInt(input.value);
-      let min = parseInt(inputLeft.min);
-      let max = parseInt(inputRight.max);
-
-      if (isNaN(value)) {
-        value = isLeft ? min : max;
-      }
-
-      value = Math.min(Math.max(value, min), max);
-
-      if (isLeft) {
-        value = Math.min(value, parseInt(inputRight.value) - 1);
-        inputLeft.value = value;
-      } else {
-        value = Math.max(value, parseInt(inputLeft.value) + 1);
-        inputRight.value = value;
-      }
-
-      let percent = ((value - min) / (max - min)) * 100;
-
-      if (isLeft) {
-        sliderRange.style.left = percent + '%';
-        dotLeft.style.left = percent + '%';
-      } else {
-        sliderRange.style.right = (100 - percent) + '%';
-        dotRight.style.right = (100 - percent) + '%';
-      }
-
-      input.value = value;
+    function submitForm(form) {
+      clearTimeout(window.submitTimer);
+      window.submitTimer = setTimeout(() => {
+        form.requestSubmit();
+      }, 300);  // Adjust this delay as needed
     }
 
     inputLeft.addEventListener('input', setLeftValue);
     inputRight.addEventListener('input', setRightValue);
-
-    inputLeft.addEventListener('change', function() {
-      this.form.requestSubmit();
-    });
-    inputRight.addEventListener('change', function() {
-      this.form.requestSubmit();
-    });
-
-    minValue.addEventListener('input', function() {
-      updateSlider(this, true);
-    });
-
-    maxValue.addEventListener('input', function() {
-      updateSlider(this, false);
-    });
 
     // Initialize the slider
     setLeftValue.call(inputLeft);
     setRightValue.call(inputRight);
   }
 
+  function formatPrice(price) {
+    if (price >= 1000000) {
+      return '$' + (price / 1000000).toFixed(1) + 'm';
+    } else if (price >= 1000) {
+      return '$' + (price / 1000).toFixed(0) + 'k';
+    } else {
+      return '$' + price;
+    }
+  }
+
   // Initialize sliders for different attributes
   initializeRangeSlider({
-    inputLeftId: 'sale-price-input-left',
-    inputRightId: 'sale-price-input-right',
-    dotLeftId: 'sale-price-dot-left',
-    dotRightId: 'sale-price-dot-right',
-    sliderRangeId: 'sale-price-slider-range',
-    minValueId: 'sale-price-min-value',
-    maxValueId: 'sale-price-max-value'
+    inputLeftId: 'input-left',
+    inputRightId: 'input-right',
+    dotLeftId: 'dot-left',
+    dotRightId: 'dot-right',
+    sliderRangeId: 'slider-range',
+    titleMinId: 'title-min',
+    titleMaxId: 'title-max',
+    hiddenMinInputId: 'hidden-min-price',
+    hiddenMaxInputId: 'hidden-max-price',
+    formatFunction: formatPrice
   });
 
   initializeRangeSlider({
@@ -106,8 +94,10 @@ document.addEventListener('DOMContentLoaded', function() {
     dotLeftId: 'land-area-dot-left',
     dotRightId: 'land-area-dot-right',
     sliderRangeId: 'land-area-slider-range',
-    minValueId: 'land-area-min-value',
-    maxValueId: 'land-area-max-value'
+    titleMinId: 'land-area-title-min',
+    titleMaxId: 'land-area-title-max',
+    hiddenMinInputId: 'land-area-min-value',
+    hiddenMaxInputId: 'land-area-max-value'
   });
 
   initializeRangeSlider({
@@ -116,7 +106,9 @@ document.addEventListener('DOMContentLoaded', function() {
     dotLeftId: 'floor-area-dot-left',
     dotRightId: 'floor-area-dot-right',
     sliderRangeId: 'floor-area-slider-range',
-    minValueId: 'floor-area-min-value',
-    maxValueId: 'floor-area-max-value'
+    titleMinId: 'floor-area-title-min',
+    titleMaxId: 'floor-area-title-max',
+    hiddenMinInputId: 'floor-area-min-value',
+    hiddenMaxInputId: 'floor-area-max-value'
   });
 });
