@@ -109,16 +109,16 @@ document.addEventListener('DOMContentLoaded', function() {
     formatFunction: formatArea
   });
 
-  // initializeRangeSlider({
-  //   inputLeftId: 'land-area-input-left',
-  //   inputRightId: 'land-area-input-right',
-  //   dotLeftId: 'land-area-dot-left',
-  //   dotRightId: 'land-area-dot-right',
-  //   sliderRangeId: 'land-area-slider-range',
-  //   titleMinId: 'land-area-title-min',
-  //   titleMaxId: 'land-area-title-max',
-  //   hiddenMinInputId: 'land-area-min-value',
-  //   hiddenMaxInputId: 'land-area-max-value',
-  //   formatFunction: formatArea
-  // });
+  initializeRangeSlider({
+    inputLeftId: 'land-area-input-left',
+    inputRightId: 'land-area-input-right',
+    dotLeftId: 'land-area-dot-left',
+    dotRightId: 'land-area-dot-right',
+    sliderRangeId: 'land-area-slider-range',
+    titleMinId: 'land-area-title-min',
+    titleMaxId: 'land-area-title-max',
+    hiddenMinInputId: 'hidden-min-land-area',  // Changed from 'land-area-min-value'
+    hiddenMaxInputId: 'hidden-max-land-area',  // Changed from 'land-area-max-value'
+    formatFunction: formatArea
+  });
 });

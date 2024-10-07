@@ -92,6 +92,7 @@
     <!-- Land Area Range -->
     <div class="mb-4">
       <h3 class="text-md font-medium mb-2">Land Area (sqm)</h3>
+      <% land_area_bounds = Property.land_area_bounds %>
       <div class="range-container">
         <div class="double-slider">
           <div class="double-slider__body">
@@ -100,24 +101,18 @@
               <div id="land-area-dot-left" class="double-slider__dot double-slider__dot--left"></div>
               <div id="land-area-dot-right" class="double-slider__dot double-slider__dot--right"></div>
             </div>
-            <input id="land-area-input-left" min="0" max="10000" value="0" type="range" class="double-slider__input" />
-            <input id="land-area-input-right" min="0" max="10000" value="10000" type="range" class="double-slider__input" />
+            <input id="land-area-input-left" min="<%= land_area_bounds[:min] %>" max="<%= land_area_bounds[:max] %>" value="<%= land_area_bounds[:min] %>" type="range" class="double-slider__input" />
+            <input id="land-area-input-right" min="<%= land_area_bounds[:min] %>" max="<%= land_area_bounds[:max] %>" value="<%= land_area_bounds[:max] %>" type="range" class="double-slider__input" />
           </div>
         </div>
       </div>
-      <div class="flex space-x-2">
-        <%= f.number_field :min_land_area,
-        id: "land-area-min-value",
-        placeholder: "Min Area",
-        oninput: "this.form.requestSubmit();",
-        onchange: "this.form.requestSubmit();",
-        class: "w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
-        <%= f.number_field :max_land_area,
-        id: "land-area-max-value",
-        placeholder: "Max Area",
-        oninput: "this.form.requestSubmit();",
-        onchange: "this.form.requestSubmit();",
-        class: "w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
+      <div class="flex justify-between mt-2">
+        <span id="land-area-title-min" class="text-sm text-gray-600"><%= format_area(land_area_bounds[:min]) %></span>
+        <span id="land-area-title-max" class="text-sm text-gray-600"><%= format_area(land_area_bounds[:max]) %></span>
+      </div>
+      <div style="display: none;">
+        <%= f.number_field :min_land_area, id: "hidden-min-land-area" %>
+        <%= f.number_field :max_land_area, id: "hidden-max-land-area" %>
       </div>
     </div>
 

@@ -31,10 +31,17 @@ class Property < ApplicationRecord
     
     result
   }
-  scope :land_area_range, ->(min, max) { 
+  scope :land_area_range, ->(min, max) {
     result = all
-    result = result.where("land_area >= ?", min) if min.present?
-    result = result.where("land_area <= ?", max) if max.present?
+    area_conditions = []
+    area_conditions << "land_area >= ?" if min.present?
+    area_conditions << "land_area <= ?" if max.present?
+    
+    if area_conditions.any?
+      condition = area_conditions.join(' AND ')
+      result = result.where("land_area IS NULL OR (#{condition})", *[min, max].compact)
+    end
+    
     result
   }
   scope :in_suburb, ->(suburb) { where("suburb ILIKE ?", "%#{suburb}%") if suburb.present? }
@@ -65,6 +72,12 @@ class Property < ApplicationRecord
     min_area = minimum(:floor_area) || 0
     max_area = maximum(:floor_area) || 1000
     range = { min: min_area, max: max_area }
+  end
+  
+  def self.land_area_bounds
+    min_land_area = minimum(:land_area) || 0
+    max_land_area = maximum(:land_area) || 1000
+    range = { min: min_land_area, max: max_land_area }
   end
 
   def self.filter(params)
