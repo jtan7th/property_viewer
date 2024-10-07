@@ -20,8 +20,15 @@ class Property < ApplicationRecord
   scope :with_carparks, ->(count) { where(carpark_spaces_count: count) if count.present? }
   scope :floor_area_range, ->(min, max) { 
     result = all
-    result = result.where("floor_area >= ?", min) if min.present?
-    result = result.where("floor_area <= ?", max) if max.present?
+    area_conditions = []
+    area_conditions << "floor_area >= ?" if min.present?
+    area_conditions << "floor_area <= ?" if max.present?
+    
+    if area_conditions.any?
+      condition = area_conditions.join(' AND ')
+      result = result.where("floor_area IS NULL OR (#{condition})", *[min, max].compact)
+    end
+    
     result
   }
   scope :land_area_range, ->(min, max) { 
@@ -52,6 +59,12 @@ class Property < ApplicationRecord
     min_price = minimum(:sale_price) || 0
     max_price = maximum(:sale_price) || 1000000
     { min: min_price, max: max_price }
+  end
+
+  def self.floor_area_bounds
+    min_area = minimum(:floor_area) || 0
+    max_area = maximum(:floor_area) || 1000
+    range = { min: min_area, max: max_area }
   end
 
   def self.filter(params)

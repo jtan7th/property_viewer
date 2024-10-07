@@ -74,6 +74,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
+  function formatArea(area) {
+    return area + ' sqm';
+  }
+
   // Initialize sliders for different attributes
   initializeRangeSlider({
     inputLeftId: 'input-left',
@@ -89,18 +93,6 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   initializeRangeSlider({
-    inputLeftId: 'land-area-input-left',
-    inputRightId: 'land-area-input-right',
-    dotLeftId: 'land-area-dot-left',
-    dotRightId: 'land-area-dot-right',
-    sliderRangeId: 'land-area-slider-range',
-    titleMinId: 'land-area-title-min',
-    titleMaxId: 'land-area-title-max',
-    hiddenMinInputId: 'land-area-min-value',
-    hiddenMaxInputId: 'land-area-max-value'
-  });
-
-  initializeRangeSlider({
     inputLeftId: 'floor-area-input-left',
     inputRightId: 'floor-area-input-right',
     dotLeftId: 'floor-area-dot-left',
@@ -108,7 +100,21 @@ document.addEventListener('DOMContentLoaded', function() {
     sliderRangeId: 'floor-area-slider-range',
     titleMinId: 'floor-area-title-min',
     titleMaxId: 'floor-area-title-max',
-    hiddenMinInputId: 'floor-area-min-value',
-    hiddenMaxInputId: 'floor-area-max-value'
+    hiddenMinInputId: 'hidden-min-floor-area',
+    hiddenMaxInputId: 'hidden-max-floor-area',
+    formatFunction: formatArea
   });
+
+  // initializeRangeSlider({
+  //   inputLeftId: 'land-area-input-left',
+  //   inputRightId: 'land-area-input-right',
+  //   dotLeftId: 'land-area-dot-left',
+  //   dotRightId: 'land-area-dot-right',
+  //   sliderRangeId: 'land-area-slider-range',
+  //   titleMinId: 'land-area-title-min',
+  //   titleMaxId: 'land-area-title-max',
+  //   hiddenMinInputId: 'land-area-min-value',
+  //   hiddenMaxInputId: 'land-area-max-value',
+  //   formatFunction: formatArea
+  // });
 });
