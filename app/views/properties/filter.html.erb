@@ -64,6 +64,8 @@
     <!-- Floor Area Range -->
     <div class="mb-4">
       <h3 class="text-md font-medium mb-2">Floor Area (sqm)</h3>
+      <% floor_area_bounds = Property.floor_area_bounds %>
+
       <div class="range-container">
         <div class="double-slider">
           <div class="double-slider__body">
@@ -72,24 +74,18 @@
               <div id="floor-area-dot-left" class="double-slider__dot double-slider__dot--left"></div>
               <div id="floor-area-dot-right" class="double-slider__dot double-slider__dot--right"></div>
             </div>
-            <input id="floor-area-input-left" min="0" max="1000" value="0" type="range" class="double-slider__input" />
-            <input id="floor-area-input-right" min="0" max="1000" value="1000" type="range" class="double-slider__input" />
+            <input id="floor-area-input-left" min="<%= floor_area_bounds[:min] %>" max="<%= floor_area_bounds[:max] %>" value="<%= floor_area_bounds[:min] %>" type="range" class="double-slider__input" />
+            <input id="floor-area-input-right" min="<%= floor_area_bounds[:min] %>" max="<%= floor_area_bounds[:max] %>" value="<%= floor_area_bounds[:max] %>" type="range" class="double-slider__input" />
           </div>
         </div>
       </div>
-      <div class="flex space-x-2">
-        <%= f.number_field :min_floor_area,
-        id: "floor-area-min-value",
-        placeholder: "Min Area",
-        oninput: "this.form.requestSubmit();",
-        onchange: "this.form.requestSubmit();",
-        class: "w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
-        <%= f.number_field :max_floor_area,
-        id: "floor-area-max-value",
-        placeholder: "Max Area",
-        oninput: "this.form.requestSubmit();",
-        onchange: "this.form.requestSubmit();",
-        class: "w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
+      <div class="flex justify-between mt-2">
+        <span id="floor-area-title-min" class="text-sm text-gray-600"><%= format_area(floor_area_bounds[:min]) %></span>
+        <span id="floor-area-title-max" class="text-sm text-gray-600"><%= format_area(floor_area_bounds[:max]) %></span>
+      </div>
+      <div style="display: none;">
+        <%= f.number_field :min_floor_area, id: "hidden-min-floor-area" %>
+        <%= f.number_field :max_floor_area, id: "hidden-max-floor-area" %>
       </div>
     </div>
 
