@@ -7,7 +7,7 @@
   
     <div class="mb-4">
       <%= f.label :sale_price, "Price Range", class: "block text-sm font-medium text-gray-700 mb-1" %>
-      <% price_range = Property.sale_price_bounds %>
+      <% sale_price_bounds = Property.sale_price_bounds %>
 
       <div class="range-container">
         <div class="double-slider">
@@ -17,13 +17,13 @@
               <div id="dot-left" class="double-slider__dot double-slider__dot--left"></div>
               <div id="dot-right" class="double-slider__dot double-slider__dot--right"></div>
             </div>
-            <input id="input-left" min="<%= price_range[:min] %>" max="<%= price_range[:max] %>" value="<%= price_range[:min] %>" type="range" class="double-slider__input" />
-            <input id="input-right" min="<%= price_range[:min] %>" max="<%= price_range[:max] %>" value="<%= price_range[:max] %>" type="range" class="double-slider__input" />
+            <input id="input-left" min="<%= sale_price_bounds[:min] %>" max="<%= sale_price_bounds[:max] %>" value="<%= sale_price_bounds[:min] %>" type="range" class="double-slider__input" />
+            <input id="input-right" min="<%= sale_price_bounds[:min] %>" max="<%= sale_price_bounds[:max] %>" value="<%= sale_price_bounds[:max] %>" type="range" class="double-slider__input" />
           </div>
         </div>
         <div class="flex justify-between mt-2">
-          <span id="title-min" class="text-sm text-gray-600"><%= format_price(price_range[:min]) %></span>
-          <span id="title-max" class="text-sm text-gray-600"><%= format_price(price_range[:max]) %></span>
+          <span id="title-min" class="text-sm text-gray-600"><%= format_price(sale_price_bounds[:min]) %></span>
+          <span id="title-max" class="text-sm text-gray-600"><%= format_price(sale_price_bounds[:max]) %></span>
         </div>
       </div>
 
