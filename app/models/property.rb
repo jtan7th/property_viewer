@@ -49,6 +49,7 @@ class Property < ApplicationRecord
   scope :in_condition, ->(condition) { where(condition: condition) if condition.present? }
   scope :with_deck, ->(has_deck) { where(deck: has_deck) if has_deck.present? }
   scope :with_sale_price, -> { where.not(sale_price: nil) }
+  scope :with_floor_area, -> { where.not(floor_area: nil) }
 
   scope :sorted, ->(sort_option) do
     case sort_option
@@ -97,6 +98,7 @@ class Property < ApplicationRecord
     
     properties = properties.where("address ILIKE ?", "%#{params[:address]}%") if params[:address].present?
     properties = properties.with_sale_price if params[:exclude_nil_prices] == "1"
+    properties = properties.with_floor_area if params[:exclude_nil_floor_areas] == "1"
 
     properties
   end

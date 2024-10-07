@@ -89,6 +89,17 @@
       </div>
     </div>
 
+    <!-- Exclude properties without a floor area -->
+    
+    <div class="mt-2 mb-4">
+      <%= f.check_box :exclude_nil_floor_areas, 
+          id: "exclude_nil_floor_areas", 
+          onchange: "this.form.requestSubmit();",
+          class: "rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
+      <%= f.label :exclude_nil_floor_areas, "Exclude properties without a floor area", 
+          class: "ml-2 text-sm text-gray-600" %>
+    </div>
+
     <!-- Land Area Range -->
     <div class="mb-4">
       <%= f.label :land_area, "Land Area (sqm)", class: "block text-sm font-medium text-gray-700 mb-1" %>
