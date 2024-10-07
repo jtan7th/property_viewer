@@ -90,7 +90,7 @@
     </div>
 
     <!-- Exclude properties without a floor area -->
-    
+
     <div class="mt-2 mb-4">
       <%= f.check_box :exclude_nil_floor_areas, 
           id: "exclude_nil_floor_areas", 
@@ -125,6 +125,17 @@
         <%= f.number_field :min_land_area, id: "hidden-min-land-area" %>
         <%= f.number_field :max_land_area, id: "hidden-max-land-area" %>
       </div>
+    </div>
+
+    <!-- Exclude properties without a land area -->
+    
+    <div class="mt-2 mb-4">
+      <%= f.check_box :exclude_nil_land_areas, 
+          id: "exclude_nil_land_areas", 
+          onchange: "this.form.requestSubmit();",
+          class: "rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
+      <%= f.label :exclude_nil_land_areas, "Exclude properties without a land area", 
+          class: "ml-2 text-sm text-gray-600" %>
     </div>
 
     <!-- Suburb -->
