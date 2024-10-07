@@ -18,7 +18,7 @@ class Property < ApplicationRecord
   scope :with_bedrooms, ->(count) { where(bedroom_count: count) if count.present? }
   scope :with_bathrooms, ->(count) { where(bathroom_count: count) if count.present? }
   scope :with_carparks, ->(count) { where(carpark_spaces_count: count) if count.present? }
-  scope :floor_area_range, ->(min, max) { 
+  scope :floor_area_range, ->(min, max) { # this is to actually filter properties based on the floor area inputs
     result = all
     area_conditions = []
     area_conditions << "floor_area >= ?" if min.present?
@@ -55,7 +55,7 @@ class Property < ApplicationRecord
     end
   end
 
-  def self.sale_price_range
+  def self.sale_price_bounds # this is used to set the bounds for the sale price slider
     min_price = minimum(:sale_price) || 0
     max_price = maximum(:sale_price) || 1000000
     { min: min_price, max: max_price }

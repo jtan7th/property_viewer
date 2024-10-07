@@ -7,7 +7,7 @@
   
     <div class="mb-4">
       <%= f.label :sale_price, "Price Range", class: "block text-sm font-medium text-gray-700 mb-1" %>
-      <% price_range = Property.sale_price_range %>
+      <% price_range = Property.sale_price_bounds %>
 
       <div class="range-container">
         <div class="double-slider">
