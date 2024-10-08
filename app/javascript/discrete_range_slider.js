@@ -15,11 +15,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
       function setLeftValue() {
         let index = parseInt(this.value);
-        index = Math.min(index, parseInt(inputRight.value) - 1);
+        let rightIndex = parseInt(inputRight.value);
+        
+        // Ensure left index doesn't exceed right index
+        index = Math.min(index, rightIndex);
+        this.value = index;
         
         const percent = (index / max) * 100;
         sliderRange.style.left = percent + '%';
-        sliderRange.style.width = (parseInt(inputRight.value) - index) / max * 100 + '%';
+        sliderRange.style.width = (rightIndex - index) / max * 100 + '%';
         titleMin.innerText = values[index];
         if (hiddenMinInput) hiddenMinInput.value = values[index];
         if (dotLeft) dotLeft.style.left = percent + '%';
@@ -28,11 +32,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
       function setRightValue() {
         let index = parseInt(this.value);
-        index = Math.max(index, parseInt(inputLeft.value) + 1);
+        let leftIndex = parseInt(inputLeft.value);
+        
+        // Ensure right index doesn't go below left index
+        index = Math.max(index, leftIndex);
+        this.value = index;
         
         const percent = ((max - index) / max) * 100;
         sliderRange.style.right = percent + '%';
-        sliderRange.style.width = (index - parseInt(inputLeft.value)) / max * 100 + '%';
+        sliderRange.style.width = (index - leftIndex) / max * 100 + '%';
         titleMax.innerText = values[index];
         if (hiddenMaxInput) hiddenMaxInput.value = values[index];
         if (dotRight) dotRight.style.right = percent + '%';
