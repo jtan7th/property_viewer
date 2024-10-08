@@ -97,7 +97,26 @@
     <!-- Carpark Spaces -->
     <div class="mb-4">
       <%= f.label :carpark_spaces_count, "Carpark Spaces", class: "block text-sm font-medium text-gray-700 mb-1" %>
-      <%= f.select :carpark_spaces_count, options_for_select([["Any", ""], 1, 2, 3, ["4+", 4]]), {}, { onchange: "this.form.requestSubmit();", class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" } %>
+      <% carpark_bounds = Property.carpark_spaces_count_bounds %>
+      <div class="range-container">
+        <div class="double-slider">
+          <div class="double-slider__body">
+            <div class="double-slider__track">
+              <div id="carpark-slider-range" class="double-slider__range"></div>
+              <div id="carpark-dot-left" class="double-slider__dot double-slider__dot--left"></div>
+              <div id="carpark-dot-right" class="double-slider__dot double-slider__dot--right"></div>
+            </div>
+            <input id="carpark-input-left" min="<%= carpark_bounds[:min] %>" max="<%= carpark_bounds[:max] %>" value="<%= carpark_bounds[:min] %>" type="range" class="double-slider__input" />
+            <input id="carpark-input-right" min="<%= carpark_bounds[:min] %>" max="<%= carpark_bounds[:max] %>" value="<%= carpark_bounds[:max] %>" type="range" class="double-slider__input" />
+          </div>
+        </div>
+        <div class="flex justify-between mt-2">
+          <span id="carpark-title-min" class="text-sm text-gray-600"><%= carpark_bounds[:min] %></span>
+          <span id="carpark-title-max" class="text-sm text-gray-600"><%= carpark_bounds[:max] %></span>
+        </div>
+      </div>
+      <%= f.hidden_field :min_carpark_spaces_count, id: "hidden-min-carpark-spaces-count" %>
+      <%= f.hidden_field :max_carpark_spaces_count, id: "hidden-max-carpark-spaces-count" %>
     </div>
 
     <!-- Floor Area Range -->

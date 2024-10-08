@@ -132,4 +132,27 @@ document.addEventListener('DOMContentLoaded', function() {
         values: bathroomValues
       });
     }
+
+    // Initialize the carpark spaces count slider
+    const carparkInputLeft = document.getElementById('carpark-input-left');
+    const carparkInputRight = document.getElementById('carpark-input-right');
+
+    if (carparkInputLeft && carparkInputRight) {
+      const carparkMin = parseInt(carparkInputLeft.min);
+      const carparkMax = parseInt(carparkInputRight.max);
+      const carparkValues = Array.from({length: carparkMax - carparkMin + 1}, (_, i) => i + carparkMin);
+
+      initializeDiscreteRangeSlider({
+        inputLeftId: 'carpark-input-left',
+        inputRightId: 'carpark-input-right',
+        sliderRangeId: 'carpark-slider-range',
+        titleMinId: 'carpark-title-min',
+        titleMaxId: 'carpark-title-max',
+        hiddenMinInputId: 'hidden-min-carpark-spaces-count',
+        hiddenMaxInputId: 'hidden-max-carpark-spaces-count',
+        dotLeftId: 'carpark-dot-left',
+        dotRightId: 'carpark-dot-right',
+        values: carparkValues
+      });
+    }
   });

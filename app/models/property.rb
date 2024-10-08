@@ -28,13 +28,20 @@ class Property < ApplicationRecord
     end
     result
   }
+  
   scope :bathroom_range, ->(min, max) {
   result = all
   result = result.where('bathroom_count >= ?', min) if min.present?
   result = result.where('bathroom_count <= ?', max) if max.present?
   result
-}
-  scope :with_carparks, ->(count) { where(carpark_spaces_count: count) if count.present? }
+  }
+
+  scope :carpark_spaces_range, ->(min, max) {
+    result = all
+    result = result.where('carpark_spaces_count >= ?', min) if min.present?
+    result = result.where('carpark_spaces_count <= ?', max) if max.present?
+    result
+  }
   scope :floor_area_range, ->(min, max) { # this is to actually filter properties based on the floor area inputs
     result = all
     area_conditions = []
@@ -111,13 +118,19 @@ class Property < ApplicationRecord
     { min: min_bathrooms, max: max_bathrooms }
   end
 
+  def self.carpark_spaces_count_bounds
+    min_carpark_spaces = where.not(carpark_spaces_count: nil).minimum(:carpark_spaces_count) || 0
+    max_carpark_spaces = where.not(carpark_spaces_count: nil).maximum(:carpark_spaces_count) || min_carpark_spaces
+    { min: min_carpark_spaces, max: max_carpark_spaces }
+  end
+
   def self.filter(params)
     properties = all
 
     properties = properties.price_range(params[:min_sale_price], params[:max_sale_price])
       .bedroom_range(params[:min_bedroom_count], params[:max_bedroom_count])
-      .bathroom_range(params[:min_bathroom_count], params[:max_bathroom_count]) # Add this line
-      .with_carparks(params[:carpark_spaces_count])
+      .bathroom_range(params[:min_bathroom_count], params[:max_bathroom_count])
+      .carpark_spaces_range(params[:min_carpark_spaces_count], params[:max_carpark_spaces_count]) # Add this line
       .floor_area_range(params[:min_floor_area], params[:max_floor_area])
       .land_area_range(params[:min_land_area], params[:max_land_area])
       .in_suburb(params[:suburb])
