@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', function() {
       const values = options.values;
       const max = values.length - 1;
 
+      const suffix = options.suffix || ''; // Add this line
+
       function setLeftValue() {
         let index = parseInt(this.value);
         let rightIndex = parseInt(inputRight.value);
@@ -23,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const percent = (index / max) * 100;
         sliderRange.style.left = percent + '%';
         sliderRange.style.width = (rightIndex - index) / max * 100 + '%';
-        titleMin.innerText = values[index];
+        titleMin.innerText = values[index] + suffix; // Modify this line
         if (hiddenMinInput) hiddenMinInput.value = values[index];
         if (dotLeft) dotLeft.style.left = percent + '%';
         if (this.form) submitForm(this.form);
@@ -39,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const percent = ((max - index) / max) * 100;
         sliderRange.style.right = percent + '%';
         sliderRange.style.width = (index - leftIndex) / max * 100 + '%';
-        titleMax.innerText = values[index];
+        titleMax.innerText = values[index] + suffix; // Modify this line
         if (hiddenMaxInput) hiddenMaxInput.value = values[index];
         if (dotRight) dotRight.style.right = percent + '%';
         if (this.form) submitForm(this.form);
@@ -106,7 +108,8 @@ document.addEventListener('DOMContentLoaded', function() {
         hiddenMaxInputId: 'hidden-max-bedroom-count',
         dotLeftId: 'bedroom-dot-left',
         dotRightId: 'bedroom-dot-right',
-        values: bedroomValues
+        values: bedroomValues,
+        suffix: ' Bedrooms' 
       });
     }
 
@@ -129,7 +132,8 @@ document.addEventListener('DOMContentLoaded', function() {
         hiddenMaxInputId: 'hidden-max-bathroom-count',
         dotLeftId: 'bathroom-dot-left',
         dotRightId: 'bathroom-dot-right',
-        values: bathroomValues
+        values: bathroomValues,
+        suffix: ' Bathrooms' 
       });
     }
 
@@ -152,7 +156,8 @@ document.addEventListener('DOMContentLoaded', function() {
         hiddenMaxInputId: 'hidden-max-carpark-spaces-count',
         dotLeftId: 'carpark-dot-left',
         dotRightId: 'carpark-dot-right',
-        values: carparkValues
+        values: carparkValues,
+        suffix: ' Spaces' 
       });
     }
-  });
+});

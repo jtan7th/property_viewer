@@ -61,8 +61,8 @@
           </div>
         </div>
         <div class="flex justify-between mt-2">
-          <span id="bedroom-title-min" class="text-sm text-gray-600"><%= bedroom_bounds[:min] %></span>
-          <span id="bedroom-title-max" class="text-sm text-gray-600"><%= bedroom_bounds[:max] %></span>
+          <span id="bedroom-title-min" class="text-sm text-gray-600"><%= bedroom_bounds[:min] %> Bedrooms</span>
+          <span id="bedroom-title-max" class="text-sm text-gray-600"><%= bedroom_bounds[:max] %> Bedrooms</span>
         </div>
       </div>
       <%= f.hidden_field :min_bedroom_count, id: "hidden-min-bedroom-count" %>
@@ -86,8 +86,8 @@
           </div>
         </div>
         <div class="flex justify-between mt-2">
-          <span id="bathroom-title-min" class="text-sm text-gray-600"><%= bathroom_bounds[:min] %></span>
-          <span id="bathroom-title-max" class="text-sm text-gray-600"><%= bathroom_bounds[:max] %></span>
+          <span id="bathroom-title-min" class="text-sm text-gray-600"><%= bathroom_bounds[:min] %> Bathrooms</span>
+          <span id="bathroom-title-max" class="text-sm text-gray-600"><%= bathroom_bounds[:max] %> Bathrooms</span>
         </div>
       </div>
       <%= f.hidden_field :min_bathroom_count, id: "hidden-min-bathroom-count" %>
@@ -111,8 +111,8 @@
           </div>
         </div>
         <div class="flex justify-between mt-2">
-          <span id="carpark-title-min" class="text-sm text-gray-600"><%= carpark_bounds[:min] %></span>
-          <span id="carpark-title-max" class="text-sm text-gray-600"><%= carpark_bounds[:max] %></span>
+          <span id="carpark-title-min" class="text-sm text-gray-600"><%= carpark_bounds[:min] %> Spaces</span>
+          <span id="carpark-title-max" class="text-sm text-gray-600"><%= carpark_bounds[:max] %> Spaces</span>
         </div>
       </div>
       <%= f.hidden_field :min_carpark_spaces_count, id: "hidden-min-carpark-spaces-count" %>
