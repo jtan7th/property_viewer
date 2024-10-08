@@ -68,7 +68,7 @@ class Property < ApplicationRecord
     
     result
   }
-  scope :in_suburb, ->(suburb) { where("suburb ILIKE ?", "%#{suburb}%") if suburb.present? }
+  scope :in_suburbs, ->(suburbs) { where(suburb: suburbs) if suburbs.present? }
   scope :built_in_decade, ->(decade) { where(decade_built: decade) if decade.present? }
   scope :in_condition, ->(condition) { where(condition: condition) if condition.present? }
   scope :with_deck, ->(has_deck) { where(deck: has_deck) if has_deck.present? }
@@ -124,6 +124,10 @@ class Property < ApplicationRecord
     { min: min_carpark_spaces, max: max_carpark_spaces }
   end
 
+  def self.distinct_suburbs
+    distinct.order(:suburb).pluck(:suburb)
+  end
+
   def self.filter(params)
     properties = all
 
@@ -133,7 +137,7 @@ class Property < ApplicationRecord
       .carpark_spaces_range(params[:min_carpark_spaces_count], params[:max_carpark_spaces_count]) # Add this line
       .floor_area_range(params[:min_floor_area], params[:max_floor_area])
       .land_area_range(params[:min_land_area], params[:max_land_area])
-      .in_suburb(params[:suburb])
+      .in_suburbs(params[:suburb])
       .built_in_decade(params[:decade_built])
       .in_condition(params[:condition])
       .with_deck(params[:deck])

@@ -199,7 +199,11 @@
     <!-- Suburb -->
     <div class="mb-4">
       <%= f.label :suburb, "Suburb", class: "block text-sm font-medium text-gray-700 mb-1" %>
-      <%= f.text_field :suburb, placeholder: "Enter suburb", oninput: "this.form.requestSubmit();", class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
+      <%= f.select :suburb, 
+                   options_for_select(suburb_options, selected: params[:suburb]),
+                   { include_blank: "All suburbs" },
+                   { class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50",
+                     onchange: "this.form.requestSubmit();" } %>
     </div>
 
   

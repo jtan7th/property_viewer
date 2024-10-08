@@ -14,4 +14,8 @@ module PropertiesHelper
   
       content_tag :span, suburb.titleize, class: "inline-flex items-center rounded-full #{pill_class} px-2 py-1 text-sm font-medium"
     end
+
+    def suburb_options
+      Property.distinct_suburbs
+    end
   end
