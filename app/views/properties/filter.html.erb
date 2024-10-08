@@ -207,21 +207,5 @@
       <%= f.label :decade_built, "Decade Built", class: "block text-sm font-medium text-gray-700 mb-1" %>
       <%= f.select :decade_built, options_for_select([["Any", ""], "1950s", "1960s", "1970s", "1980s", "1990s", "2000s", "2010s", "2020s"]), {}, { onchange: "this.form.requestSubmit();", class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" } %>
     </div>
-
-    <!-- Property Condition -->
-    <div class="mb-4">
-      <%= f.label :condition, "Property Condition", class: "block text-sm font-medium text-gray-700 mb-1" %>
-      <%= f.select :condition, options_for_select([["Any", ""], "Excellent", "Good", "Fair", "Poor"]), {}, { onchange: "this.form.requestSubmit();", class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" } %>
-    </div>
-
-    
-
-    <!-- Submit button 
-    <div class="mt-6">
-      <%= f.submit "Apply Filters", 
-          class: "w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:w-auto sm:text-sm",
-          data: { action: "filter#apply" } 
-      %>
-    </div> -->
   <% end %>
 </div>
