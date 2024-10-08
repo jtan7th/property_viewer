@@ -72,7 +72,26 @@
     <!-- Bathrooms -->
     <div class="mb-4">
       <%= f.label :bathroom_count, "Bathrooms", class: "block text-sm font-medium text-gray-700 mb-1" %>
-      <%= f.select :bathroom_count, options_for_select([["Any", ""], 1, 2, 3, ["4+", 4]]), {}, { onchange: "this.form.requestSubmit();", class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" } %>
+      <% bathroom_bounds = Property.bathroom_count_bounds %>
+      <div class="range-container">
+        <div class="double-slider">
+          <div class="double-slider__body">
+            <div class="double-slider__track">
+              <div id="bathroom-slider-range" class="double-slider__range"></div>
+              <div id="bathroom-dot-left" class="double-slider__dot double-slider__dot--left"></div>
+              <div id="bathroom-dot-right" class="double-slider__dot double-slider__dot--right"></div>
+            </div>
+            <input id="bathroom-input-left" min="<%= bathroom_bounds[:min] %>" max="<%= bathroom_bounds[:max] %>" value="<%= bathroom_bounds[:min] %>" type="range" class="double-slider__input" />
+            <input id="bathroom-input-right" min="<%= bathroom_bounds[:min] %>" max="<%= bathroom_bounds[:max] %>" value="<%= bathroom_bounds[:max] %>" type="range" class="double-slider__input" />
+          </div>
+        </div>
+        <div class="flex justify-between mt-2">
+          <span id="bathroom-title-min" class="text-sm text-gray-600"><%= bathroom_bounds[:min] %></span>
+          <span id="bathroom-title-max" class="text-sm text-gray-600"><%= bathroom_bounds[:max] %></span>
+        </div>
+      </div>
+      <%= f.hidden_field :min_bathroom_count, id: "hidden-min-bathroom-count" %>
+      <%= f.hidden_field :max_bathroom_count, id: "hidden-max-bathroom-count" %>
     </div>
 
     <!-- Carpark Spaces -->

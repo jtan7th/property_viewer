@@ -17,7 +17,6 @@ document.addEventListener('DOMContentLoaded', function() {
         let index = parseInt(this.value);
         let rightIndex = parseInt(inputRight.value);
         
-        // Ensure left index doesn't exceed right index
         index = Math.min(index, rightIndex);
         this.value = index;
         
@@ -34,7 +33,6 @@ document.addEventListener('DOMContentLoaded', function() {
         let index = parseInt(this.value);
         let leftIndex = parseInt(inputLeft.value);
         
-        // Ensure right index doesn't go below left index
         index = Math.max(index, leftIndex);
         this.value = index;
         
@@ -109,6 +107,29 @@ document.addEventListener('DOMContentLoaded', function() {
         dotLeftId: 'bedroom-dot-left',
         dotRightId: 'bedroom-dot-right',
         values: bedroomValues
+      });
+    }
+
+    // Initialize the bathroom count slider
+    const bathroomInputLeft = document.getElementById('bathroom-input-left');
+    const bathroomInputRight = document.getElementById('bathroom-input-right');
+
+    if (bathroomInputLeft && bathroomInputRight) {
+      const bathroomMin = parseInt(bathroomInputLeft.min);
+      const bathroomMax = parseInt(bathroomInputRight.max);
+      const bathroomValues = Array.from({length: bathroomMax - bathroomMin + 1}, (_, i) => i + bathroomMin);
+
+      initializeDiscreteRangeSlider({
+        inputLeftId: 'bathroom-input-left',
+        inputRightId: 'bathroom-input-right',
+        sliderRangeId: 'bathroom-slider-range',
+        titleMinId: 'bathroom-title-min',
+        titleMaxId: 'bathroom-title-max',
+        hiddenMinInputId: 'hidden-min-bathroom-count',
+        hiddenMaxInputId: 'hidden-max-bathroom-count',
+        dotLeftId: 'bathroom-dot-left',
+        dotRightId: 'bathroom-dot-right',
+        values: bathroomValues
       });
     }
   });
