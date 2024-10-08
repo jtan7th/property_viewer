@@ -17,8 +17,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         const percent = (index / max) * 100;
         sliderRange.style.left = percent + '%';
+        sliderRange.style.width = (parseInt(inputRight.value) - index) / max * 100 + '%';
         titleMin.innerText = values[index];
-        if (hiddenMinInput) hiddenMinInput.value = index === 0 ? 'Any' : values[index];
+        if (hiddenMinInput) hiddenMinInput.value = values[index];
         if (this.form) submitForm(this.form);
       }
 
@@ -28,6 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         const percent = ((max - index) / max) * 100;
         sliderRange.style.right = percent + '%';
+        sliderRange.style.width = (index - parseInt(inputLeft.value)) / max * 100 + '%';
         titleMax.innerText = values[index];
         if (hiddenMaxInput) hiddenMaxInput.value = values[index];
         if (this.form) submitForm(this.form);
@@ -49,14 +51,23 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Initialize the bedroom count slider
-    initializeDiscreteRangeSlider({
-      inputLeftId: 'bedroom-input-left',
-      inputRightId: 'bedroom-input-right',
-      sliderRangeId: 'bedroom-slider-range',
-      titleMinId: 'bedroom-title-min',
-      titleMaxId: 'bedroom-title-max',
-      hiddenMinInputId: 'hidden-min-bedroom-count',
-      hiddenMaxInputId: 'hidden-max-bedroom-count',
-      values: ['0', '1', '2', '3', '4', '5']
-    });
+    const bedroomInputLeft = document.getElementById('bedroom-input-left');
+    const bedroomInputRight = document.getElementById('bedroom-input-right');
+    
+    if (bedroomInputLeft && bedroomInputRight) {
+      const bedroomMin = parseInt(bedroomInputLeft.min);
+      const bedroomMax = parseInt(bedroomInputRight.max);
+      const bedroomValues = Array.from({length: bedroomMax - bedroomMin + 1}, (_, i) => i + bedroomMin);
+
+      initializeDiscreteRangeSlider({
+        inputLeftId: 'bedroom-input-left',
+        inputRightId: 'bedroom-input-right',
+        sliderRangeId: 'bedroom-slider-range',
+        titleMinId: 'bedroom-title-min',
+        titleMaxId: 'bedroom-title-max',
+        hiddenMinInputId: 'hidden-min-bedroom-count',
+        hiddenMaxInputId: 'hidden-max-bedroom-count',
+        values: bedroomValues
+      });
+    }
   });

@@ -94,6 +94,12 @@ class Property < ApplicationRecord
     range = { min: min_land_area, max: max_land_area }
   end
 
+  def self.bedroom_count_bounds
+    min_bedrooms = where.not(bedroom_count: nil).minimum(:bedroom_count) || 0
+    max_bedrooms = where.not(bedroom_count: nil).maximum(:bedroom_count) || 5
+    { min: min_bedrooms, max: max_bedrooms }
+  end
+
   def self.filter(params)
     properties = all
 
