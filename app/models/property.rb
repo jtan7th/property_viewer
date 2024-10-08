@@ -96,7 +96,7 @@ class Property < ApplicationRecord
 
   def self.bedroom_count_bounds
     min_bedrooms = where.not(bedroom_count: nil).minimum(:bedroom_count) || 0
-    max_bedrooms = where.not(bedroom_count: nil).maximum(:bedroom_count) || 5
+    max_bedrooms = where.not(bedroom_count: nil).maximum(:bedroom_count) || min_bedrooms
     { min: min_bedrooms, max: max_bedrooms }
   end
 

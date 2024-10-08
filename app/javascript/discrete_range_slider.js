@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', function() {
       const titleMax = document.getElementById(options.titleMaxId);
       const hiddenMinInput = document.getElementById(options.hiddenMinInputId);
       const hiddenMaxInput = document.getElementById(options.hiddenMaxInputId);
+      const dotLeft = document.getElementById(options.dotLeftId);
+      const dotRight = document.getElementById(options.dotRightId);
 
       const values = options.values;
       const max = values.length - 1;
@@ -20,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
         sliderRange.style.width = (parseInt(inputRight.value) - index) / max * 100 + '%';
         titleMin.innerText = values[index];
         if (hiddenMinInput) hiddenMinInput.value = values[index];
+        if (dotLeft) dotLeft.style.left = percent + '%';
         if (this.form) submitForm(this.form);
       }
 
@@ -32,6 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
         sliderRange.style.width = (index - parseInt(inputLeft.value)) / max * 100 + '%';
         titleMax.innerText = values[index];
         if (hiddenMaxInput) hiddenMaxInput.value = values[index];
+        if (dotRight) dotRight.style.right = percent + '%';
         if (this.form) submitForm(this.form);
       }
 
@@ -53,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize the bedroom count slider
     const bedroomInputLeft = document.getElementById('bedroom-input-left');
     const bedroomInputRight = document.getElementById('bedroom-input-right');
-    
+
     if (bedroomInputLeft && bedroomInputRight) {
       const bedroomMin = parseInt(bedroomInputLeft.min);
       const bedroomMax = parseInt(bedroomInputRight.max);
@@ -67,6 +71,8 @@ document.addEventListener('DOMContentLoaded', function() {
         titleMaxId: 'bedroom-title-max',
         hiddenMinInputId: 'hidden-min-bedroom-count',
         hiddenMaxInputId: 'hidden-max-bedroom-count',
+        dotLeftId: 'bedroom-dot-left',
+        dotRightId: 'bedroom-dot-right',
         values: bedroomValues
       });
     }
