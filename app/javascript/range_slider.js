@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
       clearTimeout(window.submitTimer);
       window.submitTimer = setTimeout(() => {
         form.requestSubmit();
-      }, 300);  // Adjust this delay as needed
+      }, 50);  // Adjust this delay as needed
     }
 
     inputLeft.addEventListener('input', setLeftValue);
