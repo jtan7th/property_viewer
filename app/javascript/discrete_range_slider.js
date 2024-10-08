@@ -49,6 +49,33 @@ document.addEventListener('DOMContentLoaded', function() {
       inputLeft.addEventListener('input', setLeftValue);
       inputRight.addEventListener('input', setRightValue);
 
+      // Modified function to create pips, excluding min and max values
+      function createPips() {
+        const pipsContainer = document.createElement('div');
+        pipsContainer.className = 'pips-container';
+        pipsContainer.style.position = 'absolute';
+        pipsContainer.style.width = '100%';
+        pipsContainer.style.height = '10px';
+        pipsContainer.style.top = '15px';  // Adjust this value to position the pips vertically
+
+        // Start from 1 and end at values.length - 2 to exclude min and max
+        for (let i = 1; i < values.length - 1; i++) {
+          const pip = document.createElement('div');
+          pip.className = 'pip';
+          pip.style.position = 'absolute';
+          pip.style.left = `${(i / max) * 100}%`;
+          pip.style.width = '1px';
+          pip.style.height = '5px';
+          pip.style.backgroundColor = 'rgba(0, 0, 0, 0.2)';  // Soft grey color
+          pipsContainer.appendChild(pip);
+        }
+
+        sliderRange.parentNode.appendChild(pipsContainer);
+      }
+
+      // Call createPips after initializing the slider
+      createPips();
+
       // Initialize the slider
       setLeftValue.call(inputLeft);
       setRightValue.call(inputRight);
