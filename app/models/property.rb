@@ -15,7 +15,19 @@ class Property < ApplicationRecord
     
     result
   }
-  scope :with_bedrooms, ->(count) { where(bedroom_count: count) if count.present? }
+
+  scope :bedroom_range, ->(min, max) {
+    result = all
+    if min.present? && min != 'Any'
+      result = result.where('bedroom_count >= ?', min.to_i)
+    end
+    if max.present? && max != '5+'
+      result = result.where('bedroom_count <= ?', max.to_i)
+    elsif max == '5+'
+      result = result.where('bedroom_count >= ?', 5)
+    end
+    result
+  }
   scope :with_bathrooms, ->(count) { where(bathroom_count: count) if count.present? }
   scope :with_carparks, ->(count) { where(carpark_spaces_count: count) if count.present? }
   scope :floor_area_range, ->(min, max) { # this is to actually filter properties based on the floor area inputs
@@ -86,7 +98,7 @@ class Property < ApplicationRecord
     properties = all
 
     properties = properties.price_range(params[:min_sale_price], params[:max_sale_price])
-    properties = properties.with_bedrooms(params[:bedroom_count])
+    properties = properties.bedroom_range(params[:min_bedroom_count], params[:max_bedroom_count])
       .with_bathrooms(params[:bathroom_count])
       .with_carparks(params[:carpark_spaces_count])
       .floor_area_range(params[:min_floor_area], params[:max_floor_area])

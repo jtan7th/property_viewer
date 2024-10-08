@@ -234,3 +234,38 @@ hr {
   right: 0%;
   transform: translateX(50%);
 }
+
+.double-slider__input {
+  pointer-events: none;
+  position: absolute;
+  appearance: none;
+  width: 100%;
+  height: 100%;
+  background: none;
+  top: 0;
+  left: 0;
+}
+
+.double-slider__input::-webkit-slider-thumb {
+  pointer-events: all;
+  position: relative;
+  z-index: 1;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #3b82f6;
+  cursor: pointer;
+}
+
+.double-slider__input::-moz-range-thumb {
+  pointer-events: all;
+  position: relative;
+  z-index: 1;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #3b82f6;
+  cursor: pointer;
+}

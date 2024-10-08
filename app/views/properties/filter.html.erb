@@ -43,10 +43,27 @@
       <%= f.label :exclude_nil_prices, "Exclude properties without a sale price", 
           class: "ml-2 text-sm text-gray-600" %>
     </div>
+
     <!-- Bedrooms -->
     <div class="mb-4">
       <%= f.label :bedroom_count, "Bedrooms", class: "block text-sm font-medium text-gray-700 mb-1" %>
-      <%= f.select :bedroom_count, options_for_select([["Any", ""], 1, 2, 3, 4, ["5+", 5]]), {}, { onchange: "this.form.requestSubmit();", class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" } %>
+      <div class="range-container">
+        <div class="double-slider">
+          <div class="double-slider__body">
+            <div class="double-slider__track">
+              <div id="bedroom-slider-range" class="double-slider__range"></div>
+            </div>
+            <input id="bedroom-input-left" min="0" max="5" value="0" type="range" class="double-slider__input" />
+            <input id="bedroom-input-right" min="0" max="5" value="5" type="range" class="double-slider__input" />
+          </div>
+        </div>
+        <div class="flex justify-between mt-2">
+          <span id="bedroom-title-min" class="text-sm text-gray-600">Any</span>
+          <span id="bedroom-title-max" class="text-sm text-gray-600">5+</span>
+        </div>
+      </div>
+      <%= f.hidden_field :min_bedroom_count, id: "hidden-min-bedroom-count" %>
+      <%= f.hidden_field :max_bedroom_count, id: "hidden-max-bedroom-count" %>
     </div>
 
     <!-- Bathrooms -->
