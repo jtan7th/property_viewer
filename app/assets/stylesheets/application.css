@@ -115,8 +115,8 @@ hr {
 }
 
 .range-container {
-  width:750px;
-
+  width: 100%;  /* Changed from fixed 750px */
+  margin: 0 auto;  /* Center the container if it's less than 750px wide */
 }
 
 .slider-value { 
