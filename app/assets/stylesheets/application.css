@@ -211,7 +211,7 @@ hr {
   right: 0%;
   top: 0;
   bottom: 0;
-  background-color: #f338c2;
+  background-color: #6366f1; /* Indigo 500 */
   z-index: 2;
   border-radius: 10px;
 }
@@ -220,7 +220,7 @@ hr {
   position: absolute;
   width: 25px;
   height: 25px;
-  background-color: #f338c2;
+  background-color: #4f46e5; /* Indigo 600 */
   border-radius: 50%;
   z-index: 3;
 }
@@ -254,7 +254,7 @@ hr {
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background: #3b82f6;
+  background: #4338ca; /* Indigo 700 */
   cursor: pointer;
 }
 
@@ -266,6 +266,6 @@ hr {
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background: #3b82f6;
+  background: #4338ca; /* Indigo 700 */
   cursor: pointer;
 }
