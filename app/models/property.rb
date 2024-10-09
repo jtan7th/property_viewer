@@ -68,7 +68,9 @@ class Property < ApplicationRecord
     
     result
   }
-  scope :in_suburbs, ->(suburbs) { where(suburb: suburbs) if suburbs.present? }
+  scope :in_suburbs, ->(suburbs) {
+    where('LOWER(suburb) = LOWER(?)', suburbs) if suburbs.present?
+  }
   scope :built_in_decade, ->(decade) { where(decade_built: decade) if decade.present? }
   scope :in_condition, ->(condition) { where(condition: condition) if condition.present? }
   scope :with_deck, ->(has_deck) { where(deck: has_deck) if has_deck.present? }

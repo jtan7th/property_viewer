@@ -11,8 +11,11 @@ module PropertiesHelper
       else
         return suburb.titleize # Return regular text for non-special suburbs
       end
-  
-      content_tag :span, suburb.titleize, class: "inline-flex items-center rounded-full #{pill_class} px-2 py-1 text-sm font-medium bg-opacity-50"
+
+      link_to suburb.titleize, 
+              properties_path(suburb: suburb),
+              class: "inline-flex items-center rounded-full #{pill_class} px-2 py-1 text-sm font-medium bg-opacity-50 cursor-pointer suburb-pill",
+              data: { turbo_frame: "properties" }
     end
 
     def suburb_options
