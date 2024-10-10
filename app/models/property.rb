@@ -2,6 +2,8 @@ class Property < ApplicationRecord
   include Statistical
   has_many_attached :images
 
+  after_create :queue_image_download
+
   scope :price_range, ->(min, max) { 
     result = all
     price_conditions = []
@@ -151,5 +153,16 @@ class Property < ApplicationRecord
     properties = properties.with_land_area if params[:exclude_nil_land_areas] == "1"
 
     properties
+  end
+
+  def image_urls
+    self[:image_urls] || []
+  end
+
+
+  private
+
+  def queue_image_download
+    DownloadImagesJob.perform_later(self.id) if image_urls.present?
   end
 end

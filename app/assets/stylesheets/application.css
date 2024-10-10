@@ -269,3 +269,14 @@ hr {
   background: #4338ca; /* Indigo 700 */
   cursor: pointer;
 }
+
+.loading-indicator {
+  font-size: 24px;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}
