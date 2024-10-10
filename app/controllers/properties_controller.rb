@@ -16,10 +16,11 @@ class PropertiesController < ApplicationController
 
   def show
     @property = Property.find(params[:id])
+    @property.start_image_download if @property.images.none? && !@property.images_downloading?
     render layout: false if turbo_frame_request?
     
-    if @property.images.none?
-      DownloadImagesJob.perform_now(@property.id)
+    if @property.images.none? && !@property.images_downloading?
+      DownloadImagesJob.perform_later(@property.id)
     end
   end
 

@@ -152,4 +152,34 @@ class Property < ApplicationRecord
 
     properties
   end
+
+  def images_downloading?
+    download_job_id.present?
+  end
+
+  def images_partially_downloaded?
+    images.attached? && expected_image_count.present? && images.count < expected_image_count
+  end
+
+  # Add this method to initiate the download
+  def start_image_download
+    return if images_downloading? || (expected_image_count.present? && images.count >= expected_image_count)
+
+    # Set the expected image count based on the number of image URLs
+    count = determine_expected_image_count
+    update(expected_image_count: count) if count > 0
+
+    # Start the download job only if there are images to download
+    DownloadImagesJob.perform_later(id) if count > 0
+  end
+
+  private
+
+  def fetch_expected_image_count
+    image_urls.present? ? image_urls.size : 0
+  end
+
+  def determine_expected_image_count
+    fetch_expected_image_count
+  end
 end

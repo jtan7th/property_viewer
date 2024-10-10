@@ -13,6 +13,17 @@
         <hr class="mb-6"> <!-- Horizontal line for separation -->
 
          <div class="image-container carousel">
+          <!-- Debug information -->
+          <div class="debug-info" style="background-color: #f0f0f0; padding: 10px; margin-bottom: 10px;">
+            <p>Images provided: <%= @property.image_urls&.count || 'Not set' %></p>
+            <p>Images attached: <%= @property.images.attached? %></p>
+            <p>Images count: <%= @property.images.count %></p>
+            <p>Download job ID: <%= @property.download_job_id %></p>
+            <p>Expected image count: <%= @property.expected_image_count || 'Not set' %></p>
+            <p>Images downloading?: <%= @property.images_downloading? %></p>
+            <p>Images partially downloaded?: <%= @property.images_partially_downloaded? %></p>
+          </div>
+
           <% if @property.images.attached? %>
             <div class="carousel-inner">
               <% @property.images.each_with_index do |image, index| %>
@@ -25,8 +36,32 @@
                 </div>
               <% end %>
             </div>
+          <% elsif @property.images_downloading? %>
+            <div class="downloading-message">
+              <p>Images are currently downloading. Please check back soon.</p>
+              <div class="loading-indicator">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+              </div>
+            </div>
+          <% elsif @property.images_partially_downloaded? %>
+            <div class="carousel-inner">
+              <% @property.images.each_with_index do |image, index| %>
+                <%= image_tag image, class: "property-image #{index == 0 ? '' : 'hidden'}", data: { index: index } %>
+              <% end %>
+              <% if @property.images.count > 1 %>
+                <div class="carousel-controls">
+                  <button class="carousel-button prev">&lt;</button>
+                  <button class="carousel-button next">&gt;</button>
+                </div>
+              <% end %>
+            </div>
+            <p class="partial-download-message">Some images are still downloading. Check back later for the complete set.</p>
           <% else %>
-            <%= image_tag "placeholder.jpg", class: "placeholder-image" %>
+            <div class="no-images-message">
+              <p>No images are available for this property.</p>
+            </div>
           <% end %>
         </div>
 
