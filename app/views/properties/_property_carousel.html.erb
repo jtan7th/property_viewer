@@ -1,0 +1,40 @@
+<div class="image-container carousel">
+  <% if property.images.attached? %>
+    <div class="carousel-inner">
+      <% property.images.each_with_index do |image, index| %>
+        <%= image_tag image, class: "property-image #{index == 0 ? '' : 'hidden'}", data: { index: index } %>
+      <% end %>
+      <% if property.images.count < property.image_urls.uniq.count %>
+        <div class="property-image loading-message flex items-center justify-center h-full">
+          <div class="text-center">
+            <p class="mb-2">Additional images are still being downloaded</p>
+            <div class="loading-indicator text-2xl">...</div>
+          </div>
+        </div>
+      <% end %>
+      <% if property.images.count > 1 %>
+        <div class="carousel-controls">
+          <button class="carousel-button prev">&lt;</button>
+          <button class="carousel-button next">&gt;</button>
+        </div>
+      <% end %>
+    </div>
+  <% elsif property.image_urls.present? %>
+    <div id="loading-message" class="loading-message flex items-center justify-center h-full">
+      <div class="text-center">
+        <p class="mb-2">Images are downloading, please wait...</p>
+        <div class="loading-indicator text-2xl">...</div>
+      </div>
+    </div>
+    <%= javascript_tag nonce: true do %>
+      setTimeout(function() {
+        const frame = document.getElementById('modal_content');
+        frame.src = frame.src;
+      }, 5000);
+    <% end %>
+  <% else %>
+    <div class="no-images-message">
+      There are no images available for this property
+    </div>
+  <% end %>
+</div>
