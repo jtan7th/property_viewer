@@ -7,7 +7,7 @@ class DownloadImagesJob < ApplicationJob
     def perform(property_id)
       property = Property.find(property_id)
       
-      property.image_urls.each_with_index do |url, index|
+      property.image_urls.uniq.each_with_index do |url, index|
         begin
           downloaded_image = URI.open(url)
           property.images.attach(io: downloaded_image, filename: "property_#{property.id}_image_#{index}.jpg")

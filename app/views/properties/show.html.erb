@@ -13,6 +13,7 @@
         <hr class="mb-6"> <!-- Horizontal line for separation -->
 
         <div class="image-container carousel">
+          <!-- Debug information -->
           <% if @property.images.attached? %>
             <div class="carousel-inner">
               <% @property.images.each_with_index do |image, index| %>
@@ -34,9 +35,9 @@
               <% end %>
             </div>
           <% elsif @property.image_urls.present? %>
-            <div class="loading-message flex items-center justify-center h-full">
+            <div id="loading-message" class="loading-message flex items-center justify-center h-full">
               <div class="text-center">
-                <p class="mb-2">Images are downloading</p>
+                <p class="mb-2">Images are downloading, please wait...</p>
                 <div class="loading-indicator text-2xl">...</div>
               </div>
             </div>
