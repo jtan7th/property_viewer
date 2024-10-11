@@ -2,6 +2,9 @@ source "https://rubygems.org"
 
 ruby "3.2.2"
 
+# gem pagy for pagination
+gem "pagy"
+  
 # gem foreman
 
 gem 'foreman'

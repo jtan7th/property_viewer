@@ -1,0 +1,11 @@
+<% if pagy.next %>
+  <%= turbo_frame_tag "properties-pagination", src: properties_path(page: pagy.next, format: :turbo_stream), loading: :lazy do %>
+    <div class="text-center py-4">
+      <span class="text-gray-500">Loading more properties...</span>
+    </div>
+  <% end %>
+<% else %>
+  <%= turbo_frame_tag "properties-pagination" do %>
+    <!-- Empty frame when there are no more properties -->
+  <% end %>
+<% end %>

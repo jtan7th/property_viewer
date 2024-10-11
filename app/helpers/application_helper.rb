@@ -1,4 +1,6 @@
 module ApplicationHelper
+  include Pagy::Frontend
+
   def format_price(price)
     return 'N/A' if price.nil?
     return 'TBC' if price == 'TBC'
