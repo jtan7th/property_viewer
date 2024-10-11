@@ -1,15 +1,21 @@
 class PropertiesController < ApplicationController
   def index
-    @properties = Property.filter(params)
+    @pagy, @properties = pagy(Property.filter(params))
 
     respond_to do |format|
       format.html
       format.turbo_stream do
-        streams = [
-          turbo_stream.replace("properties", partial: "properties_table", locals: { properties: @properties }),
-          turbo_stream.replace("property-stats", partial: "property_stats"),
-        ]
-        render turbo_stream: streams
+        if params[:page]
+          render turbo_stream: [
+            turbo_stream.append("properties-table-body", partial: "property_rows", locals: { properties: @properties }),
+            turbo_stream.replace("properties-pagination", partial: "load_more", locals: { pagy: @pagy })
+          ]
+        else
+          render turbo_stream: [
+            turbo_stream.replace("properties-table", partial: "properties_table", locals: { properties: @properties }),
+            turbo_stream.replace("property-stats", partial: "property_stats")
+          ]
+        end
       end
     end
   end

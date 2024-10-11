@@ -11,6 +11,9 @@ gem 'open-uri'
 # cron job
 gem 'whenever', require: false
 
+# gem pagy for pagination
+gem "pagy"
+  
 # gem foreman
 
 gem 'foreman'
