@@ -1,6 +1,8 @@
 class PropertiesController < ApplicationController
   def index
-    @pagy, @properties = pagy(Property.filter(params))
+    @filtered_properties = Property.filter(params)
+    @pagy, @properties = pagy(@filtered_properties)
+    @properties_stats = @filtered_properties
 
     respond_to do |format|
       format.html
@@ -12,8 +14,8 @@ class PropertiesController < ApplicationController
           ]
         else
           render turbo_stream: [
-            turbo_stream.replace("properties-table", partial: "properties_table", locals: { properties: @properties }),
-            turbo_stream.replace("property-stats", partial: "property_stats")
+            turbo_stream.replace("properties-table", partial: "properties_table", locals: { properties: @properties, pagy: @pagy }),
+            turbo_stream.replace("property-stats", partial: "property_stats", locals: { properties_stats: @properties_stats })
           ]
         end
       end

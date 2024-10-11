@@ -35,12 +35,8 @@
 
     <div class="mt-8 w-full">
       <%= turbo_frame_tag "properties" do %>
-        <div class="mt-4 w-full"> <!-- This adds top margin to the table --> 
-          <%= render partial: "property_stats", locals: { properties: @properties } %>
-        </div>
-        <div id="properties-table" class="w-full">
-          <%= render partial: "properties_table", locals: { properties: @properties } %>
-        </div>
+        <%= render partial: "property_stats", locals: { properties: @properties } %>
+        <%= render partial: "properties_table", locals: { properties: @properties, pagy: @pagy } %>
         <%= turbo_frame_tag "properties-pagination" do %>
           <%= render partial: "load_more", locals: { pagy: @pagy } %>
         <% end %>
