@@ -2,25 +2,25 @@
     <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 bg-white px-4 py-10 sm:px-6 xl:px-8">
         <dt class="text-sm font-medium leading-6 text-gray-500"># of Properties</dt>
         <dd class="w-full flex-none text-3xl font-medium leading-10 tracking-tight text-gray-900">
-            <%= number_with_delimiter(@properties.count) %>
+            <%= number_with_delimiter(@properties_stats.count) %>
         </dd>
     </div>
     <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 bg-white px-4 py-10 sm:px-6 xl:px-8">
         <dt class="text-sm font-medium leading-6 text-gray-500">Median Value</dt>
         <dd class="w-full flex-none text-3xl font-medium leading-10 tracking-tight text-gray-900">
-            <%= number_to_currency(median_sale_price(@properties), precision: 0) %>
+            <%= number_to_currency(median_sale_price(@properties_stats), precision: 0) %>
         </dd>
     </div>
     <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 bg-white px-4 py-10 sm:px-6 xl:px-8">
         <dt class="text-sm font-medium leading-6 text-gray-500">Avg Square Meters</dt>
         <dd class="w-full flex-none text-3xl font-medium leading-10 tracking-tight text-gray-900">
-            <%= number_with_delimiter(average_square_meters(@properties)) %> m²
+            <%= number_with_delimiter(average_square_meters(@properties_stats)) %> m²
         </dd>
     </div>
     <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 bg-white px-4 py-10 sm:px-6 xl:px-8">
         <dt class="text-sm font-medium leading-6 text-gray-500">Avg Price/m²</dt>
         <dd class="w-full flex-none text-3xl font-medium leading-10 tracking-tight text-gray-900">
-            <%= number_to_currency(average_price_per_square_meter(@properties), precision: 0) %>/m²
+            <%= number_to_currency(average_price_per_square_meter(@properties_stats), precision: 0) %>/m²
         </dd>
     </div>
 </dl>

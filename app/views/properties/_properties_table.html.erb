@@ -1,25 +1,19 @@
-<div class="overflow-x-auto -mx-4 mt-8 sm:-mx-0">
-  <%= turbo_frame_tag "properties-table" do %>
-    <table class="min-w-full divide-y divide-gray-300">
-      <thead class="hidden sm:table-header-group">
-        <tr>
-          <th scope="col" class="py-4 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0 w-1/4">Address</th>
-          <th scope="col" class="hidden px-4 py-4 text-left text-sm font-semibold text-gray-900 sm:table-cell w-1/8">Sale Price</th>
-          <th scope="col" class="hidden px-4 py-4 text-left text-sm font-semibold text-gray-900 sm:table-cell w-1/8">Sold Date</th>
-          <th scope="col" class="hidden px-4 py-4 text-left text-sm font-semibold text-gray-900 lg:table-cell w-1/12">Bedrooms</th>
-          <th scope="col" class="hidden px-4 py-4 text-left text-sm font-semibold text-gray-900 lg:table-cell w-1/12">Bathrooms</th>
-          <th scope="col" class="hidden px-4 py-4 text-left text-sm font-semibold text-gray-900 lg:table-cell w-1/8">Floor Area</th>
-          <th scope="col" class="hidden px-4 py-4 text-left text-sm font-semibold text-gray-900 lg:table-cell w-1/8">Land Area</th>
-          <th scope="col" class="px-4 py-4 text-left text-sm font-semibold text-gray-900 w-1/8">Suburb</th>
-        </tr>
-      </thead>
-      <tbody id="properties-table-body" class="divide-y divide-gray-200 bg-white">
-        <%= render partial: "property_rows", locals: { properties: properties } %>
-      </tbody>
-    </table>
-    
-    <%= turbo_frame_tag "properties-pagination" do %>
-      <%= render partial: "load_more", locals: { pagy: @pagy } %>
-    <% end %>
-  <% end %>
+<div id="properties-table" class="overflow-x-auto -mx-4 mt-8 sm:-mx-0">
+  <table class="min-w-full divide-y divide-gray-300">
+    <thead class="hidden sm:table-header-group">
+      <tr>
+        <th scope="col" class="py-4 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0 w-1/4">Address</th>
+        <th scope="col" class="hidden px-4 py-4 text-left text-sm font-semibold text-gray-900 sm:table-cell w-1/8">Sale Price</th>
+        <th scope="col" class="hidden px-4 py-4 text-left text-sm font-semibold text-gray-900 sm:table-cell w-1/8">Sold Date</th>
+        <th scope="col" class="hidden px-4 py-4 text-left text-sm font-semibold text-gray-900 lg:table-cell w-1/12">Bedrooms</th>
+        <th scope="col" class="hidden px-4 py-4 text-left text-sm font-semibold text-gray-900 lg:table-cell w-1/12">Bathrooms</th>
+        <th scope="col" class="hidden px-4 py-4 text-left text-sm font-semibold text-gray-900 lg:table-cell w-1/8">Floor Area</th>
+        <th scope="col" class="hidden px-4 py-4 text-left text-sm font-semibold text-gray-900 lg:table-cell w-1/8">Land Area</th>
+        <th scope="col" class="px-4 py-4 text-left text-sm font-semibold text-gray-900 w-1/8">Suburb</th>
+      </tr>
+    </thead>
+    <tbody id="properties-table-body" class="divide-y divide-gray-200 bg-white">
+      <%= render partial: "property_rows", locals: { properties: properties } %>
+    </tbody>
+  </table>
 </div>
