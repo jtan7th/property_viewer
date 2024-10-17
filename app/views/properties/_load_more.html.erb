@@ -6,7 +6,7 @@
       <span class="text-gray-500">Loading more properties...</span>
     </div>
   <% end %>
-<% elsif pagy.page == pagy.last %>
+<% elsif pagy.page == pagy.last && pagy.page > 1 %>
   <div class="text-center py-4">
     <span class="text-gray-500">No more properties to load</span>
   </div>
