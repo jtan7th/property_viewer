@@ -1,24 +1,24 @@
 <div class="image-container carousel">
   <% if property.images.attached? %>
     <div class="carousel-inner">
-      <% property.images.each_with_index do |image, index| %>
-        <%= image_tag image, class: "property-image #{index == 0 ? '' : 'hidden'}", data: { index: index } %>
+      <% if property.images.any? %>
+        <% property.images.each_with_index do |image, index| %>
+          <%= image_tag image, class: "property-image #{index == 0 ? '' : 'hidden'}", data: { index: index } %>
+        <% end %>
       <% end %>
       <% if property.images.count < property.image_urls.uniq.count %>
-        <div class="property-image loading-message flex items-center justify-center h-full">
-          <div class="text-center">
-            <p class="mb-2">Additional images are still being downloaded</p>
-            <div class="loading-indicator text-2xl">...</div>
-          </div>
-        </div>
-      <% end %>
-      <% if property.images.count > 1 %>
-        <div class="carousel-controls">
-          <button class="carousel-button prev">&lt;</button>
-          <button class="carousel-button next">&gt;</button>
+        <div class="loading-message text-center mt-2 <%= property.images.any? ? 'hidden' : '' %>" data-index="<%= property.images.count %>">
+          <p>Additional images are still being downloaded</p>
+          <div class="loading-indicator text-2xl">...</div>
         </div>
       <% end %>
     </div>
+    <% if property.images.count > 1 || property.images.count < property.image_urls.uniq.count %>
+      <div class="carousel-controls">
+        <button class="carousel-button prev">&lt;</button>
+        <button class="carousel-button next">&gt;</button>
+      </div>
+    <% end %>
   <% elsif property.image_urls.present? %>
     <div id="loading-message" class="loading-message flex items-center justify-center h-full">
       <div class="text-center">
