@@ -159,10 +159,17 @@ class Property < ApplicationRecord
     self[:image_urls] || []
   end
 
+  def needs_update?
+    requires_update?
+  end
 
   private
 
   def queue_image_download
     DownloadImagesJob.perform_later(self.id) if image_urls.present?
+  end
+
+  def requires_update?
+    sale_price.nil?
   end
 end

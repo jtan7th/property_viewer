@@ -1,0 +1,9 @@
+base_urls:
+  - https://homes.co.nz/map/lyttelton/corsair-bay?searchLoc=t~ciGoka%7D_@&filter=type:sold,sort:latest
+  - https://homes.co.nz/map/lyttelton/cass-bay?filter=type:sold,sort:latest
+  - https://homes.co.nz/map/christchurch/clifton?filter=type:sold,sort:latest
+  - https://homes.co.nz/map/christchurch/sumner?filter=type:sold,sort:latest
+  - https://homes.co.nz/map/christchurch/scarborough?filter=type:sold,sort:latest
+  - https://homes.co.nz/map/christchurch/moncks-bay?filter=type:sold,sort:latest
+  - https://homes.co.nz/map/christchurch/redcliffs?filter=type:sold,sort:latest
+  - https://homes.co.nz/map/christchurch/mount-pleasant?filter=type:sold,sort:latest

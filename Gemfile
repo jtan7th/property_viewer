@@ -2,6 +2,15 @@ source "https://rubygems.org"
 
 ruby "3.2.2"
 
+gem "webdrivers"
+
+gem 'base64'
+
+gem 'open-uri'
+
+# cron job
+gem 'whenever', require: false
+
 # gem foreman
 
 gem 'foreman'
