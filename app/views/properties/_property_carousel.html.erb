@@ -1,6 +1,6 @@
-<div class="image-container carousel">
+<div class="image-container carousel relative">
   <% if property.images.attached? %>
-    <div class="carousel-inner">
+    <div class="carousel-inner relative">
       <% if property.images.any? %>
         <% property.images.each_with_index do |image, index| %>
           <%= image_tag image, class: "property-image #{index == 0 ? '' : 'hidden'}", data: { index: index } %>
@@ -14,9 +14,9 @@
       <% end %>
     </div>
     <% if property.images.count > 1 || property.images.count < property.image_urls.uniq.count %>
-      <div class="carousel-controls">
-        <button class="carousel-button prev">&lt;</button>
-        <button class="carousel-button next">&gt;</button>
+      <div class="carousel-controls absolute inset-0 flex justify-between items-center px-4">
+        <button class="carousel-button prev bg-white bg-opacity-50 hover:bg-opacity-75 rounded-full p-2 transition-colors">&lt;</button>
+        <button class="carousel-button next bg-white bg-opacity-50 hover:bg-opacity-75 rounded-full p-2 transition-colors">&gt;</button>
       </div>
     <% end %>
   <% elsif property.image_urls.present? %>
