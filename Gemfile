@@ -8,6 +8,7 @@ gem 'base64'
 
 gem 'open-uri'
 
+gem  'figaro'
 # cron job
 gem 'whenever', require: false
 

@@ -1,0 +1,10 @@
+
+# Development environment
+development:
+  DB_USERNAME: jtan7th
+  DB_PASSWORD: JLysst69
+
+# Production environment
+production:
+  DB_USERNAME: property_viewer
+  DB_PASSWORD: JLysst69
