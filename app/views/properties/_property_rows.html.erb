@@ -1,40 +1,33 @@
-<div id="property-rows-container" class="property-rows-container">
-  <% if properties.any? %>
-    <% properties.each do |property| %>
-      <tr class="hover:bg-gray-50">
-        <td class="py-5 pl-4 pr-3 sm:pl-0 w-1/4">
-          <div class="flex items-center justify-between">
-            <div class="truncate">
-              <%= link_to property_path(property), 
-                  data: { turbo_frame: "modal_content" },
-                  onclick: "toggleModal()",
-                  class: "text-sm font-medium text-indigo-600 hover:text-indigo-900 truncate" do %>
-                <%= property.address.split(',').first %>
-              <% end %>
-              <dl class="font-normal sm:hidden mt-2">
-                <dd class="truncate text-xs text-gray-500"><%= format_price(property.sale_price) %></dd>
-                <dd class="mt-1 truncate text-xs text-gray-500"><%= property.sold_date %></dd>
-              </dl>
-            </div>
-            <div class="sm:hidden">
-              <%= suburb_pill(property.suburb) %>
-            </div>
-          </div>
-        </td>
-        <td class="hidden whitespace-nowrap px-4 py-5 text-sm text-gray-500 sm:table-cell w-1/8 truncate"><%= format_price(property.sale_price) %></td>
-        <td class="hidden whitespace-nowrap px-4 py-5 text-sm text-gray-500 sm:table-cell w-1/8 truncate"><%= property.sold_date %></td>
-        <td class="hidden whitespace-nowrap px-4 py-5 text-sm text-gray-500 lg:table-cell w-1/12 truncate"><%= property.bedroom_count %></td>
-        <td class="hidden whitespace-nowrap px-4 py-5 text-sm text-gray-500 lg:table-cell w-1/12 truncate"><%= property.bathroom_count %></td>
-        <td class="hidden whitespace-nowrap px-4 py-5 text-sm text-gray-500 lg:table-cell w-1/8 truncate"><%= format_area(property.floor_area) %></td>
-        <td class="hidden whitespace-nowrap px-4 py-5 text-sm text-gray-500 lg:table-cell w-1/8 truncate"><%= format_area(property.land_area) %></td>
-        <td class="hidden whitespace-nowrap px-4 py-5 text-sm text-gray-500 sm:table-cell w-1/8 truncate">
+
+<% properties.each do |property| %>
+  <tr class="hover:bg-gray-50">
+    <td class="py-5 pl-4 pr-3 sm:pl-0 w-1/4">
+      <div class="flex items-center justify-between">
+        <div class="truncate">
+          <%= link_to property_path(property), 
+              data: { turbo_frame: "modal_content" },
+              onclick: "toggleModal()",
+              class: "text-sm font-medium text-indigo-600 hover:text-indigo-900 truncate" do %>
+            <%= property.address.split(',').first %>
+          <% end %>
+          <dl class="font-normal sm:hidden mt-2">
+            <dd class="truncate text-xs text-gray-500"><%= format_price(property.sale_price) %></dd>
+            <dd class="mt-1 truncate text-xs text-gray-500"><%= property.sold_date %></dd>
+          </dl>
+        </div>
+        <div class="sm:hidden">
           <%= suburb_pill(property.suburb) %>
-        </td>
-      </tr>
-    <% end %>
-  <% else %>
-    <tr>
-      <td colspan="8" class="py-5 text-center text-gray-500">No properties found</td>
-    </tr>
-  <% end %>
-</div>
+        </div>
+      </div>
+    </td>
+    <td class="hidden whitespace-nowrap px-4 py-5 text-sm text-gray-500 sm:table-cell w-1/8 truncate"><%= format_price(property.sale_price) %></td>
+    <td class="hidden whitespace-nowrap px-4 py-5 text-sm text-gray-500 sm:table-cell w-1/8 truncate"><%= property.sold_date %></td>
+    <td class="hidden whitespace-nowrap px-4 py-5 text-sm text-gray-500 lg:table-cell w-1/12 truncate"><%= property.bedroom_count %></td>
+    <td class="hidden whitespace-nowrap px-4 py-5 text-sm text-gray-500 lg:table-cell w-1/12 truncate"><%= property.bathroom_count %></td>
+    <td class="hidden whitespace-nowrap px-4 py-5 text-sm text-gray-500 lg:table-cell w-1/8 truncate"><%= format_area(property.floor_area) %></td>
+    <td class="hidden whitespace-nowrap px-4 py-5 text-sm text-gray-500 lg:table-cell w-1/8 truncate"><%= format_area(property.land_area) %></td>
+    <td class="hidden whitespace-nowrap px-4 py-5 text-sm text-gray-500 sm:table-cell w-1/8 truncate">
+      <%= suburb_pill(property.suburb) %>
+    </td>
+  </tr>
+<% end %>
