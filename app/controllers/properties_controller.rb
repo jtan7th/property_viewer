@@ -1,4 +1,6 @@
 class PropertiesController < ApplicationController
+  include Pagy::Backend
+
   def index
     @filtered_properties = Property.filter(params)
     @pagy, @properties = pagy(@filtered_properties)

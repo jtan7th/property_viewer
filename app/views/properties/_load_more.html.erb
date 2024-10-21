@@ -1,4 +1,6 @@
-<% if pagy.next %>
+<% if pagy.page == 1 && pagy.count == 0 %>
+  <%# Don't show anything if it's the first page and there are no items %>
+<% elsif pagy.next %>
   <%= turbo_frame_tag "properties-pagination", 
                       src: properties_path(page: pagy.next, format: :turbo_stream, **params.except(:page, :format).permit!), 
                       loading: :lazy do %>
