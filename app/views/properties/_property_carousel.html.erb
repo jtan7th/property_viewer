@@ -2,8 +2,8 @@
   <% if property.images.attached? %>
     <div class="carousel-inner relative">
       <% if property.images.any? %>
-        <% property.images.each_with_index do |image, index| %>
-          <%= image_tag image, class: "property-image #{index == 0 ? '' : 'hidden'}", data: { index: index } %>
+        <% property.image_urls.each_with_index do |url, index| %>
+          <%= image_tag url, class: "property-image #{index == 0 ? '' : 'hidden'}", data: { index: index } %>
         <% end %>
       <% end %>
       <% if property.images.count < property.image_urls.uniq.count %>
