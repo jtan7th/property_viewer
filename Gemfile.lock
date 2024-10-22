@@ -83,6 +83,9 @@ GEM
     bootsnap (1.18.4)
       msgpack (~> 1.2)
     builder (3.3.0)
+    bullet (7.2.0)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.11)
     capybara (3.40.0)
       addressable
       matrix
@@ -255,6 +258,7 @@ GEM
       railties (>= 6.0.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
+    uniform_notifier (1.16.0)
     uri (0.13.1)
     web-console (4.2.1)
       actionview (>= 6.0.0)
@@ -287,6 +291,7 @@ PLATFORMS
 DEPENDENCIES
   base64
   bootsnap
+  bullet
   capybara
   debug
   figaro
