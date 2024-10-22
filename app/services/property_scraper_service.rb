@@ -36,8 +36,10 @@ class PropertyScraperService
     def scrape_and_update_property(url)
       property = Property.find_or_initialize_by(url: url)
 
-      if property.new_record? || property.needs_update?
+      if property.new_record?
         update_property(property, url)
+      elsif property.needs_update?
+        update_price(property, url)
       else
         Rails.logger.info "Property is up-to-date: #{url}"
       end
@@ -52,6 +54,19 @@ class PropertyScraperService
       else
         Rails.logger.error "Failed to scrape property: #{url}"
       end
+    end
+
+    def update_price(property, url)
+      Rails.logger.info "Updating price for property: #{url}"
+      updated_property = PriceScraperService.update_price(property)
+      if updated_property.sale_price_changed?
+        save_property(updated_property)
+        Rails.logger.info "Updated sale price for property: #{url}"
+      else
+        Rails.logger.info "No change in sale price for property: #{url}"
+      end
+      rescue => e
+        Rails.logger.error "Failed to update price for property: #{url}. Error: #{e.message}"
     end
   
     def save_property(property, property_data)
