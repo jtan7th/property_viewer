@@ -1,15 +1,15 @@
 # Right now this works in terms of scraping everything, but it really should only be scraping new stuff or if price isn't there so need to debug this
 # make also need to make this a job, not a task, although we can keep the code as a service
 class PropertyScraperService
-    def self.daily_update
-      new.daily_update
+    def self.weekly_update
+      new.weekly_update
     end
   
-    def daily_update
+    def weekly_update
       base_urls.each_with_index do |base_url, base_index|
         process_base_url(base_url, base_index)
       end
-      Rails.logger.info "Daily update completed."
+      Rails.logger.info "weekly update completed."
     end
   
     private

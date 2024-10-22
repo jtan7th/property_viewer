@@ -19,6 +19,6 @@
 
 # Learn more: http://github.com/javan/whenever
 
-every 1.day, at: '4:30 am' do
-  runner "DailyPropertyUpdateJob.perform_later"
+every :sunday, at: '12:00 am' do
+  runner "WeeklyPropertyUpdateJob.perform_later"
 end
