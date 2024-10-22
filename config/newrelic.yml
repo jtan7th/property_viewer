@@ -1,0 +1,16 @@
+common: &default_settings
+  license_key: <%= ENV['NEW_RELIC_LICENSE_KEY'] %>
+  app_name: 'Property Viewer'
+  distributed_tracing:
+    enabled: true
+
+development:
+  <<: *default_settings
+  app_name: 'Property Viewer (Development)'
+
+test:
+  <<: *default_settings
+  monitor_mode: false
+
+production:
+  <<: *default_settings
