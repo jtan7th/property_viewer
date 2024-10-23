@@ -1,7 +1,10 @@
 require 'selenium-webdriver'
-require 'image_scraper_service'
+require_relative 'image_scraper_service'
 
 class SeleniumScraperService
+
+  url = "https://homes.co.nz/address/christchurch/richmond-hill/143-richmond-hill-road/8DXaZ"
+
     def self.scrape(url)
       new.scraper(url) 
     end
@@ -171,7 +174,7 @@ class SeleniumScraperService
           end
       
           # Add this line to scrape images
-          property_data[:image_urls] = scrape_images(url)
+          property_data[:image_urls] = ImageScraperService.scrape_images(url)
       
           # Output the collected data
           property_data.each do |key, value|

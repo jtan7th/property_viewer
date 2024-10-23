@@ -3,7 +3,7 @@ require 'open-uri'
 require 'base64'
 
 class ImageScraperService
-  def scrape_images(url)
+  def self.scrape_images(url)
     options = Selenium::WebDriver::Chrome::Options.new
     options.add_argument('--headless')
     options.add_argument('--disable-gpu')
@@ -51,7 +51,6 @@ class ImageScraperService
     ensure
       driver.quit
     end
-
     image_urls
   end
 end

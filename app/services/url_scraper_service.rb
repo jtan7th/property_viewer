@@ -24,10 +24,16 @@ class UrlScraperService
           begin # Wait for the property count element to be present
             wait.until { driver.find_element(xpath: "//div[contains(@class, 'propertyCnt ng-star-inserted')]") }
           
-            property_count_element = driver.find_element(xpath: "//div[contains(@class, 'propertyCnt ng-star-inserted')]/div[1]")
-            
+            begin
+              # Try to find the child element first
+              element = driver.find_element(xpath: "//div[contains(@class, 'propertyCnt ng-star-inserted')]/div[1]")
+            rescue Selenium::WebDriver::Error::NoSuchElementError
+              # If child element not found, use the parent element
+              element = driver.find_element(xpath: "//div[contains(@class, 'propertyCnt ng-star-inserted')]")
+            end
+
             # Extract the text content using JavaScript
-            js_text = driver.execute_script("return arguments[0].textContent", property_count_element)
+            js_text = driver.execute_script("return arguments[0].textContent", element)
             
             # Parse the number from the text
             target_property_count = js_text.scan(/\d+/).first.to_i
