@@ -103,6 +103,11 @@ GEM
     debug (1.9.2)
       irb (~> 1.10)
       reline (>= 0.3.8)
+    delayed_job (4.1.12)
+      activesupport (>= 3.0, < 8.0)
+    delayed_job_active_record (4.1.10)
+      activerecord (>= 3.0, < 8.0)
+      delayed_job (>= 3.0, < 5)
     drb (2.2.1)
     erubi (1.13.0)
     figaro (1.2.0)
@@ -294,6 +299,7 @@ DEPENDENCIES
   bullet
   capybara
   debug
+  delayed_job_active_record
   figaro
   foreman
   importmap-rails

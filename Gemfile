@@ -2,6 +2,8 @@ source "https://rubygems.org"
 
 ruby "3.2.2"
 
+gem 'delayed_job_active_record'
+
 # gem for newrelic to monitor app speed on heroku
 gem 'newrelic_rpm'
 

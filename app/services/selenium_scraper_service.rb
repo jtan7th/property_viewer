@@ -1,5 +1,5 @@
 require 'selenium-webdriver'
-require_relative 'image_scraper_service'
+require 'image_scraper_service'
 
 class SeleniumScraperService
     def self.scrape(url)
