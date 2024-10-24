@@ -30,8 +30,14 @@
       <% property.image_urls.each_with_index do |url, index| %>
         <%= image_tag url, class: "property-image #{index == 0 ? '' : 'hidden'}", data: { index: index } %>
       <% end %>
+      
     </div>
+
+
     <%= javascript_tag nonce: true do %>
+
+      // Ideally this is in its own file or in carousel.js but I can't make it work 
+      
       setTimeout(function() {
         const loadingMessage = document.getElementById('loading-message');
         const propertyImages = document.getElementById('property-images');
@@ -39,6 +45,39 @@
         if (propertyImages.querySelector('img')) {
           loadingMessage.classList.add('hidden');
           propertyImages.classList.remove('hidden');
+          
+          console.log('Images are visible');
+          
+          // Get all image URLs
+          const imageUrls = Array.from(propertyImages.querySelectorAll('img')).map(img => img.src);
+          
+          // Create a Set to filter unique URLs
+          const uniqueImageUrls = new Set(imageUrls);
+          
+          // Check if there is more than one unique image
+          if (uniqueImageUrls.size > 1) {
+            console.log('More than one unique image, adding controls');
+            
+            // Create carousel controls
+            const carouselControls = document.createElement('div');
+            carouselControls.className = 'carousel-controls absolute inset-0 flex justify-between items-center px-4';
+            
+            const prevButton = document.createElement('button');
+            prevButton.className = 'carousel-button prev bg-white bg-opacity-50 hover:bg-opacity-75 rounded-full p-2 transition-colors';
+            prevButton.innerHTML = '&lt;';
+            
+            const nextButton = document.createElement('button');
+            nextButton.className = 'carousel-button next bg-white bg-opacity-50 hover:bg-opacity-75 rounded-full p-2 transition-colors';
+            nextButton.innerHTML = '&gt;';
+            
+            carouselControls.appendChild(prevButton);
+            carouselControls.appendChild(nextButton);
+            
+            // Append controls to the carousel
+            propertyImages.parentNode.appendChild(carouselControls);
+            
+            console.log('Controls added');
+          }
         } else {
           const frame = document.getElementById('modal_content');
           frame.src = frame.src;
