@@ -26,10 +26,23 @@
         <div class="loading-indicator text-2xl">...</div>
       </div>
     </div>
+    <div id="property-images" class="hidden">
+      <% property.image_urls.each_with_index do |url, index| %>
+        <%= image_tag url, class: "property-image #{index == 0 ? '' : 'hidden'}", data: { index: index } %>
+      <% end %>
+    </div>
     <%= javascript_tag nonce: true do %>
       setTimeout(function() {
-        const frame = document.getElementById('modal_content');
-        frame.src = frame.src;
+        const loadingMessage = document.getElementById('loading-message');
+        const propertyImages = document.getElementById('property-images');
+        
+        if (propertyImages.querySelector('img')) {
+          loadingMessage.classList.add('hidden');
+          propertyImages.classList.remove('hidden');
+        } else {
+          const frame = document.getElementById('modal_content');
+          frame.src = frame.src;
+        }
       }, 5000);
     <% end %>
   <% else %>
