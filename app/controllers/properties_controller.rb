@@ -27,7 +27,7 @@ class PropertiesController < ApplicationController
     render layout: false if turbo_frame_request?
     
     if @property.images.none? && @property.image_urls.present?
-      DownloadImagesJob.perform_later(@property.id)
+      DownloadImagesJob.perform_now(@property.id)
     end
   end
 
