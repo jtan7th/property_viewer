@@ -80,15 +80,14 @@ class Property < ApplicationRecord
   scope :with_floor_area, -> { where.not(floor_area: nil) }
   scope :with_land_area, -> { where.not(land_area: nil) }
 
-  scope :sorted, ->(sort_option) do
-    case sort_option
-    when "sale_price_asc" then order(sale_price: :asc)
-    when "sale_price_desc" then order(sale_price: :desc)
-    when "created_at_desc" then order(created_at: :desc)
-    when "created_at_asc" then order(created_at: :asc)
-    when "land_area_asc" then order(land_area: :asc)
-    when "land_area_desc" then order(land_area: :desc)
-    else order(created_at: :desc)
+  scope :sorted, ->(sort_option, direction = 'desc') do
+    direction = %w[asc desc].include?(direction) ? direction : 'desc'
+    Rails.logger.debug "Sorting by #{sort_option} in #{direction} order"
+
+    if %w[sale_price sold_date bedroom_count bathroom_count floor_area land_area].include?(sort_option)
+      order(Arel.sql("CASE WHEN #{sort_option} IS NULL THEN 1 ELSE 0 END, #{sort_option} #{direction}"))
+    else
+      order(Arel.sql("CASE WHEN sold_date IS NULL THEN 1 ELSE 0 END, sold_date DESC")) # Default sorting
     end
   end
 
@@ -138,15 +137,15 @@ class Property < ApplicationRecord
     properties = properties.price_range(params[:min_sale_price], params[:max_sale_price])
       .bedroom_range(params[:min_bedroom_count], params[:max_bedroom_count])
       .bathroom_range(params[:min_bathroom_count], params[:max_bathroom_count])
-      .carpark_spaces_range(params[:min_carpark_spaces_count], params[:max_carpark_spaces_count]) # Add this line
+      .carpark_spaces_range(params[:min_carpark_spaces_count], params[:max_carpark_spaces_count])
       .floor_area_range(params[:min_floor_area], params[:max_floor_area])
       .land_area_range(params[:min_land_area], params[:max_land_area])
       .in_suburbs(params[:suburb])
       .built_in_decade(params[:decade_built])
       .in_condition(params[:condition])
       .with_deck(params[:deck])
-      .sorted(params[:sort_by])
-    
+      .sorted(params[:sort_by], params[:direction]) # Pass the direction parameter here
+
     properties = properties.where("address ILIKE ?", "%#{params[:address]}%") if params[:address].present?
     properties = properties.with_sale_price if params[:exclude_nil_prices] == "1"
     properties = properties.with_floor_area if params[:exclude_nil_floor_areas] == "1"

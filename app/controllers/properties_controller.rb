@@ -3,6 +3,8 @@ class PropertiesController < ApplicationController
     @filtered_properties = Property.filter(params)
     @pagy, @properties = pagy(@filtered_properties)
     @properties_stats = @filtered_properties
+    @properties = @properties.sorted(params[:sort_by], params[:direction])
+
 
     respond_to do |format|
       format.html
