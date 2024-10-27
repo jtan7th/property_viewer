@@ -19,6 +19,7 @@ class UrlScraperService
       
         begin
           driver.get(base_url)
+
           sleep(30)  # Initial wait for page to load
         
           begin # Wait for the property count element to be present

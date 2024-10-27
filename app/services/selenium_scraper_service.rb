@@ -3,8 +3,6 @@ require_relative 'image_scraper_service'
 
 class SeleniumScraperService
 
-  url = "https://homes.co.nz/address/christchurch/richmond-hill/143-richmond-hill-road/8DXaZ"
-
     def self.scrape(url)
       new.scraper(url) 
     end
@@ -13,6 +11,7 @@ class SeleniumScraperService
         options = Selenium::WebDriver::Chrome::Options.new
         binary = ENV.fetch("GOOGLE_CHROME_PATH")
         if(binary)
+          puts "binary: #{binary}"
           options.binary = binary
         end
         options.add_argument('--disable-gpu')

@@ -1,0 +1,28 @@
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-2xl font-bold mb-6">Sales Reports by Suburb</h1>
+
+  <%= form_tag reports_path, method: :get, class: "mb-6" do %>
+    <div class="flex gap-4 items-end">
+      <div>
+        <%= label_tag :start_date, "Start Date", class: "block mb-2" %>
+        <%= date_field_tag :start_date, @start_date, class: "border p-2 rounded" %>
+      </div>
+
+      <div>
+        <%= label_tag :end_date, "End Date", class: "block mb-2" %>
+        <%= date_field_tag :end_date, @end_date, class: "border p-2 rounded" %>
+      </div>
+
+      <%= submit_tag "Generate Report", class: "bg-blue-500 text-white px-4 py-2 rounded" %>
+    </div>
+  <% end %>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <% @sales_by_suburb.each do |suburb, count| %>
+      <div class="border p-4 rounded shadow">
+        <h3 class="font-bold"><%= suburb %></h3>
+        <p><%= pluralize(count, 'sale') %></p>
+      </div>
+    <% end %>
+  </div>
+</div>
