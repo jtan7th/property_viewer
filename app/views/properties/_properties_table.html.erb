@@ -5,22 +5,22 @@
         <tr>
           <th scope="col" class="py-4 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0 w-1/4">Address</th>
           <th scope="col" class="hidden px-4 py-4 text-left text-sm font-semibold text-gray-900 sm:table-cell w-1/8">
-            <%= link_to "Sale Price", properties_path(sort_by: 'sale_price', direction: toggle_direction('sale_price')) %>
+            <%= link_to "Sale Price #{sort_indicator('sale_price')}", properties_path(sort_by: 'sale_price', direction: toggle_direction('sale_price')) %>
           </th>
           <th scope="col" class="hidden px-4 py-4 text-left text-sm font-semibold text-gray-900 sm:table-cell w-1/8">
-            <%= link_to "Sold Date", properties_path(sort_by: 'sold_date', direction: toggle_direction('sold_date')) %>
+            <%= link_to "Sold Date #{sort_indicator('sold_date')}", properties_path(sort_by: 'sold_date', direction: toggle_direction('sold_date')) %>
           </th>
           <th scope="col" class="hidden px-4 py-4 text-left text-sm font-semibold text-gray-900 lg:table-cell w-1/12">
-            <%= link_to "Bedrooms", properties_path(sort_by: 'bedroom_count', direction: toggle_direction('bedroom_count')) %>
+            <%= link_to "Bedrooms #{sort_indicator('bedroom_count')}", properties_path(sort_by: 'bedroom_count', direction: toggle_direction('bedroom_count')) %>
           </th>
           <th scope="col" class="hidden px-4 py-4 text-left text-sm font-semibold text-gray-900 lg:table-cell w-1/12">
-            <%= link_to "Bathrooms", properties_path(sort_by: 'bathroom_count', direction: toggle_direction('bathroom_count')) %>
+            <%= link_to "Bathrooms #{sort_indicator('bathroom_count')}", properties_path(sort_by: 'bathroom_count', direction: toggle_direction('bathroom_count')) %>
           </th>
           <th scope="col" class="hidden px-4 py-4 text-left text-sm font-semibold text-gray-900 lg:table-cell w-1/8">
-            <%= link_to "Floor Area", properties_path(sort_by: 'floor_area', direction: toggle_direction('floor_area')) %>
+            <%= link_to "Floor Area #{sort_indicator('floor_area')}", properties_path(sort_by: 'floor_area', direction: toggle_direction('floor_area')) %>
           </th>
           <th scope="col" class="hidden px-4 py-4 text-left text-sm font-semibold text-gray-900 lg:table-cell w-1/8">
-            <%= link_to "Land Area", properties_path(sort_by: 'land_area', direction: toggle_direction('land_area')) %>
+            <%= link_to "Land Area #{sort_indicator('land_area')}", properties_path(sort_by: 'land_area', direction: toggle_direction('land_area')) %>
           </th>
           <th scope="col" class="px-4 py-4 text-left text-sm font-semibold text-gray-900 w-1/8">Suburb</th>
         </tr>
