@@ -29,6 +29,7 @@
           <p><strong>View Type:</strong> <%= @property.view_type %></p>
           <p><strong>Decade Built:</strong> <%= @property.decade_built %></p>
           <p><strong>Condition:</strong> <%= @property.condition %></p>
+          <p><%= link_to "See source information", @property.url, class: "text-indigo-600 underline", target: "_blank" %></p>
         </div>
       </div>
 <% end %>
