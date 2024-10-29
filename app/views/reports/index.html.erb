@@ -1,4 +1,4 @@
-<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+<div class="w-full">
   <div class="sm:flex sm:items-center">
     <div class="sm:flex-auto">
       <h1 class="text-base font-semibold text-gray-900">Weekly Sales Report</h1>
@@ -12,9 +12,9 @@
     </div>
   </div>
   
-  <div class="mt-8 flow-root">
-    <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-      <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+  <div class="mt-8 w-full">
+    <div class="overflow-x-auto">
+      <div class="inline-block min-w-full align-middle">
         <table class="min-w-full divide-y divide-gray-300">
           <thead>
             <tr>
@@ -40,19 +40,19 @@
                 <td class="w-1/12 whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-left">
                   <%= stat[:bedroom_breakdown][:na_bed] %>
                 </td>
-                <td class="w-1/12 whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-left">
+                <td class="w-1/12 whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-center">
                   <%= stat[:bedroom_breakdown][:one_bed] %>
                 </td>
-                <td class="w-1/12 whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-left">
+                <td class="w-1/12 whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-center">
                   <%= stat[:bedroom_breakdown][:two_bed] %>
                 </td>
-                <td class="w-1/12 whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-left">
+                <td class="w-1/12 whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-center">
                   <%= stat[:bedroom_breakdown][:three_bed] %>
                 </td>
-                <td class="w-1/12 whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-left">
+                <td class="w-1/12 whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-center">
                   <%= stat[:bedroom_breakdown][:four_bed] %>
                 </td>
-                <td class="w-1/12 whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-left">
+                <td class="w-1/12 whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-center">
                   <%= stat[:bedroom_breakdown][:five_plus_bed] %>
                 </td>
               </tr>

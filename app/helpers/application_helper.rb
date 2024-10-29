@@ -24,9 +24,9 @@ module ApplicationHelper
 
   def nav_link_class(path)
     if current_page?(path)
-      "border-indigo-500 text-gray-900"
+      "border-b-2 border-b-indigo-500 text-gray-900"
     else
-      "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700"
+      "border-b-2 border-b-transparent text-gray-500 hover:border-b-gray-300 hover:text-gray-700"
     end
   end
 end
