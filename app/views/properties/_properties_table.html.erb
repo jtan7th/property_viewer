@@ -3,7 +3,7 @@
     <table class="min-w-full w-full table-fixed divide-y divide-gray-300">
       <thead class="hidden sm:table-header-group">
         <tr>
-          <th scope="col" class="py-4 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0 w-1/4">Address</th>
+          <th scope="col" class="py-4 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0 w-1/5">Address</th>
           <th scope="col" class="hidden px-4 py-4 text-left text-sm font-semibold text-gray-900 sm:table-cell w-1/8">
             <%= link_to "Sale Price #{sort_indicator('sale_price')}", properties_path(sort_by: 'sale_price', direction: toggle_direction('sale_price')) %>
           </th>
@@ -22,7 +22,7 @@
           <th scope="col" class="hidden px-4 py-4 text-left text-sm font-semibold text-gray-900 lg:table-cell w-1/8">
             <%= link_to "Land Area #{sort_indicator('land_area')}", properties_path(sort_by: 'land_area', direction: toggle_direction('land_area')) %>
           </th>
-          <th scope="col" class="px-4 py-4 text-left text-sm font-semibold text-gray-900 w-1/8">Suburb</th>
+          <th scope="col" class="px-4 py-4 text-left text-sm font-semibold text-gray-900 w-1/6">Suburb</th>
         </tr>
       </thead>
       <tbody id="properties-table-body" class="divide-y divide-gray-200 bg-white">
