@@ -1,6 +1,7 @@
 class ReportsController < ApplicationController
   def index
-    @weekly_stats = fetch_weekly_stats
+    weekly_stats = fetch_weekly_stats
+    @pagy, @weekly_stats = pagy_array(weekly_stats.to_a, items: 10)
   end
 
   def export_csv

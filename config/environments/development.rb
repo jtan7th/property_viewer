@@ -82,4 +82,7 @@ Rails.application.configure do
     Bullet.rails_logger = true
     Bullet.add_footer = true
   end
+
+  config.cache_classes = false
+  config.reload_classes_only_on_change = false
 end
