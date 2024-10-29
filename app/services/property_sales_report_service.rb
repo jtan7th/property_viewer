@@ -23,5 +23,13 @@ class PropertySalesReportService
   
       # Sort by week
       weekly_stats.sort_by { |stat| stat[:week] }
+  
+      {
+        stats: weekly_stats,
+        date_range: {
+          start_date: weekly_stats.min_by { |stat| stat[:week] }[:week].to_date,
+          end_date: weekly_stats.max_by { |stat| stat[:week] }[:week].to_date
+        }
+      }
     end
   end
