@@ -1,0 +1,27 @@
+class PropertySalesReportService
+    def self.generate_weekly_report
+      # Get all sold properties
+      sold_properties = Property.where.not(sold_date: nil)
+      
+      # Group properties by week and count bedrooms
+      weekly_stats = sold_properties.group_by { |prop| 
+        prop.sold_date.beginning_of_week
+      }.map do |week, properties|
+        {
+          week: week,
+          total_sales: properties.count,
+          bedroom_breakdown: {
+            na_bed: properties.count { |p| p.bedroom_count.nil? || p.bedroom_count == 0 },
+            one_bed: properties.count { |p| p.bedroom_count == 1 },
+            two_bed: properties.count { |p| p.bedroom_count == 2 },
+            three_bed: properties.count { |p| p.bedroom_count == 3 },
+            four_bed: properties.count { |p| p.bedroom_count == 4 },
+            five_plus_bed: properties.count { |p| p.bedroom_count.present? && p.bedroom_count >= 5 }
+          }
+        }
+      end
+  
+      # Sort by week
+      weekly_stats.sort_by { |stat| stat[:week] }
+    end
+  end

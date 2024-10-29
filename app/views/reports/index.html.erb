@@ -1,28 +1,65 @@
-<div class="container mx-auto px-4 py-8">
-  <h1 class="text-2xl font-bold mb-6">Sales Reports by Suburb</h1>
-
-  <%= form_tag reports_path, method: :get, class: "mb-6" do %>
-    <div class="flex gap-4 items-end">
-      <div>
-        <%= label_tag :start_date, "Start Date", class: "block mb-2" %>
-        <%= date_field_tag :start_date, @start_date, class: "border p-2 rounded" %>
-      </div>
-
-      <div>
-        <%= label_tag :end_date, "End Date", class: "block mb-2" %>
-        <%= date_field_tag :end_date, @end_date, class: "border p-2 rounded" %>
-      </div>
-
-      <%= submit_tag "Generate Report", class: "bg-blue-500 text-white px-4 py-2 rounded" %>
+<div class="px-4 sm:px-6 lg:px-8">
+  <div class="sm:flex sm:items-center">
+    <div class="sm:flex-auto">
+      <h1 class="text-base font-semibold text-gray-900">Weekly Sales Report</h1>
+      <p class="mt-2 text-sm text-gray-700">A breakdown of property sales by number of bedrooms for each week.</p>
     </div>
-  <% end %>
-
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-    <% @sales_by_suburb.each do |suburb, count| %>
-      <div class="border p-4 rounded shadow">
-        <h3 class="font-bold"><%= suburb %></h3>
-        <p><%= pluralize(count, 'sale') %></p>
+    <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+      <%# Optional: Add export button or other actions here %>
+      <button type="button" class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+        Export CSV
+      </button>
+    </div>
+  </div>
+  
+  <div class="mt-8 flow-root">
+    <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+        <table class="min-w-full divide-y divide-gray-300">
+          <thead>
+            <tr>
+              <th scope="col" class="w-2/12 py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-3">Week Starting</th>
+              <th scope="col" class="w-1/12 px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Total</th>
+              <th scope="col" class="w-1/12 px-3 py-3.5 text-left text-sm font-semibold text-gray-900">N/A</th>
+              <th scope="col" class="w-1/12 px-3 py-3.5 text-left text-sm font-semibold text-gray-900">1 Bed</th>
+              <th scope="col" class="w-1/12 px-3 py-3.5 text-left text-sm font-semibold text-gray-900">2 Beds</th>
+              <th scope="col" class="w-1/12 px-3 py-3.5 text-left text-sm font-semibold text-gray-900">3 Beds</th>
+              <th scope="col" class="w-1/12 px-3 py-3.5 text-left text-sm font-semibold text-gray-900">4 Beds</th>
+              <th scope="col" class="w-1/12 px-3 py-3.5 text-left text-sm font-semibold text-gray-900">5+ Beds</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white">
+            <% @weekly_stats.each do |stat| %>
+              <tr class="even:bg-gray-50">
+                <td class="w-2/12 whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3">
+                  <%= stat[:week].strftime('%B %d, %Y') %>
+                </td>
+                <td class="w-1/12 whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-left">
+                  <%= stat[:total_sales] %>
+                </td>
+                <td class="w-1/12 whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-left">
+                  <%= stat[:bedroom_breakdown][:na_bed] %>
+                </td>
+                <td class="w-1/12 whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-left">
+                  <%= stat[:bedroom_breakdown][:one_bed] %>
+                </td>
+                <td class="w-1/12 whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-left">
+                  <%= stat[:bedroom_breakdown][:two_bed] %>
+                </td>
+                <td class="w-1/12 whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-left">
+                  <%= stat[:bedroom_breakdown][:three_bed] %>
+                </td>
+                <td class="w-1/12 whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-left">
+                  <%= stat[:bedroom_breakdown][:four_bed] %>
+                </td>
+                <td class="w-1/12 whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-left">
+                  <%= stat[:bedroom_breakdown][:five_plus_bed] %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
       </div>
-    <% end %>
+    </div>
   </div>
 </div>
