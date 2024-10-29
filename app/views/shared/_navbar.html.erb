@@ -20,15 +20,13 @@
       </div>
       
       <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-        <div class="hidden sm:flex items-center">
+        <div class="hidden sm:flex items-center sm:space-x-8 sm:ml-6">
           <%= link_to "Home", root_path, 
               class: "inline-flex items-center border-b-2 #{current_page?(root_path) ? 'border-indigo-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'} px-1 pt-1 text-sm font-medium" %>
           
-          <div class="sm:ml-6 sm:space-x-8 flex items-center">
+          <div class="flex items-center">
             <%= link_to "Reports", reports_path,
                 class: "inline-flex items-center border-b-2 #{current_page?(reports_path) ? 'border-indigo-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'} px-1 pt-1 text-sm font-medium" %>
-            
-            <%# Additional links would go here and get the space-x-8 spacing %>
           </div>
         </div>
       </div>
