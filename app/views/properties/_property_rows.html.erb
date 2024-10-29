@@ -1,6 +1,6 @@
 <% properties.each do |property| %>
   <tr class="hover:bg-gray-50">
-    <td class="py-5 pl-4 pr-3 sm:pl-0 w-1/5">
+    <td class="py-5 pl-4 pr-3 sm:pl-0 sm:w-1/ lg:w-1/5">
       <div class="flex items-center justify-between">
         <div class="truncate">
           <%= link_to property_path(property), 
@@ -19,13 +19,13 @@
         </div>
       </div>
     </td>
-    <td class="hidden whitespace-nowrap px-4 py-5 text-sm text-gray-500 sm:table-cell w-1/8 truncate"><%= format_price(property.sale_price) %></td>
-    <td class="hidden whitespace-nowrap px-4 py-5 text-sm text-gray-500 sm:table-cell w-1/8 truncate"><%= property.sold_date %></td>
-    <td class="hidden whitespace-nowrap px-4 py-5 text-sm text-gray-500 lg:table-cell w-1/8 truncate"><%= property.bedroom_count %></td>
-    <td class="hidden whitespace-nowrap px-4 py-5 text-sm text-gray-500 lg:table-cell w-1/8 truncate"><%= property.bathroom_count %></td>
-    <td class="hidden whitespace-nowrap px-4 py-5 text-sm text-gray-500 lg:table-cell w-1/8 truncate"><%= format_area(property.floor_area) %></td>
-    <td class="hidden whitespace-nowrap px-4 py-5 text-sm text-gray-500 lg:table-cell w-1/8 truncate"><%= format_area(property.land_area) %></td>
-    <td class="hidden whitespace-nowrap px-4 py-5 text-sm text-gray-500 sm:table-cell w-1/6">
+    <td class="hidden whitespace-nowrap px-4 py-5 text-sm text-gray-500 sm:table-cell lg:table-cell sm:w-1/6 lg:w-1/8 truncate"><%= format_price(property.sale_price) %></td>
+    <td class="hidden whitespace-nowrap px-4 py-5 text-sm text-gray-500 sm:table-cell lg:table-cell sm:w-1/6 lg:w-1/8 truncate"><%= property.sold_date %></td>
+    <td class="hidden whitespace-nowrap px-4 py-5 text-sm text-gray-500 lg:table-cell lg:w-1/8 truncate"><%= property.bedroom_count %></td>
+    <td class="hidden whitespace-nowrap px-4 py-5 text-sm text-gray-500 lg:table-cell lg:w-1/8 truncate"><%= property.bathroom_count %></td>
+    <td class="hidden whitespace-nowrap px-4 py-5 text-sm text-gray-500 lg:table-cell lg:w-1/8 truncate"><%= format_area(property.floor_area) %></td>
+    <td class="hidden whitespace-nowrap px-4 py-5 text-sm text-gray-500 lg:table-cell lg:w-1/8 truncate"><%= format_area(property.land_area) %></td>
+    <td class="hidden whitespace-nowrap px-4 py-5 text-sm text-gray-500 sm:table-cell sm:w-1/4 lg:w-1/6">
       <%= suburb_pill(property.suburb) %>
     </td>
   </tr>
