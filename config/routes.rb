@@ -15,4 +15,10 @@ Rails.application.routes.draw do
   # root "posts#index"
   # ... existing routes ...
 get '/reports', to: 'reports#index'
+
+resources :reports, only: [:index] do
+  collection do
+    get :export_csv
+  end
+end
 end

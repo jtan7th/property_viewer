@@ -3,7 +3,7 @@
     <div class="sm:flex-auto">
       <h1 class="text-base font-semibold text-gray-900">Weekly Sales Report</h1>
       <p class="mt-2 text-sm text-gray-700">A breakdown of property sales by number of bedrooms for each week.</p>
-      <%= link_to "Export CSV", "#", class: "mt-2 text-sm text-indigo-600 hover:text-indigo-500 underline inline-block" %>
+
     </div>
     
     <div class="sm:flex-auto mt-4 sm:mt-0">
@@ -23,7 +23,12 @@
     </div>
   </div>
   
-  <div class="mt-8 w-full">
+  <div class="mt-6 w-full">
+    <div class="flex justify-end">
+      <%= link_to "Export CSV", 
+          export_csv_reports_path(format: :csv, start_date: params[:start_date], end_date: params[:end_date]), 
+          class: "mb-2 text-sm text-indigo-600 hover:text-indigo-500 underline" %>
+    </div>
     <div class="overflow-x-auto">
       <div class="inline-block min-w-full align-middle">
         <table class="min-w-full divide-y divide-gray-300">
