@@ -8,10 +8,16 @@ function toggleMobileMenu() {
     closeIcon.classList.toggle('hidden');
   }
   
-  // Add event listener when the DOM is loaded
-  document.addEventListener('DOMContentLoaded', function() {
+  // Listen for both initial page load and Turbo navigation
+  document.addEventListener('turbo:load', attachMobileMenuListener);
+  document.addEventListener('DOMContentLoaded', attachMobileMenuListener);
+  
+  function attachMobileMenuListener() {
     const menuButton = document.querySelector('[onclick="toggleMobileMenu()"]');
     if (menuButton) {
+      // Remove existing listener to prevent duplicates
+      menuButton.removeEventListener('click', toggleMobileMenu);
+      // Add new listener
       menuButton.addEventListener('click', toggleMobileMenu);
     }
-  });
+  }
