@@ -1,7 +1,7 @@
 class PropertySalesReportService
-    def self.generate_weekly_report
-      # Get all sold properties
-      sold_properties = Property.where.not(sold_date: nil)
+    def self.generate_weekly_report(start_date:, end_date:)
+      # Get all sold properties within date range
+      sold_properties = Property.where(sold_date: start_date..end_date)
       
       # Group properties by week and count bedrooms
       weekly_stats = sold_properties.group_by { |prop| 
