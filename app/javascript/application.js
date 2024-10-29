@@ -6,7 +6,7 @@ import "./modal"
 import "./slideover"
 import "./range_slider"
 import "./discrete_range_slider"
-
+import "./mobile_menu"
 
 const application = Application.start()
 
