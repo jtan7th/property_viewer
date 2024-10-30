@@ -1,0 +1,41 @@
+<div class="inline-block min-w-full align-middle">
+  <table class="min-w-full divide-y divide-gray-300">
+    <thead>
+      <tr>
+        <th scope="col" class="w-2/12 py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-3">
+          <%= link_to reports_path(sort_by: 'week', direction: toggle_direction('week')), 
+              class: "group inline-flex items-center",
+              data: { turbo_frame: "sales_report" } do %>
+            Week Starting
+            <span class="ml-2 flex-none rounded text-gray-400">
+              <%= sort_indicator('week') %>
+            </span>
+          <% end %>
+        </th>
+        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Total Sales</th>
+        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">N/A Beds</th>
+        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">1 Bed</th>
+        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">2 Beds</th>
+        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">3 Beds</th>
+        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">4 Beds</th>
+        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">5+ Beds</th>
+      </tr>
+    </thead>
+    <tbody class="bg-white">
+      <% weekly_stats.each do |stat| %>
+        <tr class="border-t border-gray-200">
+          <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3">
+            <%= stat[:week].strftime("%B %d, %Y") %>
+          </td>
+          <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= stat[:total_sales] %></td>
+          <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= stat[:bedroom_breakdown][:na_bed] %></td>
+          <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= stat[:bedroom_breakdown][:one_bed] %></td>
+          <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= stat[:bedroom_breakdown][:two_bed] %></td>
+          <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= stat[:bedroom_breakdown][:three_bed] %></td>
+          <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= stat[:bedroom_breakdown][:four_bed] %></td>
+          <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= stat[:bedroom_breakdown][:five_plus_bed] %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
