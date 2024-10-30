@@ -25,12 +25,12 @@ class ReportsController < ApplicationController
         data = case params[:report_type]
                when 'suburb'
                  {
-                   data: CsvService.generate_suburb_report(fetch_suburb_stats),
+                   data: CsvService.generate_suburb_report(fetch_suburb_stats[:stats]),
                    filename: "suburb_sales_report_#{Date.current.strftime('%Y%m%d')}.csv"
                  }
                else
                  {
-                   data: CsvService.generate_weekly_report(fetch_weekly_stats),
+                   data: CsvService.generate_weekly_report(fetch_weekly_stats[:stats]),
                    filename: "weekly_sales_report_#{Date.current.strftime('%Y%m%d')}.csv"
                  }
                end

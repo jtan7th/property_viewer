@@ -1,13 +1,13 @@
 require 'csv'
 
 class CsvService
-  def self.generate_weekly_report(weekly_stats)
-    CSV.generate(headers: true) do |csv|
-      csv << ['Week Starting', 'Total', 'N/A', '1 Bed', '2 Beds', '3 Beds', '4 Beds', '5+ Beds']
+  def self.generate_weekly_report(stats)
+    CSV.generate do |csv|
+      csv << ['Week Starting', 'Total Sales', 'N/A Beds', '1 Bed', '2 Beds', '3 Beds', '4 Beds', '5+ Beds']
       
-      weekly_stats.each do |stat|
+      stats.each do |stat|
         csv << [
-          stat[:week].strftime('%B %d, %Y'),
+          stat[:week].strftime("%B %d, %Y"),
           stat[:total_sales],
           stat[:bedroom_breakdown][:na_bed],
           stat[:bedroom_breakdown][:one_bed],
