@@ -4,7 +4,12 @@
       <thead>
         <tr>
           <th scope="col" class="w-2/12 py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-3">
-            <%= link_to reports_path(sort_by: 'week', direction: toggle_direction('week')), 
+            <%= link_to reports_path(
+                  sort_by: 'week', 
+                  direction: toggle_direction('week'),
+                  start_date: params[:start_date],
+                  end_date: params[:end_date]
+                ), 
                 class: "group inline-flex items-center",
                 data: { turbo_frame: "sales_report" } do %>
               Week Starting
