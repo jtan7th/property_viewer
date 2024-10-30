@@ -1,19 +1,40 @@
 class ReportsController < ApplicationController
   def index
-    if params[:report] == 'weekly_sales_report'
-      report_data = fetch_weekly_stats
-      @date_range = report_data[:date_range]
-      @pagy, @weekly_stats = pagy_array(report_data[:stats].to_a, items: 10)
-    else
-      # Default to suburb report
-      report_data = fetch_suburb_stats
-      @date_range = report_data[:date_range]
-      @pagy_suburb, @suburb_stats = pagy_array(report_data[:stats])
-    end
+    if params[:report].present?
+      report_data = case params[:report]
+                   when /weekly_sales/
+                     fetch_weekly_stats
+                   when /suburb/
+                     fetch_suburb_stats
+                   end
 
-    respond_to do |format|
-      format.html
-      format.turbo_stream
+      @date_range = report_data[:date_range]
+      @pagy, @stats = pagy_array(report_data[:stats].to_a, items: 10)
+
+      respond_to do |format|
+        format.html
+        format.turbo_stream do
+          frame_id = params[:report].include?('weekly') ? 'weekly_sales_table' : 'suburb_table'
+          locals_key = params[:report].include?('weekly') ? :weekly_stats : :suburb_stats
+          
+          if turbo_frame_request_id == frame_id
+            render turbo_stream: turbo_stream.update(frame_id, 
+              partial: "#{params[:report]}_table",
+              locals: { locals_key => @stats }
+            )
+          else
+            render turbo_stream: turbo_stream.update("report_content",
+              partial: params[:report],
+              locals: { locals_key => @stats }
+            )
+          end
+        end
+      end
+    else
+      respond_to do |format|
+        format.html
+        format.turbo_stream
+      end
     end
   end
 

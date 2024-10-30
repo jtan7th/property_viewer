@@ -9,7 +9,7 @@
       <%= form_tag reports_path, 
           method: :get, 
           class: "flex items-end gap-4 justify-end",
-          data: { turbo_frame: "sales_report" } do %>
+          data: { turbo_frame: "weekly_sales_table" } do %>
         <div>
           <%= label_tag :start_date, "Start Date", class: "block text-sm font-medium text-gray-700" %>
           <%= date_field_tag :start_date, params[:start_date] || @date_range[:start_date], class: "mt-2 block rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
@@ -20,6 +20,7 @@
           <%= date_field_tag :end_date, params[:end_date] || @date_range[:end_date], class: "mt-2 block rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
         </div>
         
+        <%= hidden_field_tag :report, params[:report] %>
         <%= submit_tag "Filter", class: "rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
       <% end %>
     </div>
@@ -31,11 +32,11 @@
           export_csv_reports_path(format: :csv, start_date: params[:start_date], end_date: params[:end_date]), 
           class: "mb-2 text-sm text-indigo-600 hover:text-indigo-500 underline" %>
     </div>
-    
-    <div class="overflow-x-auto">
-      <%= turbo_frame_tag "sales_report" do %>
-        <%= render "weekly_sales_report_table", weekly_stats: @weekly_stats %>
-      <% end %>
-    </div>
+
+    <%= turbo_frame_tag "weekly_sales_table" do %>
+      <div class="overflow-x-auto">
+        <%= render "weekly_sales_report_table", weekly_stats: @stats %>
+      </div>
+    <% end %>
   </div>
 </div>

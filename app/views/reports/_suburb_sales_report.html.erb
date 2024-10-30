@@ -9,7 +9,7 @@
       <%= form_tag reports_path, 
           method: :get, 
           class: "flex items-end gap-4 justify-end",
-          data: { turbo_frame: "suburb_report" } do %>
+          data: { turbo_frame: "suburb_table" } do %>
         <div>
           <%= label_tag :start_date, "Start Date", class: "block text-sm font-medium text-gray-700" %>
           <%= date_field_tag :start_date, params[:start_date] || @date_range[:start_date], class: "mt-2 block rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
@@ -20,6 +20,7 @@
           <%= date_field_tag :end_date, params[:end_date] || @date_range[:end_date], class: "mt-2 block rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
         </div>
         
+        <%= hidden_field_tag :report, params[:report] %>
         <%= submit_tag "Filter", class: "rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
       <% end %>
     </div>
@@ -33,8 +34,8 @@
     </div>
     
     <div class="overflow-x-auto">
-      <%= turbo_frame_tag "suburb_report" do %>
-        <%= render "suburb_sales_report_table" %>
+      <%= turbo_frame_tag "suburb_table" do %>
+        <%= render "suburb_sales_report_table", suburb_stats: @stats %>
       <% end %>
     </div>
   </div>

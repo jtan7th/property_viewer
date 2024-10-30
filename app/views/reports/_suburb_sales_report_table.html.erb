@@ -1,70 +1,71 @@
-<%= turbo_frame_tag "suburb_report" do %>
-  <div class="inline-block min-w-full align-middle">
-    <table class="min-w-full divide-y divide-gray-300">
-      <thead>
-        <tr>
-          <th scope="col" class="w-2/12 py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-3">
-            <%= link_to reports_path(
-                  sort_by: 'suburb', 
-                  direction: toggle_direction('suburb'),
-                  start_date: params[:start_date],
-                  end_date: params[:end_date]
-                ), 
-                class: "group inline-flex items-center",
-                data: { turbo_frame: "suburb_report" } do %>
-              Suburb
-              <span class="ml-2 flex-none rounded text-gray-400">
-                <%= sort_indicator('suburb') %>
-              </span>
-            <% end %>
-          </th>
-          <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-            <%= link_to reports_path(
-                  sort_by: 'total_sales', 
-                  direction: toggle_direction('total_sales'),
-                  start_date: params[:start_date],
-                  end_date: params[:end_date]
-                ), 
-                class: "group inline-flex items-center",
-                data: { turbo_frame: "suburb_report" } do %>
-              Total Sales
-              <span class="ml-2 flex-none rounded text-gray-400">
-                <%= sort_indicator('total_sales') %>
-              </span>
-            <% end %>
-          </th>
-          <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">3 Bed Sales</th>
-          <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">4 Bed Sales</th>
-          <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-            <%= link_to reports_path(
-                  sort_by: 'median_price', 
-                  direction: toggle_direction('median_price'),
-                  start_date: params[:start_date],
-                  end_date: params[:end_date]
-                ), 
-                class: "group inline-flex items-center",
-                data: { turbo_frame: "suburb_report" } do %>
-              Median Sale Price
-              <span class="ml-2 flex-none rounded text-gray-400">
-                <%= sort_indicator('median_price') %>
-              </span>
-            <% end %>
-          </th>
+<div class="inline-block min-w-full align-middle">
+  <table class="min-w-full divide-y divide-gray-300">
+    <thead>
+      <tr>
+        <th scope="col" class="w-2/12 py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-3">
+          <%= link_to reports_path(
+                sort_by: 'suburb', 
+                direction: toggle_direction('suburb'),
+                start_date: params[:start_date],
+                end_date: params[:end_date],
+                report: params[:report]
+              ), 
+              class: "group inline-flex items-center",
+              data: { turbo_frame: "suburb_table" } do %>
+            Suburb
+            <span class="ml-2 flex-none rounded text-gray-400">
+              <%= sort_indicator('suburb') %>
+            </span>
+          <% end %>
+        </th>
+        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+          <%= link_to reports_path(
+                sort_by: 'total_sales', 
+                direction: toggle_direction('total_sales'),
+                start_date: params[:start_date],
+                end_date: params[:end_date],
+                report: params[:report]
+              ), 
+              class: "group inline-flex items-center",
+              data: { turbo_frame: "suburb_table" } do %>
+            Total Sales
+            <span class="ml-2 flex-none rounded text-gray-400">
+              <%= sort_indicator('total_sales') %>
+            </span>
+          <% end %>
+        </th>
+        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">3 Bed Sales</th>
+        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">4 Bed Sales</th>
+        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+          <%= link_to reports_path(
+                sort_by: 'median_price', 
+                direction: toggle_direction('median_price'),
+                start_date: params[:start_date],
+                end_date: params[:end_date],
+                report: params[:report]
+              ), 
+              class: "group inline-flex items-center",
+              data: { turbo_frame: "suburb_table" } do %>
+            Median Sale Price
+            <span class="ml-2 flex-none rounded text-gray-400">
+              <%= sort_indicator('median_price') %>
+            </span>
+          <% end %>
+        </th>
+      </tr>
+    </thead>
+    <tbody class="bg-white">
+      <% suburb_stats.each do |stat| %>
+        <tr class="even:bg-gray-50">
+          <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3">
+            <%= stat[:suburb] %>
+          </td>
+          <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= stat[:total_sales] %></td>
+          <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= stat[:three_bed_sales] %></td>
+          <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= stat[:four_bed_sales] %></td>
+          <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">$<%= number_with_delimiter(stat[:median_sale_price]) %></td>
         </tr>
-      </thead>
-      <tbody class="bg-white">
-        <% @suburb_stats.each do |stat| %>
-          <tr class="even:bg-gray-50">
-            <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3">
-              <%= stat[:suburb] %>
-            </td>
-            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= stat[:total_sales] %></td>
-            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= stat[:three_bed_sales] %></td>
-            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= stat[:four_bed_sales] %></td>
-            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">$<%= number_with_delimiter(stat[:median_sale_price]) %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-<% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
