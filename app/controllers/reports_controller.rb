@@ -22,18 +22,11 @@ class ReportsController < ApplicationController
   def export_csv
     respond_to do |format|
       format.csv do
-        data = case params[:report_type]
-               when 'suburb'
-                 {
-                   data: CsvService.generate_suburb_report(fetch_suburb_stats[:stats]),
-                   filename: "suburb_sales_report_#{Date.current.strftime('%Y%m%d')}.csv"
-                 }
-               else
-                 {
-                   data: CsvService.generate_weekly_report(fetch_weekly_stats[:stats]),
-                   filename: "weekly_sales_report_#{Date.current.strftime('%Y%m%d')}.csv"
-                 }
-               end
+        report_type = params[:report_type].to_s
+        data = {
+          data: generate_csv_for(report_type),
+          filename: generate_filename_for(report_type)
+        }
 
         send_data data[:data], 
                  filename: data[:filename],
@@ -112,5 +105,19 @@ class ReportsController < ApplicationController
       partial: @report_type.to_s,
       locals: { report_locals_key => @stats }
     )
+  end
+
+  def generate_csv_for(report_type)
+    csv_generators = {
+      'suburb' => -> { CsvService.generate_suburb_report(fetch_suburb_stats[:stats]) },
+      'weekly' => -> { CsvService.generate_weekly_report(fetch_weekly_stats[:stats]) }
+    }
+
+    generator = csv_generators[report_type] || csv_generators['weekly']
+    generator.call
+  end
+
+  def generate_filename_for(report_type)
+    "#{report_type}_sales_report_#{Date.current.strftime('%Y%m%d')}.csv"
   end
 end
