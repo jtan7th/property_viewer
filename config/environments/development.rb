@@ -85,4 +85,6 @@ Rails.application.configure do
 
   config.cache_classes = false
   config.reload_classes_only_on_change = false
+
+  config.new_relic_enabled = false
 end
