@@ -1,34 +1,15 @@
 class ReportsController < ApplicationController
   def index
     if params[:report].present?
-      report_data = case params[:report]
-                   when /weekly_sales/
-                     fetch_weekly_stats
-                   when /suburb/
-                     fetch_suburb_stats
-                   end
-
+      @report_type = params[:report].to_sym
+      report_data = fetch_report_data
+      
       @date_range = report_data[:date_range]
       @pagy, @stats = pagy_array(report_data[:stats].to_a, items: 10)
 
       respond_to do |format|
         format.html
-        format.turbo_stream do
-          frame_id = params[:report].include?('weekly') ? 'weekly_sales_table' : 'suburb_table'
-          locals_key = params[:report].include?('weekly') ? :weekly_stats : :suburb_stats
-          
-          if turbo_frame_request_id == frame_id
-            render turbo_stream: turbo_stream.update(frame_id, 
-              partial: "#{params[:report]}_table",
-              locals: { locals_key => @stats }
-            )
-          else
-            render turbo_stream: turbo_stream.update("report_content",
-              partial: params[:report],
-              locals: { locals_key => @stats }
-            )
-          end
-        end
+        format.turbo_stream { render_turbo_stream_response }
       end
     else
       respond_to do |format|
@@ -91,5 +72,45 @@ class ReportsController < ApplicationController
     @pagy_suburb, @suburb_stats = pagy_array(report_data[:stats])
 
     report_data
+  end
+
+  def fetch_report_data
+    case @report_type
+    when /weekly_sales/
+      fetch_weekly_stats
+    when /suburb/
+      fetch_suburb_stats
+    end
+  end
+
+  def render_turbo_stream_response
+    frame_id = frame_id_for_report
+    if turbo_frame_request_id == frame_id
+      render_table_update(frame_id)
+    else
+      render_content_update
+    end
+  end
+
+  def frame_id_for_report
+    @report_type.to_s.include?('weekly') ? 'weekly_sales_table' : 'suburb_table'
+  end
+
+  def report_locals_key
+    @report_type.to_s.include?('weekly') ? :weekly_stats : :suburb_stats
+  end
+
+  def render_table_update(frame_id)
+    render turbo_stream: turbo_stream.update(frame_id,
+      partial: "#{@report_type}_table",
+      locals: { report_locals_key => @stats }
+    )
+  end
+
+  def render_content_update
+    render turbo_stream: turbo_stream.update('report_content',
+      partial: @report_type.to_s,
+      locals: { report_locals_key => @stats }
+    )
   end
 end
