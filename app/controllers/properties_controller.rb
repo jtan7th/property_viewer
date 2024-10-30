@@ -38,6 +38,19 @@ class PropertiesController < ApplicationController
     render layout: false
   end
 
+  def export_csv
+    @properties = Property.filter(params)
+    
+    respond_to do |format|
+      format.csv do
+        data = CsvService.generate_properties_report(@properties)
+        send_data data,
+                 filename: "properties_export_#{Date.current.strftime('%Y%m%d')}.csv",
+                 disposition: 'attachment'
+      end
+    end
+  end
+
   private
 
   def property_params
