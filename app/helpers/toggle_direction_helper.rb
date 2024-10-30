@@ -1,5 +1,10 @@
 module ToggleDirectionHelper
   def toggle_direction(column)
+    # For initial week click, start with desc since we show ascending by default
+    if params[:sort_by].nil? && column == 'week'
+      return 'desc'
+    end
+    
     current_direction = params[:direction] == 'asc' ? 'desc' : 'asc'
     next_direction = params[:sort_by] == column ? current_direction : 'asc'
     next_direction
