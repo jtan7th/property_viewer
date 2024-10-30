@@ -19,6 +19,7 @@ get '/reports', to: 'reports#index'
 resources :reports, only: [:index] do
   collection do
     get :export_csv
+    get :export_csv_suburb_reports
   end
 end
 end
