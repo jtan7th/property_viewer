@@ -1,5 +1,5 @@
 class PropertySalesReportService
-    def self.generate_weekly_report(start_date:, end_date:)
+    def self.generate_weekly_report(start_date:, end_date:, sort_by: nil, direction: nil)
       # Get all sold properties within date range
       sold_properties = Property.where(sold_date: start_date..end_date)
       
@@ -21,14 +21,20 @@ class PropertySalesReportService
         }
       end
   
-      # Sort by week
-      weekly_stats.sort_by { |stat| stat[:week] }
+      # Sort stats
+      sorted_stats = if sort_by == 'week'
+        weekly_stats.sort_by { |stat| stat[:week] }
+                   .tap { |s| s.reverse! if direction == 'desc' }
+      else
+        # Default to ascending sort for week
+        weekly_stats.sort_by { |stat| stat[:week] }
+      end
   
       {
-        stats: weekly_stats,
+        stats: sorted_stats,
         date_range: {
-          start_date: weekly_stats.min_by { |stat| stat[:week] }[:week].to_date,
-          end_date: weekly_stats.max_by { |stat| stat[:week] }[:week].to_date
+          start_date: start_date,
+          end_date: end_date
         }
       }
     end

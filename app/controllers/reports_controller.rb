@@ -2,8 +2,7 @@ class ReportsController < ApplicationController
   def index
     report_data = fetch_weekly_stats
     @date_range = report_data[:date_range]
-    sorted_stats = sort_stats(report_data[:stats])
-    @pagy, @weekly_stats = pagy_array(sorted_stats.to_a, items: 10)
+    @pagy, @weekly_stats = pagy_array(report_data[:stats].to_a, items: 10)
   end
 
   def export_csv
@@ -18,17 +17,12 @@ class ReportsController < ApplicationController
 
   private
 
-  def sort_stats(stats)
-    return stats unless params[:sort_by] == 'week'
-    
-    stats.sort_by { |stat| stat[:week] }
-         .tap { |s| s.reverse! if params[:direction] == 'desc' }
-  end
-
   def fetch_weekly_stats
     PropertySalesReportService.generate_weekly_report(
       start_date: date_params[:start_date],
-      end_date: date_params[:end_date]
+      end_date: date_params[:end_date],
+      sort_by: params[:sort_by],
+      direction: params[:direction]
     )
   end
 
