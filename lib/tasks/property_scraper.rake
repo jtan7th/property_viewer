@@ -6,7 +6,7 @@ namespace :property_scraper do
     puts "Environment: #{Rails.env}"
     
     begin
-      PropertyScraperService.new.perform
+      PropertyScraperService.weekly_update
       puts "=== Property Scraper Completed Successfully ==="
       puts "Properties count: #{Property.count}"
       puts "Latest property created: #{Property.last&.created_at}"
