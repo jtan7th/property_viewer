@@ -11,7 +11,7 @@ namespace :property_scraper do
       puts "Properties count: #{Property.count}"
       puts "Latest property created: #{Property.last&.created_at}"
     rescue => e
-      puts "=== Property Scraper Failed ==="s
+      puts "=== Property Scraper Failed ==="
       puts "Error: #{e.message}"
       puts "Backtrace:"
       puts e.backtrace
