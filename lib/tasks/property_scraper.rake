@@ -6,12 +6,12 @@ namespace :property_scraper do
     puts "Environment: #{Rails.env}"
     
     begin
-      PropertyScraperService.daily_update  # You can keep the method name as is
+      PropertyScraperService.new.perform
       puts "=== Property Scraper Completed Successfully ==="
       puts "Properties count: #{Property.count}"
       puts "Latest property created: #{Property.last&.created_at}"
     rescue => e
-      puts "=== Property Scraper Failed ==="
+      puts "=== Property Scraper Failed ==="s
       puts "Error: #{e.message}"
       puts "Backtrace:"
       puts e.backtrace
