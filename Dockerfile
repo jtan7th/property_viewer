@@ -62,9 +62,12 @@ EXPOSE 3000
 CMD ["./bin/rails", "server"]
 
 # Install Chrome dependencies
-RUN apt-get update -qq && apt-get install -y \
+RUN mkdir -p /var/lib/apt/lists/partial && \
+    apt-get update -qq && \
+    apt-get install -y \
     chromium \
     chromium-driver \
+    postgresql-client \
     && rm -rf /var/lib/apt/lists/*
 
 # Set Chrome options for running in container
