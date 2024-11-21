@@ -40,10 +40,20 @@ RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 # Final stage for app image
 FROM base
 
-# Install packages needed for deployment
+# Install packages needed for deployment and Chrome
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libvips postgresql-client && \
+    apt-get install --no-install-recommends -y \
+    curl \
+    libvips \
+    postgresql-client \
+    chromium \
+    chromium-driver && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
+
+# Set Chrome options for running in container
+ENV CHROME_BIN=/usr/bin/chromium \
+    CHROME_PATH=/usr/lib/chromium/ \
+    SELENIUM_DRIVER_VERSION=4.25.0
 
 # Copy built artifacts: gems, application
 COPY --from=build /usr/local/bundle /usr/local/bundle
@@ -60,17 +70,3 @@ ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
 CMD ["./bin/rails", "server"]
-
-# Install Chrome dependencies
-RUN mkdir -p /var/lib/apt/lists/partial && \
-    apt-get update -qq && \
-    apt-get install -y \
-    chromium \
-    chromium-driver \
-    postgresql-client \
-    && rm -rf /var/lib/apt/lists/*
-
-# Set Chrome options for running in container
-ENV CHROME_BIN=/usr/bin/chromium
-ENV CHROME_PATH=/usr/lib/chromium/
-ENV SELENIUM_DRIVER_VERSION=4.25.0
