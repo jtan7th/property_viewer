@@ -13,7 +13,6 @@ ENV RAILS_ENV="production" \
     BUNDLE_PATH="/usr/local/bundle" \
     BUNDLE_WITHOUT="development"
 
-
 # Throw-away build stage to reduce size of final image
 FROM base as build
 
@@ -36,24 +35,26 @@ RUN bundle exec bootsnap precompile app/ lib/
 # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
 RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
-
 # Final stage for app image
 FROM base
 
-# Install packages needed for deployment and Chrome
+# Install Chrome and other dependencies
 RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y curl gnupg && \
+    curl -sSL https://dl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+    echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list && \
+    apt-get update -qq && \
     apt-get install --no-install-recommends -y \
-    curl \
+    google-chrome-stable=119.0.6045.* \
     libvips \
-    postgresql-client \
-    chromium \
-    chromium-driver && \
-    rm -rf /var/lib/apt/lists /var/cache/apt/archives
+    postgresql-client && \
+    rm -rf /var/lib/apt/lists/* /var/cache/apt/archives
 
-# Set Chrome options for running in container
-ENV CHROME_BIN=/usr/bin/chromium \
-    CHROME_PATH=/usr/lib/chromium/ \
-    SELENIUM_DRIVER_VERSION=4.25.0
+# Set Chrome and ChromeDriver versions
+ENV CHROME_VERSION="119.0.6045.0" \
+    CHROMEDRIVER_VERSION="119.0.6045.105" \
+    CHROME_BIN=/usr/bin/google-chrome \
+    CHROME_PATH=/usr/lib/google-chrome/
 
 # Copy built artifacts: gems, application
 COPY --from=build /usr/local/bundle /usr/local/bundle

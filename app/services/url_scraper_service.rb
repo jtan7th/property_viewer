@@ -8,9 +8,10 @@ class UrlScraperService
   
     def scrape_property_urls(base_url)
         options = Selenium::WebDriver::Chrome::Options.new
-        options.add_argument('--disable-gpu')
-        options.add_argument('--no-sandbox')
         options.add_argument('--headless')
+        options.add_argument('--no-sandbox')
+        options.add_argument('--disable-dev-shm-usage')
+        options.binary = ENV['CHROME_BIN']
       
         driver = Selenium::WebDriver.for :chrome, options: options
         wait = Selenium::WebDriver::Wait.new(timeout: 15)
