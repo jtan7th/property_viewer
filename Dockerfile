@@ -45,7 +45,7 @@ RUN apt-get update -qq && \
     echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list && \
     apt-get update -qq && \
     apt-get install --no-install-recommends -y \
-    google-chrome-stable=119.0.6045.* \
+    google-chrome-stable \
     libvips \
     postgresql-client && \
     rm -rf /var/lib/apt/lists/* /var/cache/apt/archives
