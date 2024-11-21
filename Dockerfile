@@ -38,23 +38,19 @@ RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 # Final stage for app image
 FROM base
 
-# Install Chrome and other dependencies
+# Install Chromium and other dependencies
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl gnupg && \
-    curl -sSL https://dl.google.com/linux/linux_signing_key.pub | apt-key add - && \
-    echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list && \
-    apt-get update -qq && \
     apt-get install --no-install-recommends -y \
-    google-chrome-stable=120.0.6099.* \
+    chromium \
+    chromium-driver \
     libvips \
     postgresql-client && \
     rm -rf /var/lib/apt/lists/* /var/cache/apt/archives
 
-# Set Chrome and ChromeDriver versions
-ENV CHROME_VERSION="119.0.6045.0" \
-    CHROMEDRIVER_VERSION="119.0.6045.105" \
-    CHROME_BIN=/usr/bin/google-chrome \
-    CHROME_PATH=/usr/lib/google-chrome/
+# Set environment variables for Chrome/Chromium
+ENV CHROME_BIN=/usr/bin/chromium \
+    CHROME_PATH=/usr/lib/chromium/ \
+    CHROME_DRIVER_PATH=/usr/bin/chromedriver
 
 # Copy built artifacts: gems, application
 COPY --from=build /usr/local/bundle /usr/local/bundle

@@ -1,9 +1,12 @@
 if Rails.env.production?
-  # Set Chrome binary path if specified in environment
-  if ENV['CHROME_BIN']
-    Selenium::WebDriver::Chrome.path = ENV['CHROME_BIN']
+  Selenium::WebDriver::Chrome.path = ENV.fetch('CHROME_BIN', nil)
+  Selenium::WebDriver::Chrome::Service.driver_path = ENV.fetch('CHROME_DRIVER_PATH', nil)
+  
+  Selenium::WebDriver::Chrome::Options.new.tap do |opts|
+    opts.add_argument('--headless')
+    opts.add_argument('--no-sandbox')
+    opts.add_argument('--disable-dev-shm-usage')
+    opts.add_argument('--disable-gpu')
+    opts.binary = ENV.fetch('CHROME_BIN')
   end
-
-  # Set specific ChromeDriver version that matches Chrome 120
-  Webdrivers::Chromedriver.required_version = '120.0.6099.71'
 end
