@@ -4,6 +4,6 @@ if Rails.env.production?
     Selenium::WebDriver::Chrome.path = ENV['CHROME_BIN']
   end
 
-  # Let Webdrivers detect the Chrome version automatically
-  Webdrivers::Chromedriver.required_version = nil
+  # Set specific ChromeDriver version that matches Chrome 120
+  Webdrivers::Chromedriver.required_version = '120.0.6099.71'
 end
