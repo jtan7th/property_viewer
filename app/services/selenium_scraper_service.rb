@@ -9,14 +9,11 @@ class SeleniumScraperService
   
     def scraper(url)
         options = Selenium::WebDriver::Chrome::Options.new
-        binary = ENV.fetch("GOOGLE_CHROME_PATH")
-        if(binary)
-          puts "binary: #{binary}"
-          options.binary = binary
-        end
+        
         options.add_argument('--disable-gpu')
         options.add_argument('--no-sandbox')
         options.add_argument('--headless')  # Run in headless mode
+        options.add_argument('--disable-dev-shm-usage')
       
         driver = Selenium::WebDriver.for :chrome, options: options
       
